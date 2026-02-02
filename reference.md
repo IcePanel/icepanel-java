@@ -14,10 +14,10 @@
 
 ```java
 client.comments().list(
-    "landscapeId",
-    "versionId",
     CommentsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -76,10 +76,10 @@ client.comments().list(
 
 ```java
 client.comments().create(
-    "landscapeId",
-    "versionId",
     CommentCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             CommentRequired
                 .builder()
@@ -153,11 +153,11 @@ client.comments().create(
 
 ```java
 client.comments().get(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .build()
 );
 ```
@@ -216,11 +216,11 @@ client.comments().get(
 
 ```java
 client.comments().upsert(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .body(
             CommentUpsert
                 .builder()
@@ -302,11 +302,11 @@ client.comments().upsert(
 
 ```java
 client.comments().delete(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .build()
 );
 ```
@@ -365,11 +365,11 @@ client.comments().delete(
 
 ```java
 client.comments().update(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .body(
             CommentPartial
                 .builder()
@@ -442,10 +442,10 @@ client.comments().update(
 
 ```java
 client.diagrams().list(
-    "landscapeId",
-    "versionId",
     DiagramsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -504,10 +504,10 @@ client.diagrams().list(
 
 ```java
 client.diagrams().create(
-    "landscapeId",
-    "versionId",
     DiagramCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             DiagramCreate
                 .builder()
@@ -583,11 +583,11 @@ client.diagrams().create(
 
 ```java
 client.diagrams().get(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .build()
 );
 ```
@@ -654,11 +654,11 @@ client.diagrams().get(
 
 ```java
 client.diagrams().upsert(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .body(
             DiagramCreate
                 .builder()
@@ -742,11 +742,11 @@ client.diagrams().upsert(
 
 ```java
 client.diagrams().delete(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .build()
 );
 ```
@@ -813,11 +813,11 @@ client.diagrams().delete(
 
 ```java
 client.diagrams().update(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .body(
             DiagramUpsert
                 .builder()
@@ -897,11 +897,11 @@ client.diagrams().update(
 
 ```java
 client.diagrams().exists(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramExistsRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .build()
 );
 ```
@@ -968,10 +968,10 @@ client.diagrams().exists(
 
 ```java
 client.diagrams().listThumbnails(
-    "landscapeId",
-    "versionId",
     DiagramThumbnailsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -1030,11 +1030,11 @@ client.diagrams().listThumbnails(
 
 ```java
 client.diagrams().getThumbnail(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramThumbnailGetRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .build()
 );
 ```
@@ -1094,10 +1094,10 @@ client.diagrams().getThumbnail(
 
 ```java
 client.domains().list(
-    "landscapeId",
-    "versionId",
     DomainsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -1156,10 +1156,10 @@ client.domains().list(
 
 ```java
 client.domains().create(
-    "landscapeId",
-    "versionId",
     DomainCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             DomainRequired
                 .builder()
@@ -1224,11 +1224,11 @@ client.domains().create(
 
 ```java
 client.domains().get(
-    "landscapeId",
-    "versionId",
-    "domainId",
     DomainFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .domainId("domainId")
         .build()
 );
 ```
@@ -1287,11 +1287,11 @@ client.domains().get(
 
 ```java
 client.domains().upsert(
-    "landscapeId",
-    "versionId",
-    "domainId",
     DomainUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .domainId("domainId")
         .body(
             DomainUpsert
                 .builder()
@@ -1364,11 +1364,11 @@ client.domains().upsert(
 
 ```java
 client.domains().delete(
-    "landscapeId",
-    "versionId",
-    "domainId",
     DomainDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .domainId("domainId")
         .build()
 );
 ```
@@ -1427,11 +1427,11 @@ client.domains().delete(
 
 ```java
 client.domains().update(
-    "landscapeId",
-    "versionId",
-    "domainId",
     DomainUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .domainId("domainId")
         .body(
             DomainPartial
                 .builder()
@@ -1503,11 +1503,11 @@ client.domains().update(
 
 ```java
 client.domains().exists(
-    "landscapeId",
-    "versionId",
-    "domainId",
     DomainExistsRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .domainId("domainId")
         .build()
 );
 ```
@@ -1567,10 +1567,10 @@ client.domains().exists(
 
 ```java
 client.drafts().list(
-    "landscapeId",
-    "versionId",
     DraftsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -1629,10 +1629,10 @@ client.drafts().list(
 
 ```java
 client.drafts().create(
-    "landscapeId",
-    "versionId",
     DraftCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             DraftRequired
                 .builder()
@@ -1698,11 +1698,11 @@ client.drafts().create(
 
 ```java
 client.drafts().get(
-    "landscapeId",
-    "versionId",
-    "draftId",
     DraftFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .draftId("draftId")
         .build()
 );
 ```
@@ -1761,11 +1761,11 @@ client.drafts().get(
 
 ```java
 client.drafts().upsert(
-    "landscapeId",
-    "versionId",
-    "draftId",
     DraftUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .draftId("draftId")
         .body(
             DraftRequired
                 .builder()
@@ -1839,11 +1839,11 @@ client.drafts().upsert(
 
 ```java
 client.drafts().delete(
-    "landscapeId",
-    "versionId",
-    "draftId",
     DraftDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .draftId("draftId")
         .build()
 );
 ```
@@ -1902,11 +1902,11 @@ client.drafts().delete(
 
 ```java
 client.drafts().update(
-    "landscapeId",
-    "versionId",
-    "draftId",
     DraftUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .draftId("draftId")
         .body(
             DraftPartial
                 .builder()
@@ -1978,11 +1978,11 @@ client.drafts().update(
 
 ```java
 client.drafts().merge(
-    "landscapeId",
-    "versionId",
-    "draftId",
     DraftMergeRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .draftId("draftId")
         .build()
 );
 ```
@@ -2042,10 +2042,10 @@ client.drafts().merge(
 
 ```java
 client.flows().list(
-    "landscapeId",
-    "versionId",
     FlowsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -2104,10 +2104,10 @@ client.flows().list(
 
 ```java
 client.flows().create(
-    "landscapeId",
-    "versionId",
     FlowCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             FlowRequired
                 .builder()
@@ -2173,11 +2173,11 @@ client.flows().create(
 
 ```java
 client.flows().get(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -2236,11 +2236,11 @@ client.flows().get(
 
 ```java
 client.flows().upsert(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .body(
             FlowRequired
                 .builder()
@@ -2314,11 +2314,11 @@ client.flows().upsert(
 
 ```java
 client.flows().delete(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -2377,11 +2377,11 @@ client.flows().delete(
 
 ```java
 client.flows().update(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .body(
             FlowPartial
                 .builder()
@@ -2453,11 +2453,11 @@ client.flows().update(
 
 ```java
 client.flows().exists(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowExistsRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -2516,10 +2516,10 @@ client.flows().exists(
 
 ```java
 client.flows().listThumbnails(
-    "landscapeId",
-    "versionId",
     FlowThumbnailsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -2578,11 +2578,11 @@ client.flows().listThumbnails(
 
 ```java
 client.flows().getThumbnail(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowThumbnailGetRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -2642,9 +2642,9 @@ client.flows().getThumbnail(
 
 ```java
 client.landscapes().get(
-    "landscapeId",
     LandscapeFindRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -2687,9 +2687,9 @@ client.landscapes().get(
 
 ```java
 client.landscapes().delete(
-    "landscapeId",
     LandscapeDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -2732,9 +2732,9 @@ client.landscapes().delete(
 
 ```java
 client.landscapes().update(
-    "landscapeId",
     LandscapeUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
         .body(
             LandscapePartial
                 .builder()
@@ -2790,9 +2790,9 @@ client.landscapes().update(
 
 ```java
 client.landscapes().duplicate(
-    "landscapeId",
     LandscapeDuplicateRequest
         .builder()
+        .landscapeId("landscapeId")
         .body(
             LandscapeRequired
                 .builder()
@@ -2857,9 +2857,9 @@ client.landscapes().duplicate(
 
 ```java
 client.landscapes().copy(
-    "landscapeId",
     LandscapeCopyRequest
         .builder()
+        .landscapeId("landscapeId")
         .targetLandscapeId("targetLandscapeId")
         .build()
 );
@@ -2925,10 +2925,10 @@ Search the entire landscape
 
 ```java
 client.landscapes().search(
-    "landscapeId",
-    "versionId",
     LandscapeSearchRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .search("search")
         .build()
 );
@@ -3102,9 +3102,9 @@ client.organizations().create(
 
 ```java
 client.organizations().get(
-    "organizationId",
     OrganizationFindRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -3147,9 +3147,9 @@ client.organizations().get(
 
 ```java
 client.organizations().delete(
-    "organizationId",
     OrganizationDeleteRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -3192,9 +3192,9 @@ client.organizations().delete(
 
 ```java
 client.organizations().update(
-    "organizationId",
     OrganizationUpdateRequest
         .builder()
+        .organizationId("organizationId")
         .body(
             OrganizationPartial
                 .builder()
@@ -3251,10 +3251,10 @@ client.organizations().update(
 
 ```java
 client.shareLink().get(
-    "landscapeId",
-    "versionId",
     ShareLinkFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -3305,10 +3305,10 @@ client.shareLink().get(
 
 ```java
 client.shareLink().create(
-    "landscapeId",
-    "versionId",
     ShareLinkCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             ShareLinkRequired
                 .builder()
@@ -3373,10 +3373,10 @@ client.shareLink().create(
 
 ```java
 client.shareLink().delete(
-    "landscapeId",
-    "versionId",
     ShareLinkDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -3427,10 +3427,10 @@ client.shareLink().delete(
 
 ```java
 client.shareLink().update(
-    "landscapeId",
-    "versionId",
     ShareLinkUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             ShareLinkPartial
                 .builder()
@@ -3503,10 +3503,10 @@ client.shareLink().update(
 
 ```java
 client.tags().list(
-    "landscapeId",
-    "versionId",
     TagsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -3565,10 +3565,10 @@ client.tags().list(
 
 ```java
 client.tags().create(
-    "landscapeId",
-    "versionId",
     TagCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             TagRequired
                 .builder()
@@ -3636,11 +3636,11 @@ client.tags().create(
 
 ```java
 client.tags().get(
-    "landscapeId",
-    "versionId",
-    "tagId",
     TagFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagId("tagId")
         .build()
 );
 ```
@@ -3699,11 +3699,11 @@ client.tags().get(
 
 ```java
 client.tags().upsert(
-    "landscapeId",
-    "versionId",
-    "tagId",
     TagUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagId("tagId")
         .body(
             TagUpsert
                 .builder()
@@ -3779,11 +3779,11 @@ client.tags().upsert(
 
 ```java
 client.tags().delete(
-    "landscapeId",
-    "versionId",
-    "tagId",
     TagDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagId("tagId")
         .build()
 );
 ```
@@ -3842,11 +3842,11 @@ client.tags().delete(
 
 ```java
 client.tags().update(
-    "landscapeId",
-    "versionId",
-    "tagId",
     TagUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagId("tagId")
         .body(
             TagPartial
                 .builder()
@@ -3919,9 +3919,9 @@ client.tags().update(
 
 ```java
 client.teams().list(
-    "organizationId",
     TeamsListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -3964,9 +3964,9 @@ client.teams().list(
 
 ```java
 client.teams().create(
-    "organizationId",
     TeamCreateRequest
         .builder()
+        .organizationId("organizationId")
         .body(
             TeamRequired
                 .builder()
@@ -4023,10 +4023,10 @@ client.teams().create(
 
 ```java
 client.teams().get(
-    "organizationId",
-    "teamId",
     TeamFindRequest
         .builder()
+        .organizationId("organizationId")
+        .teamId("teamId")
         .build()
 );
 ```
@@ -4077,10 +4077,10 @@ client.teams().get(
 
 ```java
 client.teams().delete(
-    "organizationId",
-    "teamId",
     TeamDeleteRequest
         .builder()
+        .organizationId("organizationId")
+        .teamId("teamId")
         .build()
 );
 ```
@@ -4131,10 +4131,10 @@ client.teams().delete(
 
 ```java
 client.teams().update(
-    "organizationId",
-    "teamId",
     TeamUpdateRequest
         .builder()
+        .organizationId("organizationId")
+        .teamId("teamId")
         .body(
             TeamPartial
                 .builder()
@@ -4198,10 +4198,10 @@ client.teams().update(
 
 ```java
 client.teams().listLandscapes(
-    "organizationId",
-    "teamId",
     TeamLandscapesListRequest
         .builder()
+        .organizationId("organizationId")
+        .teamId("teamId")
         .build()
 );
 ```
@@ -4252,10 +4252,10 @@ client.teams().listLandscapes(
 
 ```java
 client.teams().listModelObjects(
-    "organizationId",
-    "teamId",
     TeamModelObjectsListRequest
         .builder()
+        .organizationId("organizationId")
+        .teamId("teamId")
         .build()
 );
 ```
@@ -4307,9 +4307,9 @@ client.teams().listModelObjects(
 
 ```java
 client.versions().list(
-    "landscapeId",
     VersionsListRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -4352,9 +4352,9 @@ client.versions().list(
 
 ```java
 client.versions().create(
-    "landscapeId",
     VersionCreateRequest
         .builder()
+        .landscapeId("landscapeId")
         .body(
             VersionRequired
                 .builder()
@@ -4412,10 +4412,10 @@ client.versions().create(
 
 ```java
 client.versions().get(
-    "landscapeId",
-    "versionId",
     VersionFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -4466,10 +4466,10 @@ client.versions().get(
 
 ```java
 client.versions().delete(
-    "landscapeId",
-    "versionId",
     VersionDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -4520,10 +4520,10 @@ client.versions().delete(
 
 ```java
 client.versions().update(
-    "landscapeId",
-    "versionId",
     VersionUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             VersionPartial
                 .builder()
@@ -4825,9 +4825,9 @@ Find a technology
 
 ```java
 client.catalog().technologies().get(
-    "catalogTechnologyId",
     CatalogTechnologyFindRequest
         .builder()
+        .catalogTechnologyId("catalogTechnologyId")
         .build()
 );
 ```
@@ -4884,9 +4884,9 @@ Find a technology by the slug
 
 ```java
 client.catalog().technologies().getSlug(
-    "catalogTechnologySlug",
     CatalogTechnologySlugFindRequest
         .builder()
+        .catalogTechnologySlug("catalogTechnologySlug")
         .build()
 );
 ```
@@ -4944,11 +4944,11 @@ List comment replies
 
 ```java
 client.comments().replies().list(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentRepliesListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .build()
 );
 ```
@@ -5021,11 +5021,11 @@ Create a comment reply
 
 ```java
 client.comments().replies().create(
-    "landscapeId",
-    "versionId",
-    "commentId",
     CommentReplyCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
         .body(
             CommentReplyRequired
                 .builder()
@@ -5112,12 +5112,12 @@ Find a comment reply
 
 ```java
 client.comments().replies().get(
-    "landscapeId",
-    "versionId",
-    "commentId",
-    "commentReplyId",
     CommentReplyFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
+        .commentReplyId("commentReplyId")
         .build()
 );
 ```
@@ -5184,12 +5184,12 @@ client.comments().replies().get(
 
 ```java
 client.comments().replies().upsert(
-    "landscapeId",
-    "versionId",
-    "commentId",
-    "commentReplyId",
     CommentReplyUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
+        .commentReplyId("commentReplyId")
         .body(
             CommentReplyUpsert
                 .builder()
@@ -5284,12 +5284,12 @@ Delete a comment reply
 
 ```java
 client.comments().replies().delete(
-    "landscapeId",
-    "versionId",
-    "commentId",
-    "commentReplyId",
     CommentReplyDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
+        .commentReplyId("commentReplyId")
         .build()
 );
 ```
@@ -5370,12 +5370,12 @@ Update a comment reply
 
 ```java
 client.comments().replies().update(
-    "landscapeId",
-    "versionId",
-    "commentId",
-    "commentReplyId",
     CommentReplyUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .commentId("commentId")
+        .commentReplyId("commentReplyId")
         .body(
             CommentReplyPartial
                 .builder()
@@ -5470,11 +5470,11 @@ Generate a description for a diagram
 
 ```java
 client.diagrams().content().generateDescription(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramContentGenerateDescriptionRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .type(AiDescriptionType.CAPTION)
         .build()
 );
@@ -5542,11 +5542,11 @@ client.diagrams().content().generateDescription(
 
 ```java
 client.diagrams().content().get(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramContentFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .build()
 );
 ```
@@ -5613,11 +5613,11 @@ client.diagrams().content().get(
 
 ```java
 client.diagrams().content().replace(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramContentReplaceRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .body(
             DiagramContentRequired
                 .builder()
@@ -5697,11 +5697,11 @@ client.diagrams().content().replace(
 
 ```java
 client.diagrams().content().update(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramContentUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .body(
             DiagramContentPartial
                 .builder()
@@ -5782,10 +5782,10 @@ client.diagrams().content().update(
 
 ```java
 client.diagrams().groups().list(
-    "landscapeId",
-    "versionId",
     DiagramGroupsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -5844,10 +5844,10 @@ client.diagrams().groups().list(
 
 ```java
 client.diagrams().groups().create(
-    "landscapeId",
-    "versionId",
     DiagramGroupCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             DiagramGroupRequired
                 .builder()
@@ -5913,11 +5913,11 @@ client.diagrams().groups().create(
 
 ```java
 client.diagrams().groups().get(
-    "landscapeId",
-    "versionId",
-    "diagramGroupId",
     DiagramGroupFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramGroupId("diagramGroupId")
         .build()
 );
 ```
@@ -5976,11 +5976,11 @@ client.diagrams().groups().get(
 
 ```java
 client.diagrams().groups().upsert(
-    "landscapeId",
-    "versionId",
-    "diagramGroupId",
     DiagramGroupUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramGroupId("diagramGroupId")
         .body(
             DiagramGroupUpsert
                 .builder()
@@ -6054,11 +6054,11 @@ client.diagrams().groups().upsert(
 
 ```java
 client.diagrams().groups().delete(
-    "landscapeId",
-    "versionId",
-    "diagramGroupId",
     DiagramGroupDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramGroupId("diagramGroupId")
         .build()
 );
 ```
@@ -6117,11 +6117,11 @@ client.diagrams().groups().delete(
 
 ```java
 client.diagrams().groups().update(
-    "landscapeId",
-    "versionId",
-    "diagramGroupId",
     DiagramGroupUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramGroupId("diagramGroupId")
         .body(
             DiagramGroupPartial
                 .builder()
@@ -6193,11 +6193,11 @@ client.diagrams().groups().update(
 
 ```java
 client.diagrams().groups().exists(
-    "landscapeId",
-    "versionId",
-    "diagramGroupId",
     DiagramGroupExistsRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramGroupId("diagramGroupId")
         .build()
 );
 ```
@@ -6257,12 +6257,12 @@ client.diagrams().groups().exists(
 
 ```java
 client.diagrams().export().get(
-    "landscapeId",
-    "versionId",
-    "diagramId",
-    "diagramExportImageId",
     DiagramExportImageFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
+        .diagramExportImageId("diagramExportImageId")
         .build()
 );
 ```
@@ -6329,11 +6329,11 @@ client.diagrams().export().get(
 
 ```java
 client.diagrams().export().create(
-    "landscapeId",
-    "versionId",
-    "diagramId",
     DiagramExportImageCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .diagramId("diagramId")
         .body(
             DiagramExportImageOptions
                 .builder()
@@ -6406,11 +6406,11 @@ client.diagrams().export().create(
 
 ```java
 client.flows().export().text(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowExportTextRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -6469,11 +6469,11 @@ client.flows().export().text(
 
 ```java
 client.flows().export().code(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowExportCodeRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -6532,11 +6532,11 @@ client.flows().export().code(
 
 ```java
 client.flows().export().mermaid(
-    "landscapeId",
-    "versionId",
-    "flowId",
     FlowExportMermaidRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .flowId("flowId")
         .build()
 );
 ```
@@ -6610,9 +6610,9 @@ List action logs
 
 ```java
 client.landscapes().logs().list(
-    "landscapeId",
     ActionLogsListRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -6677,10 +6677,10 @@ Find an action log
 
 ```java
 client.landscapes().logs().get(
-    "landscapeId",
-    "actionLogId",
     ActionLogFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .actionLogId("actionLogId")
         .build()
 );
 ```
@@ -6745,10 +6745,10 @@ List actions that happened as a result of a different action
 
 ```java
 client.landscapes().logs().listChildren(
-    "landscapeId",
-    "actionLogId",
     ActionLogChildrenListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .actionLogId("actionLogId")
         .build()
 );
 ```
@@ -6808,10 +6808,10 @@ client.landscapes().logs().listChildren(
 
 ```java
 client.landscapes().export().create(
-    "landscapeId",
-    "versionId",
     LandscapeExportRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .type(LandscapeExportType.PDF)
         .body(
             LandscapeExportOptions
@@ -6892,11 +6892,11 @@ client.landscapes().export().create(
 
 ```java
 client.landscapes().export().get(
-    "landscapeId",
-    "versionId",
-    "landscapeExportId",
     LandscapeExportFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .landscapeExportId("landscapeExportId")
         .build()
 );
 ```
@@ -6970,9 +6970,9 @@ List total counts of actions for each action type (e.g. diagram-content-update, 
 
 ```java
 client.landscapes().logs().stats().byType(
-    "landscapeId",
     ActionLogStatsByTypeRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -7045,9 +7045,9 @@ List total counts of actions for each entity identifier
 
 ```java
 client.landscapes().logs().stats().byEntity(
-    "landscapeId",
     ActionLogStatsByEntityRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -7107,10 +7107,10 @@ client.landscapes().logs().stats().byEntity(
 
 ```java
 client.model().connections().list(
-    "landscapeId",
-    "versionId",
     ModelConnectionsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -7177,10 +7177,10 @@ client.model().connections().list(
 
 ```java
 client.model().connections().create(
-    "landscapeId",
-    "versionId",
     ModelConnectionCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             ModelConnectionRequired
                 .builder()
@@ -7247,11 +7247,11 @@ client.model().connections().create(
 
 ```java
 client.model().connections().get(
-    "landscapeId",
-    "versionId",
-    "modelConnectionId",
     ModelConnectionFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelConnectionId("modelConnectionId")
         .build()
 );
 ```
@@ -7318,11 +7318,11 @@ client.model().connections().get(
 
 ```java
 client.model().connections().upsert(
-    "landscapeId",
-    "versionId",
-    "modelConnectionId",
     ModelConnectionUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelConnectionId("modelConnectionId")
         .body(
             ModelConnectionUpsert
                 .builder()
@@ -7421,11 +7421,11 @@ client.model().connections().upsert(
 
 ```java
 client.model().connections().delete(
-    "landscapeId",
-    "versionId",
-    "modelConnectionId",
     ModelConnectionDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelConnectionId("modelConnectionId")
         .build()
 );
 ```
@@ -7484,11 +7484,11 @@ client.model().connections().delete(
 
 ```java
 client.model().connections().update(
-    "landscapeId",
-    "versionId",
-    "modelConnectionId",
     ModelConnectionUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelConnectionId("modelConnectionId")
         .body(
             ModelConnectionPartial
                 .builder()
@@ -7582,11 +7582,11 @@ Generate a description for a model connection
 
 ```java
 client.model().connections().generateDescription(
-    "landscapeId",
-    "versionId",
-    "modelConnectionId",
     ModelConnectionGenerateDescriptionRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelConnectionId("modelConnectionId")
         .type(AiDescriptionType.CAPTION)
         .build()
 );
@@ -7655,10 +7655,10 @@ client.model().connections().generateDescription(
 
 ```java
 client.model().objects().list(
-    "landscapeId",
-    "versionId",
     ModelObjectsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -7725,10 +7725,10 @@ client.model().objects().list(
 
 ```java
 client.model().objects().create(
-    "landscapeId",
-    "versionId",
     ModelObjectCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             ModelObjectRequired
                 .builder()
@@ -7794,11 +7794,11 @@ client.model().objects().create(
 
 ```java
 client.model().objects().get(
-    "landscapeId",
-    "versionId",
-    "modelObjectId",
     ModelObjectFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelObjectId("modelObjectId")
         .build()
 );
 ```
@@ -7865,11 +7865,11 @@ client.model().objects().get(
 
 ```java
 client.model().objects().upsert(
-    "landscapeId",
-    "versionId",
-    "modelObjectId",
     ModelObjectUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelObjectId("modelObjectId")
         .body(
             ModelObjectUpsert
                 .builder()
@@ -7943,11 +7943,11 @@ client.model().objects().upsert(
 
 ```java
 client.model().objects().delete(
-    "landscapeId",
-    "versionId",
-    "modelObjectId",
     ModelObjectDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelObjectId("modelObjectId")
         .build()
 );
 ```
@@ -8006,11 +8006,11 @@ client.model().objects().delete(
 
 ```java
 client.model().objects().update(
-    "landscapeId",
-    "versionId",
-    "modelObjectId",
     ModelObjectUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelObjectId("modelObjectId")
         .body(
             ModelObjectPartial
                 .builder()
@@ -8083,10 +8083,10 @@ client.model().objects().update(
 
 ```java
 client.model().connections().export().csv(
-    "landscapeId",
-    "versionId",
     ModelConnectionsExportCsvRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -8152,11 +8152,11 @@ Export object dependencies as JSON
 
 ```java
 client.model().objects().export().dependenciesJson(
-    "landscapeId",
-    "versionId",
-    "modelObjectId",
     ModelObjectDependenciesExportJsonRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .modelObjectId("modelObjectId")
         .build()
 );
 ```
@@ -8229,10 +8229,10 @@ Export all model objects as CSV
 
 ```java
 client.model().objects().export().csv(
-    "landscapeId",
-    "versionId",
     ModelObjectsExportCsvRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -8284,9 +8284,9 @@ client.model().objects().export().csv(
 
 ```java
 client.organizations().landscapes().list(
-    "organizationId",
     OrganizationLandscapesListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -8329,9 +8329,9 @@ client.organizations().landscapes().list(
 
 ```java
 client.organizations().landscapes().create(
-    "organizationId",
     OrganizationLandscapeCreateRequest
         .builder()
+        .organizationId("organizationId")
         .name("name")
         .build()
 );
@@ -8398,9 +8398,9 @@ List organization logs (only available on the scale plan and above)
 
 ```java
 client.organizations().logs().list(
-    "organizationId",
     OrganizationLogsListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -8465,10 +8465,10 @@ Find an organization log (only available on the scale plan and above)
 
 ```java
 client.organizations().logs().get(
-    "organizationId",
-    "organizationLogId",
     OrganizationLogFindRequest
         .builder()
+        .organizationId("organizationId")
+        .organizationLogId("organizationLogId")
         .build()
 );
 ```
@@ -8520,9 +8520,9 @@ client.organizations().logs().get(
 
 ```java
 client.organizations().technologies().list(
-    "organizationId",
     OrganizationTechnologiesListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -8573,9 +8573,9 @@ client.organizations().technologies().list(
 
 ```java
 client.organizations().technologies().create(
-    "organizationId",
     OrganizationTechnologyCreateRequest
         .builder()
+        .organizationId("organizationId")
         .body(
             CatalogTechnologyRequired
                 .builder()
@@ -8633,10 +8633,10 @@ client.organizations().technologies().create(
 
 ```java
 client.organizations().technologies().get(
-    "organizationId",
-    "catalogTechnologyId",
     OrganizationTechnologyFindRequest
         .builder()
+        .organizationId("organizationId")
+        .catalogTechnologyId("catalogTechnologyId")
         .build()
 );
 ```
@@ -8687,10 +8687,10 @@ client.organizations().technologies().get(
 
 ```java
 client.organizations().technologies().delete(
-    "organizationId",
-    "catalogTechnologyId",
     OrganizationTechnologyDeleteRequest
         .builder()
+        .organizationId("organizationId")
+        .catalogTechnologyId("catalogTechnologyId")
         .build()
 );
 ```
@@ -8741,10 +8741,10 @@ client.organizations().technologies().delete(
 
 ```java
 client.organizations().technologies().update(
-    "organizationId",
-    "catalogTechnologyId",
     OrganizationTechnologyUpdateRequest
         .builder()
+        .organizationId("organizationId")
+        .catalogTechnologyId("catalogTechnologyId")
         .body(
             CatalogTechnologyPartial
                 .builder()
@@ -8809,9 +8809,9 @@ client.organizations().technologies().update(
 
 ```java
 client.organizations().users().list(
-    "organizationId",
     OrganizationUsersListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -8854,10 +8854,10 @@ client.organizations().users().list(
 
 ```java
 client.organizations().users().delete(
-    "organizationId",
-    "userId",
     OrganizationUserDeleteRequest
         .builder()
+        .organizationId("organizationId")
+        .userId("userId")
         .build()
 );
 ```
@@ -8908,10 +8908,10 @@ client.organizations().users().delete(
 
 ```java
 client.organizations().users().update(
-    "organizationId",
-    "userId",
     OrganizationUserUpdateRequest
         .builder()
+        .organizationId("organizationId")
+        .userId("userId")
         .body(
             OrganizationUser
                 .builder()
@@ -8991,9 +8991,9 @@ List total counts of actions for each action type (e.g. diagram-content-update, 
 
 ```java
 client.organizations().logs().stats().byType(
-    "organizationId",
     OrganizationLogStatsByTypeRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -9066,9 +9066,9 @@ List total counts of organizations for each entity identifier
 
 ```java
 client.organizations().logs().stats().byEntity(
-    "organizationId",
     OrganizationLogStatsByEntityRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -9128,9 +9128,9 @@ client.organizations().logs().stats().byEntity(
 
 ```java
 client.organizations().users().invites().list(
-    "organizationId",
     OrganizationUserInvitesListRequest
         .builder()
+        .organizationId("organizationId")
         .build()
 );
 ```
@@ -9173,9 +9173,9 @@ client.organizations().users().invites().list(
 
 ```java
 client.organizations().users().invites().create(
-    "organizationId",
     OrganizationUserInviteCreateRequest
         .builder()
+        .organizationId("organizationId")
         .body(
             OrganizationUserInviteRequired
                 .builder()
@@ -9234,10 +9234,10 @@ client.organizations().users().invites().create(
 
 ```java
 client.organizations().users().invites().revoke(
-    "organizationId",
-    "organizationUserInviteId",
     OrganizationUserInviteRevokeRequest
         .builder()
+        .organizationId("organizationId")
+        .organizationUserInviteId("organizationUserInviteId")
         .build()
 );
 ```
@@ -9289,10 +9289,10 @@ client.organizations().users().invites().revoke(
 
 ```java
 client.tags().groups().list(
-    "landscapeId",
-    "versionId",
     TagGroupsListRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .build()
 );
 ```
@@ -9351,10 +9351,10 @@ client.tags().groups().list(
 
 ```java
 client.tags().groups().create(
-    "landscapeId",
-    "versionId",
     TagGroupCreateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
         .body(
             TagGroupRequired
                 .builder()
@@ -9421,11 +9421,11 @@ client.tags().groups().create(
 
 ```java
 client.tags().groups().get(
-    "landscapeId",
-    "versionId",
-    "tagGroupId",
     TagGroupFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagGroupId("tagGroupId")
         .build()
 );
 ```
@@ -9484,11 +9484,11 @@ client.tags().groups().get(
 
 ```java
 client.tags().groups().upsert(
-    "landscapeId",
-    "versionId",
-    "tagGroupId",
     TagGroupUpsertRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagGroupId("tagGroupId")
         .body(
             TagGroupUpsert
                 .builder()
@@ -9563,11 +9563,11 @@ client.tags().groups().upsert(
 
 ```java
 client.tags().groups().delete(
-    "landscapeId",
-    "versionId",
-    "tagGroupId",
     TagGroupDeleteRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagGroupId("tagGroupId")
         .build()
 );
 ```
@@ -9626,11 +9626,11 @@ client.tags().groups().delete(
 
 ```java
 client.tags().groups().update(
-    "landscapeId",
-    "versionId",
-    "tagGroupId",
     TagGroupUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .tagGroupId("tagGroupId")
         .body(
             TagGroupPartial
                 .builder()
@@ -9703,9 +9703,9 @@ client.tags().groups().update(
 
 ```java
 client.versions().reverts().list(
-    "landscapeId",
     VersionRevertsListRequest
         .builder()
+        .landscapeId("landscapeId")
         .build()
 );
 ```
@@ -9748,9 +9748,9 @@ client.versions().reverts().list(
 
 ```java
 client.versions().reverts().create(
-    "landscapeId",
     VersionRevertCreateRequest
         .builder()
+        .landscapeId("landscapeId")
         .body(
             VersionRevertRequired
                 .builder()
@@ -9808,10 +9808,10 @@ client.versions().reverts().create(
 
 ```java
 client.versions().reverts().get(
-    "landscapeId",
-    "versionRevertId",
     VersionRevertFindRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionRevertId("versionRevertId")
         .build()
 );
 ```
@@ -9862,10 +9862,10 @@ client.versions().reverts().get(
 
 ```java
 client.versions().reverts().update(
-    "landscapeId",
-    "versionRevertId",
     VersionRevertUpdateRequest
         .builder()
+        .landscapeId("landscapeId")
+        .versionRevertId("versionRevertId")
         .body(
             VersionRevertPartial
                 .builder()

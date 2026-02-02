@@ -40,7 +40,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.icepanel</groupId>
   <artifactId>sdk</artifactId>
-  <version>0.0.440</version>
+  <version>0.0.441</version>
 </dependency>
 ```
 
@@ -53,8 +53,8 @@ A full reference for this library is available [here](https://github.com/IcePane
 This SDK allows you to configure different environments for API requests.
 
 ```java
-import com.icepanel.api.IcePanelClient;
-import com.icepanel.api.core.Environment;
+import com.icepanel.IcePanelClient;
+import com.icepanel.core.Environment;
 
 IcePanelClient client = IcePanelClient
     .builder()
@@ -67,7 +67,7 @@ IcePanelClient client = IcePanelClient
 You can set a custom base URL when constructing the client.
 
 ```java
-import com.icepanel.api.IcePanelClient;
+import com.icepanel.IcePanelClient;
 
 IcePanelClient client = IcePanelClient
     .builder()
@@ -80,7 +80,7 @@ IcePanelClient client = IcePanelClient
 When the API returns a non-success status code (4xx or 5xx response), an API exception will be thrown.
 
 ```java
-import com.icepanel.api.core.IcepanelApiApiException;
+import com.icepanel.core.IcepanelApiApiException;
 
 try{
     client.model().objects().list(...);
@@ -97,7 +97,7 @@ This SDK is built to work with any instance of `OkHttpClient`. By default, if no
 However, you can pass your own client like so:
 
 ```java
-import com.icepanel.api.IcePanelClient;
+import com.icepanel.IcePanelClient;
 import okhttp3.OkHttpClient;
 
 OkHttpClient customClient = ...;
@@ -125,7 +125,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` client option to configure this behavior.
 
 ```java
-import com.icepanel.api.IcePanelClient;
+import com.icepanel.IcePanelClient;
 
 IcePanelClient client = IcePanelClient
     .builder()
@@ -137,8 +137,8 @@ IcePanelClient client = IcePanelClient
 
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 ```java
-import com.icepanel.api.IcePanelClient;
-import com.icepanel.api.core.RequestOptions;
+import com.icepanel.IcePanelClient;
+import com.icepanel.core.RequestOptions;
 
 // Client level
 IcePanelClient client = IcePanelClient
@@ -161,8 +161,8 @@ client.model().objects().list(
 The SDK allows you to add custom headers to requests. You can configure headers at the client level or at the request level.
 
 ```java
-import com.icepanel.api.IcePanelClient;
-import com.icepanel.api.core.RequestOptions;
+import com.icepanel.IcePanelClient;
+import com.icepanel.core.RequestOptions;
 
 // Client level
 IcePanelClient client = IcePanelClient
