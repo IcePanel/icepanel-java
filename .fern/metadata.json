@@ -1,0 +1,9 @@
+{
+  "cliVersion": "3.55.7",
+  "generatorName": "fernapi/fern-java-sdk",
+  "generatorVersion": "3.24.1",
+  "generatorConfig": {
+    "client-class-name": "IcePanelClient",
+    "publish-to": "central"
+  }
+}
