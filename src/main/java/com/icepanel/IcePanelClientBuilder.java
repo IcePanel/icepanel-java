@@ -19,7 +19,7 @@ public class IcePanelClientBuilder {
 
     private String apiKey = null;
 
-    private Environment environment = Environment.V1;
+    private Environment environment = Environment.PRODUCTION_V1;
 
     private OkHttpClient httpClient;
 
