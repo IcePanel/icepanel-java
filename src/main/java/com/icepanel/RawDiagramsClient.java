@@ -69,6 +69,11 @@ public class RawDiagramsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -128,6 +133,11 @@ public class RawDiagramsClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -199,6 +209,11 @@ public class RawDiagramsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -259,6 +274,11 @@ public class RawDiagramsClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -336,6 +356,11 @@ public class RawDiagramsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("DELETE", null)
@@ -397,6 +422,11 @@ public class RawDiagramsClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -473,6 +503,11 @@ public class RawDiagramsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("HEAD", null)
@@ -534,6 +569,11 @@ public class RawDiagramsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -584,7 +624,7 @@ public class RawDiagramsClient {
 
     public IcePanelClientHttpResponse<DiagramsGetThumbnailResponse> getThumbnail(
             DiagramThumbnailGetRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -592,10 +632,14 @@ public class RawDiagramsClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("diagrams")
                 .addPathSegment(request.getDiagramId())
-                .addPathSegments("thumbnail")
-                .build();
+                .addPathSegments("thumbnail");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

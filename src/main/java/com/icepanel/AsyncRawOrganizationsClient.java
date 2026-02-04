@@ -55,6 +55,11 @@ public class AsyncRawOrganizationsClient {
     }
 
     public CompletableFuture<IcePanelClientHttpResponse<OrganizationsListResponse>> list(
+            RequestOptions requestOptions) {
+        return list(OrganizationsListRequest.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<IcePanelClientHttpResponse<OrganizationsListResponse>> list(
             OrganizationsListRequest request) {
         return list(request, null);
     }
@@ -67,6 +72,11 @@ public class AsyncRawOrganizationsClient {
         if (request.getAdmin().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "admin", request.getAdmin().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -142,10 +152,14 @@ public class AsyncRawOrganizationsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<OrganizationsCreateResponse>> create(
             OrganizationRequired request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("organizations")
-                .build();
+                .addPathSegments("organizations");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -154,7 +168,7 @@ public class AsyncRawOrganizationsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -233,13 +247,17 @@ public class AsyncRawOrganizationsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<OrganizationsGetResponse>> get(
             OrganizationFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(request.getOrganizationId())
-                .build();
+                .addPathSegment(request.getOrganizationId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -306,13 +324,17 @@ public class AsyncRawOrganizationsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<Map<String, Object>>> delete(
             OrganizationDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(request.getOrganizationId())
-                .build();
+                .addPathSegment(request.getOrganizationId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -385,11 +407,15 @@ public class AsyncRawOrganizationsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<OrganizationsUpdateResponse>> update(
             OrganizationUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
-                .addPathSegment(request.getOrganizationId())
-                .build();
+                .addPathSegment(request.getOrganizationId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -398,7 +424,7 @@ public class AsyncRawOrganizationsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

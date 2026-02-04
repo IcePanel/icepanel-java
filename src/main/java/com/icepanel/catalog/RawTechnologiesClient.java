@@ -4,23 +4,14 @@
 package com.icepanel.catalog;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.icepanel.catalog.types.CatalogSuggestionBrandGetRequest;
-import com.icepanel.catalog.types.CatalogSuggestionInformationGetRequest;
-import com.icepanel.catalog.types.CatalogTechnologiesListRequest;
 import com.icepanel.catalog.types.CatalogTechnologyFindRequest;
-import com.icepanel.catalog.types.CatalogTechnologySlugFindRequest;
 import com.icepanel.catalog.types.TechnologiesCreateSignedIconUrlResponse;
 import com.icepanel.catalog.types.TechnologiesGetResponse;
-import com.icepanel.catalog.types.TechnologiesGetSlugResponse;
-import com.icepanel.catalog.types.TechnologiesListResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestBrandResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestInformationResponse;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.IcePanelClientApiException;
 import com.icepanel.core.IcePanelClientException;
 import com.icepanel.core.IcePanelClientHttpResponse;
 import com.icepanel.core.ObjectMappers;
-import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
@@ -45,200 +36,6 @@ public class RawTechnologiesClient {
     }
 
     /**
-     * List technologies
-     */
-    public IcePanelClientHttpResponse<TechnologiesListResponse> list() {
-        return list(CatalogTechnologiesListRequest.builder().build());
-    }
-
-    /**
-     * List technologies
-     */
-    public IcePanelClientHttpResponse<TechnologiesListResponse> list(CatalogTechnologiesListRequest request) {
-        return list(request, null);
-    }
-
-    /**
-     * List technologies
-     */
-    public IcePanelClientHttpResponse<TechnologiesListResponse> list(
-            CatalogTechnologiesListRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("catalog/technologies");
-        if (request.getFilter().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "filter", request.getFilter().get(), false);
-        }
-        if (request.getAdmin().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "admin", request.getAdmin().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, TechnologiesListResponse.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 403:
-                        throw new ForbiddenError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 422:
-                        throw new UnprocessableEntityError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 500:
-                        throw new InternalServerError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new IcePanelClientApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new IcePanelClientException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public IcePanelClientHttpResponse<TechnologiesSuggestInformationResponse> suggestInformation(
-            CatalogSuggestionInformationGetRequest request) {
-        return suggestInformation(request, null);
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public IcePanelClientHttpResponse<TechnologiesSuggestInformationResponse> suggestInformation(
-            CatalogSuggestionInformationGetRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("catalog/suggestion/information");
-        QueryStringMapper.addQueryParameter(httpUrl, "url", request.getUrl(), false);
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, TechnologiesSuggestInformationResponse.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 500:
-                        throw new InternalServerError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new IcePanelClientApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new IcePanelClientException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public IcePanelClientHttpResponse<TechnologiesSuggestBrandResponse> suggestBrand(
-            CatalogSuggestionBrandGetRequest request) {
-        return suggestBrand(request, null);
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public IcePanelClientHttpResponse<TechnologiesSuggestBrandResponse> suggestBrand(
-            CatalogSuggestionBrandGetRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("catalog/suggestion/brand");
-        QueryStringMapper.addQueryParameter(httpUrl, "url", request.getUrl(), false);
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, TechnologiesSuggestBrandResponse.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 422:
-                        throw new UnprocessableEntityError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 500:
-                        throw new InternalServerError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new IcePanelClientApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new IcePanelClientException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
      * Create a signed URL prefix with access to all catalog icons
      */
     public IcePanelClientHttpResponse<TechnologiesCreateSignedIconUrlResponse> createSignedIconUrl() {
@@ -250,12 +47,16 @@ public class RawTechnologiesClient {
      */
     public IcePanelClientHttpResponse<TechnologiesCreateSignedIconUrlResponse> createSignedIconUrl(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("catalog/icons/signed-url")
-                .build();
+                .addPathSegments("catalog/icons/signed-url");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -314,13 +115,17 @@ public class RawTechnologiesClient {
      */
     public IcePanelClientHttpResponse<TechnologiesGetResponse> get(
             CatalogTechnologyFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("catalog/technologies")
-                .addPathSegment(request.getCatalogTechnologyId())
-                .build();
+                .addPathSegment(request.getCatalogTechnologyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -335,67 +140,6 @@ public class RawTechnologiesClient {
             if (response.isSuccessful()) {
                 return new IcePanelClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, TechnologiesGetResponse.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 422:
-                        throw new UnprocessableEntityError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 500:
-                        throw new InternalServerError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new IcePanelClientApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new IcePanelClientException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public IcePanelClientHttpResponse<TechnologiesGetSlugResponse> getSlug(CatalogTechnologySlugFindRequest request) {
-        return getSlug(request, null);
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public IcePanelClientHttpResponse<TechnologiesGetSlugResponse> getSlug(
-            CatalogTechnologySlugFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("catalog/technologies/slugs")
-                .addPathSegment(request.getCatalogTechnologySlug())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, TechnologiesGetSlugResponse.class),
                         response);
             }
             try {

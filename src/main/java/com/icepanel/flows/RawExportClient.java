@@ -37,7 +37,7 @@ public class RawExportClient {
     }
 
     public IcePanelClientHttpResponse<String> text(FlowExportTextRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -46,10 +46,14 @@ public class RawExportClient {
                 .addPathSegments("flows")
                 .addPathSegment(request.getFlowId())
                 .addPathSegments("export")
-                .addPathSegments("text")
-                .build();
+                .addPathSegments("text");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -95,7 +99,7 @@ public class RawExportClient {
     }
 
     public IcePanelClientHttpResponse<String> code(FlowExportCodeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -104,10 +108,14 @@ public class RawExportClient {
                 .addPathSegments("flows")
                 .addPathSegment(request.getFlowId())
                 .addPathSegments("export")
-                .addPathSegments("code")
-                .build();
+                .addPathSegments("code");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -153,7 +161,7 @@ public class RawExportClient {
     }
 
     public IcePanelClientHttpResponse<String> mermaid(FlowExportMermaidRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -162,10 +170,14 @@ public class RawExportClient {
                 .addPathSegments("flows")
                 .addPathSegment(request.getFlowId())
                 .addPathSegments("export")
-                .addPathSegments("mermaid")
-                .build();
+                .addPathSegments("mermaid");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

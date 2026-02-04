@@ -67,6 +67,11 @@ public class AsyncRawStatsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "period", request.getPeriod().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -166,6 +171,11 @@ public class AsyncRawStatsClient {
         if (request.getPeriod().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "period", request.getPeriod().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

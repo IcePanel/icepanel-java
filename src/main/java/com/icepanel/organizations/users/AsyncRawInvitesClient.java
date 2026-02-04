@@ -51,15 +51,19 @@ public class AsyncRawInvitesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<InvitesListResponse>> list(
             OrganizationUserInvitesListRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("users")
-                .addPathSegments("invites")
-                .build();
+                .addPathSegments("invites");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -131,13 +135,17 @@ public class AsyncRawInvitesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<InvitesCreateResponse>> create(
             OrganizationUserInviteCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("users")
-                .addPathSegments("invites")
-                .build();
+                .addPathSegments("invites");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -146,7 +154,7 @@ public class AsyncRawInvitesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -229,15 +237,19 @@ public class AsyncRawInvitesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<InvitesRevokeResponse>> revoke(
             OrganizationUserInviteRevokeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("users/invites")
-                .addPathSegment(request.getOrganizationUserInviteId())
-                .build();
+                .addPathSegment(request.getOrganizationUserInviteId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

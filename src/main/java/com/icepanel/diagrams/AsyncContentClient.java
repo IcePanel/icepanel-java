@@ -5,12 +5,10 @@ package com.icepanel.diagrams;
 
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
-import com.icepanel.diagrams.types.ContentGenerateDescriptionResponse;
 import com.icepanel.diagrams.types.ContentGetResponse;
 import com.icepanel.diagrams.types.ContentReplaceResponse;
 import com.icepanel.diagrams.types.ContentUpdateResponse;
 import com.icepanel.diagrams.types.DiagramContentFindRequest;
-import com.icepanel.diagrams.types.DiagramContentGenerateDescriptionRequest;
 import com.icepanel.diagrams.types.DiagramContentReplaceRequest;
 import com.icepanel.diagrams.types.DiagramContentUpdateRequest;
 import java.util.concurrent.CompletableFuture;
@@ -30,22 +28,6 @@ public class AsyncContentClient {
      */
     public AsyncRawContentClient withRawResponse() {
         return this.rawClient;
-    }
-
-    /**
-     * Generate a description for a diagram
-     */
-    public CompletableFuture<ContentGenerateDescriptionResponse> generateDescription(
-            DiagramContentGenerateDescriptionRequest request) {
-        return this.rawClient.generateDescription(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Generate a description for a diagram
-     */
-    public CompletableFuture<ContentGenerateDescriptionResponse> generateDescription(
-            DiagramContentGenerateDescriptionRequest request, RequestOptions requestOptions) {
-        return this.rawClient.generateDescription(request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<ContentGetResponse> get(DiagramContentFindRequest request) {

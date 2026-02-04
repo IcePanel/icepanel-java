@@ -45,7 +45,7 @@ public class RawExportClient {
      */
     public IcePanelClientHttpResponse<ModelObjectDependenciesExport> dependenciesJson(
             ModelObjectDependenciesExportJsonRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -54,10 +54,14 @@ public class RawExportClient {
                 .addPathSegments("model/objects")
                 .addPathSegment(request.getModelObjectId())
                 .addPathSegments("dependencies/export")
-                .addPathSegments("json")
-                .build();
+                .addPathSegments("json");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -111,17 +115,21 @@ public class RawExportClient {
      * Export all model objects as CSV
      */
     public IcePanelClientHttpResponse<String> csv(ModelObjectsExportCsvRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/objects/export")
-                .addPathSegments("csv")
-                .build();
+                .addPathSegments("csv");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

@@ -63,6 +63,11 @@ public class AsyncRawTechnologiesClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -136,12 +141,16 @@ public class AsyncRawTechnologiesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<TechnologiesCreateResponse>> create(
             OrganizationTechnologyCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
-                .addPathSegments("technologies")
-                .build();
+                .addPathSegments("technologies");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -150,7 +159,7 @@ public class AsyncRawTechnologiesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -224,15 +233,19 @@ public class AsyncRawTechnologiesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<TechnologiesGetResponse>> get(
             OrganizationTechnologyFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("technologies")
-                .addPathSegment(request.getCatalogTechnologyId())
-                .build();
+                .addPathSegment(request.getCatalogTechnologyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -304,15 +317,19 @@ public class AsyncRawTechnologiesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<Map<String, Object>>> delete(
             OrganizationTechnologyDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("technologies")
-                .addPathSegment(request.getCatalogTechnologyId())
-                .build();
+                .addPathSegment(request.getCatalogTechnologyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -385,13 +402,17 @@ public class AsyncRawTechnologiesClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<TechnologiesUpdateResponse>> update(
             OrganizationTechnologyUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("technologies")
-                .addPathSegment(request.getCatalogTechnologyId())
-                .build();
+                .addPathSegment(request.getCatalogTechnologyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -400,7 +421,7 @@ public class AsyncRawTechnologiesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

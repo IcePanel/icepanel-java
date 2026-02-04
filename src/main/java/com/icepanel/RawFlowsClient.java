@@ -70,6 +70,11 @@ public class RawFlowsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -119,14 +124,18 @@ public class RawFlowsClient {
 
     public IcePanelClientHttpResponse<FlowsCreateResponse> create(
             FlowCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
-                .addPathSegments("flows")
-                .build();
+                .addPathSegments("flows");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -135,7 +144,7 @@ public class RawFlowsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -189,17 +198,21 @@ public class RawFlowsClient {
     }
 
     public IcePanelClientHttpResponse<FlowsGetResponse> get(FlowFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
-                .addPathSegment(request.getFlowId())
-                .build();
+                .addPathSegment(request.getFlowId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -247,15 +260,19 @@ public class RawFlowsClient {
 
     public IcePanelClientHttpResponse<FlowsUpsertResponse> upsert(
             FlowUpsertRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
-                .addPathSegment(request.getFlowId())
-                .build();
+                .addPathSegment(request.getFlowId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -264,7 +281,7 @@ public class RawFlowsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -325,17 +342,21 @@ public class RawFlowsClient {
 
     public IcePanelClientHttpResponse<FlowsDeleteResponse> delete(
             FlowDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
-                .addPathSegment(request.getFlowId())
-                .build();
+                .addPathSegment(request.getFlowId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -383,15 +404,19 @@ public class RawFlowsClient {
 
     public IcePanelClientHttpResponse<FlowsUpdateResponse> update(
             FlowUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
-                .addPathSegment(request.getFlowId())
-                .build();
+                .addPathSegment(request.getFlowId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -400,7 +425,7 @@ public class RawFlowsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -457,17 +482,21 @@ public class RawFlowsClient {
     }
 
     public IcePanelClientHttpResponse<Void> exists(FlowExistsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
-                .addPathSegment(request.getFlowId())
-                .build();
+                .addPathSegment(request.getFlowId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("HEAD", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -526,6 +555,11 @@ public class RawFlowsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -576,7 +610,7 @@ public class RawFlowsClient {
 
     public IcePanelClientHttpResponse<FlowsGetThumbnailResponse> getThumbnail(
             FlowThumbnailGetRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -584,10 +618,14 @@ public class RawFlowsClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("flows")
                 .addPathSegment(request.getFlowId())
-                .addPathSegments("thumbnail")
-                .build();
+                .addPathSegments("thumbnail");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

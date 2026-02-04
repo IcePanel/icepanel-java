@@ -73,6 +73,11 @@ public class AsyncRawDraftsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -145,14 +150,18 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<DraftsCreateResponse>> create(
             DraftCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
-                .addPathSegments("drafts")
-                .build();
+                .addPathSegments("drafts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -161,7 +170,7 @@ public class AsyncRawDraftsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -243,17 +252,21 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<DraftsGetResponse>> get(
             DraftFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("drafts")
-                .addPathSegment(request.getDraftId())
-                .build();
+                .addPathSegment(request.getDraftId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -324,15 +337,19 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<DraftsUpsertResponse>> upsert(
             DraftUpsertRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("drafts")
-                .addPathSegment(request.getDraftId())
-                .build();
+                .addPathSegment(request.getDraftId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -341,7 +358,7 @@ public class AsyncRawDraftsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -423,17 +440,21 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<Map<String, Object>>> delete(
             DraftDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("drafts")
-                .addPathSegment(request.getDraftId())
-                .build();
+                .addPathSegment(request.getDraftId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -510,15 +531,19 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<DraftsUpdateResponse>> update(
             DraftUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("drafts")
-                .addPathSegment(request.getDraftId())
-                .build();
+                .addPathSegment(request.getDraftId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -527,7 +552,7 @@ public class AsyncRawDraftsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -609,7 +634,7 @@ public class AsyncRawDraftsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<DraftsMergeResponse>> merge(
             DraftMergeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -617,10 +642,14 @@ public class AsyncRawDraftsClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("drafts")
                 .addPathSegment(request.getDraftId())
-                .addPathSegments("merge")
-                .build();
+                .addPathSegments("merge");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

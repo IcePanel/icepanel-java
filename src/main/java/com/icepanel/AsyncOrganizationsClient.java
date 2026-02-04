@@ -56,6 +56,10 @@ public class AsyncOrganizationsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<OrganizationsListResponse> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<OrganizationsListResponse> list(OrganizationsListRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

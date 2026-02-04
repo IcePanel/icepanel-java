@@ -17,17 +17,28 @@ public class AsyncIcePanelClientBuilder {
 
     private final Map<String, String> customHeaders = new HashMap<>();
 
-    private String apiKey = null;
+    private String key = System.getenv("ICEPANEL_API_KEY");
 
-    private Environment environment = Environment.PRODUCTION_V1;
+    private String token = null;
+
+    private Environment environment = Environment.API_V1;
 
     private OkHttpClient httpClient;
 
     /**
-     * Sets apiKey
+     * Sets key.
+     * Defaults to the ICEPANEL_API_KEY environment variable.
      */
-    public AsyncIcePanelClientBuilder apiKey(String apiKey) {
-        this.apiKey = apiKey;
+    public AsyncIcePanelClientBuilder key(String key) {
+        this.key = key;
+        return this;
+    }
+
+    /**
+     * Sets token
+     */
+    public AsyncIcePanelClientBuilder token(String token) {
+        this.token = token;
         return this;
     }
 
@@ -118,7 +129,10 @@ public class AsyncIcePanelClientBuilder {
      * }</pre>
      */
     protected void setAuthentication(ClientOptions.Builder builder) {
-        builder.addHeader("X-API-Key", this.apiKey);
+        builder.addHeader("X-API-Key", this.key);
+        if (this.token != null) {
+            builder.addHeader("Authorization", "Bearer " + this.token);
+        }
     }
 
     /**
@@ -194,8 +208,8 @@ public class AsyncIcePanelClientBuilder {
     protected void validateConfiguration() {}
 
     public AsyncIcePanelClient build() {
-        if (apiKey == null) {
-            throw new RuntimeException("Please provide apiKey");
+        if (key == null) {
+            throw new RuntimeException("Please provide key or set the ICEPANEL_API_KEY environment variable.");
         }
         validateConfiguration();
         return new AsyncIcePanelClient(buildClientOptions());

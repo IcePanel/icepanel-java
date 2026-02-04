@@ -40,6 +40,8 @@ public final class Organization {
 
     private final Optional<Map<String, Boolean>> experiments;
 
+    private final Optional<OrganizationLanguage> language;
+
     private final LineShape lineShapeDefault;
 
     private final String name;
@@ -95,6 +97,7 @@ public final class Organization {
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
             Optional<Map<String, Boolean>> experiments,
+            Optional<OrganizationLanguage> language,
             LineShape lineShapeDefault,
             String name,
             OptionalNullable<List<String>> shareLinkAuthDomains,
@@ -125,6 +128,7 @@ public final class Organization {
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
         this.experiments = experiments;
+        this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
@@ -182,6 +186,11 @@ public final class Organization {
     @JsonProperty("experiments")
     public Optional<Map<String, Boolean>> getExperiments() {
         return experiments;
+    }
+
+    @JsonProperty("language")
+    public Optional<OrganizationLanguage> getLanguage() {
+        return language;
     }
 
     @JsonProperty("lineShapeDefault")
@@ -327,6 +336,7 @@ public final class Organization {
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
                 && experiments.equals(other.experiments)
+                && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
@@ -361,6 +371,7 @@ public final class Organization {
                 this.billingCycle,
                 this.billingEmail,
                 this.experiments,
+                this.language,
                 this.lineShapeDefault,
                 this.name,
                 this.shareLinkAuthDomains,
@@ -483,6 +494,10 @@ public final class Organization {
 
         _FinalStage experiments(Map<String, Boolean> experiments);
 
+        _FinalStage language(Optional<OrganizationLanguage> language);
+
+        _FinalStage language(OrganizationLanguage language);
+
         _FinalStage shareLinkAuthDomains(OptionalNullable<List<String>> shareLinkAuthDomains);
 
         _FinalStage shareLinkAuthDomains(List<String> shareLinkAuthDomains);
@@ -593,6 +608,8 @@ public final class Organization {
 
         private OptionalNullable<List<String>> shareLinkAuthDomains = OptionalNullable.absent();
 
+        private Optional<OrganizationLanguage> language = Optional.empty();
+
         private Optional<Map<String, Boolean>> experiments = Optional.empty();
 
         private Optional<String> billingEmail = Optional.empty();
@@ -618,6 +635,7 @@ public final class Organization {
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
             experiments(other.getExperiments());
+            language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
@@ -915,6 +933,19 @@ public final class Organization {
         }
 
         @java.lang.Override
+        public _FinalStage language(OrganizationLanguage language) {
+            this.language = Optional.ofNullable(language);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "language", nulls = Nulls.SKIP)
+        public _FinalStage language(Optional<OrganizationLanguage> language) {
+            this.language = language;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage experiments(Map<String, Boolean> experiments) {
             this.experiments = Optional.ofNullable(experiments);
             return this;
@@ -1008,6 +1039,7 @@ public final class Organization {
                     billingCycle,
                     billingEmail,
                     experiments,
+                    language,
                     lineShapeDefault,
                     name,
                     shareLinkAuthDomains,

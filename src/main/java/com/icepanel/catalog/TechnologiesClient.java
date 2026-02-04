@@ -3,17 +3,9 @@
  */
 package com.icepanel.catalog;
 
-import com.icepanel.catalog.types.CatalogSuggestionBrandGetRequest;
-import com.icepanel.catalog.types.CatalogSuggestionInformationGetRequest;
-import com.icepanel.catalog.types.CatalogTechnologiesListRequest;
 import com.icepanel.catalog.types.CatalogTechnologyFindRequest;
-import com.icepanel.catalog.types.CatalogTechnologySlugFindRequest;
 import com.icepanel.catalog.types.TechnologiesCreateSignedIconUrlResponse;
 import com.icepanel.catalog.types.TechnologiesGetResponse;
-import com.icepanel.catalog.types.TechnologiesGetSlugResponse;
-import com.icepanel.catalog.types.TechnologiesListResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestBrandResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestInformationResponse;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 
@@ -32,57 +24,6 @@ public class TechnologiesClient {
      */
     public RawTechnologiesClient withRawResponse() {
         return this.rawClient;
-    }
-
-    /**
-     * List technologies
-     */
-    public TechnologiesListResponse list() {
-        return this.rawClient.list().body();
-    }
-
-    /**
-     * List technologies
-     */
-    public TechnologiesListResponse list(CatalogTechnologiesListRequest request) {
-        return this.rawClient.list(request).body();
-    }
-
-    /**
-     * List technologies
-     */
-    public TechnologiesListResponse list(CatalogTechnologiesListRequest request, RequestOptions requestOptions) {
-        return this.rawClient.list(request, requestOptions).body();
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public TechnologiesSuggestInformationResponse suggestInformation(CatalogSuggestionInformationGetRequest request) {
-        return this.rawClient.suggestInformation(request).body();
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public TechnologiesSuggestInformationResponse suggestInformation(
-            CatalogSuggestionInformationGetRequest request, RequestOptions requestOptions) {
-        return this.rawClient.suggestInformation(request, requestOptions).body();
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public TechnologiesSuggestBrandResponse suggestBrand(CatalogSuggestionBrandGetRequest request) {
-        return this.rawClient.suggestBrand(request).body();
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public TechnologiesSuggestBrandResponse suggestBrand(
-            CatalogSuggestionBrandGetRequest request, RequestOptions requestOptions) {
-        return this.rawClient.suggestBrand(request, requestOptions).body();
     }
 
     /**
@@ -111,20 +52,5 @@ public class TechnologiesClient {
      */
     public TechnologiesGetResponse get(CatalogTechnologyFindRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).body();
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public TechnologiesGetSlugResponse getSlug(CatalogTechnologySlugFindRequest request) {
-        return this.rawClient.getSlug(request).body();
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public TechnologiesGetSlugResponse getSlug(
-            CatalogTechnologySlugFindRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getSlug(request, requestOptions).body();
     }
 }

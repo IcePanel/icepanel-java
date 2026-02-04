@@ -54,13 +54,17 @@ public class RawLandscapesClient {
 
     public IcePanelClientHttpResponse<LandscapesGetResponse> get(
             LandscapeFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
-                .addPathSegment(request.getLandscapeId())
-                .build();
+                .addPathSegment(request.getLandscapeId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -105,13 +109,17 @@ public class RawLandscapesClient {
 
     public IcePanelClientHttpResponse<Map<String, Object>> delete(
             LandscapeDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
-                .addPathSegment(request.getLandscapeId())
-                .build();
+                .addPathSegment(request.getLandscapeId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -161,11 +169,15 @@ public class RawLandscapesClient {
 
     public IcePanelClientHttpResponse<LandscapesUpdateResponse> update(
             LandscapeUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
-                .addPathSegment(request.getLandscapeId())
-                .build();
+                .addPathSegment(request.getLandscapeId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -174,7 +186,7 @@ public class RawLandscapesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -235,6 +247,11 @@ public class RawLandscapesClient {
                     "targetOrganizationId",
                     request.getTargetOrganizationId().get(),
                     false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -303,6 +320,11 @@ public class RawLandscapesClient {
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("copy");
         QueryStringMapper.addQueryParameter(httpUrl, "targetLandscapeId", request.getTargetLandscapeId(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
@@ -385,6 +407,11 @@ public class RawLandscapesClient {
         if (request.getMaxResults().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "maxResults", request.getMaxResults().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

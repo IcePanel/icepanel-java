@@ -4,9 +4,7 @@
 package com.icepanel.core;
 
 public final class Environment {
-    public static final Environment PRODUCTION_V1 = new Environment("https://api.icepanel.io/v1");
-
-    public static final Environment ENTERPRISE_V1 = new Environment("https://api..icepanel.cloud/v1");
+    public static final Environment API_V1 = new Environment("https://api.icepanel.io/v1");
 
     private final String url;
 

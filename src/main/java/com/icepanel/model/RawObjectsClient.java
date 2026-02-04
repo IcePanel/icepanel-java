@@ -69,6 +69,11 @@ public class RawObjectsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "expand", request.getExpand().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -118,15 +123,19 @@ public class RawObjectsClient {
 
     public IcePanelClientHttpResponse<ObjectsCreateResponse> create(
             ModelObjectCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model")
-                .addPathSegments("objects")
-                .build();
+                .addPathSegments("objects");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -135,7 +144,7 @@ public class RawObjectsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -199,6 +208,11 @@ public class RawObjectsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "expand", request.getExpand().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -248,15 +262,19 @@ public class RawObjectsClient {
 
     public IcePanelClientHttpResponse<ObjectsUpsertResponse> upsert(
             ModelObjectUpsertRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/objects")
-                .addPathSegment(request.getModelObjectId())
-                .build();
+                .addPathSegment(request.getModelObjectId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -265,7 +283,7 @@ public class RawObjectsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -317,17 +335,21 @@ public class RawObjectsClient {
 
     public IcePanelClientHttpResponse<ObjectsDeleteResponse> delete(
             ModelObjectDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/objects")
-                .addPathSegment(request.getModelObjectId())
-                .build();
+                .addPathSegment(request.getModelObjectId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -375,15 +397,19 @@ public class RawObjectsClient {
 
     public IcePanelClientHttpResponse<ObjectsUpdateResponse> update(
             ModelObjectUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/objects")
-                .addPathSegment(request.getModelObjectId())
-                .build();
+                .addPathSegment(request.getModelObjectId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -392,7 +418,7 @@ public class RawObjectsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

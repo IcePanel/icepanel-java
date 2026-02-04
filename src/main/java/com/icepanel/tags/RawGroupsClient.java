@@ -64,6 +64,11 @@ public class RawGroupsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -113,14 +118,18 @@ public class RawGroupsClient {
 
     public IcePanelClientHttpResponse<GroupsCreateResponse> create(
             TagGroupCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
-                .addPathSegments("tag-groups")
-                .build();
+                .addPathSegments("tag-groups");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -129,7 +138,7 @@ public class RawGroupsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -181,17 +190,21 @@ public class RawGroupsClient {
 
     public IcePanelClientHttpResponse<GroupsGetResponse> get(
             TagGroupFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("tag-groups")
-                .addPathSegment(request.getTagGroupId())
-                .build();
+                .addPathSegment(request.getTagGroupId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -239,15 +252,19 @@ public class RawGroupsClient {
 
     public IcePanelClientHttpResponse<GroupsUpsertResponse> upsert(
             TagGroupUpsertRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("tag-groups")
-                .addPathSegment(request.getTagGroupId())
-                .build();
+                .addPathSegment(request.getTagGroupId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -256,7 +273,7 @@ public class RawGroupsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -308,17 +325,21 @@ public class RawGroupsClient {
 
     public IcePanelClientHttpResponse<GroupsDeleteResponse> delete(
             TagGroupDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("tag-groups")
-                .addPathSegment(request.getTagGroupId())
-                .build();
+                .addPathSegment(request.getTagGroupId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -366,15 +387,19 @@ public class RawGroupsClient {
 
     public IcePanelClientHttpResponse<GroupsUpdateResponse> update(
             TagGroupUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("tag-groups")
-                .addPathSegment(request.getTagGroupId())
-                .build();
+                .addPathSegment(request.getTagGroupId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -383,7 +408,7 @@ public class RawGroupsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

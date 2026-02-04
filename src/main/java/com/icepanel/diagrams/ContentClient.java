@@ -5,12 +5,10 @@ package com.icepanel.diagrams;
 
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
-import com.icepanel.diagrams.types.ContentGenerateDescriptionResponse;
 import com.icepanel.diagrams.types.ContentGetResponse;
 import com.icepanel.diagrams.types.ContentReplaceResponse;
 import com.icepanel.diagrams.types.ContentUpdateResponse;
 import com.icepanel.diagrams.types.DiagramContentFindRequest;
-import com.icepanel.diagrams.types.DiagramContentGenerateDescriptionRequest;
 import com.icepanel.diagrams.types.DiagramContentReplaceRequest;
 import com.icepanel.diagrams.types.DiagramContentUpdateRequest;
 
@@ -29,21 +27,6 @@ public class ContentClient {
      */
     public RawContentClient withRawResponse() {
         return this.rawClient;
-    }
-
-    /**
-     * Generate a description for a diagram
-     */
-    public ContentGenerateDescriptionResponse generateDescription(DiagramContentGenerateDescriptionRequest request) {
-        return this.rawClient.generateDescription(request).body();
-    }
-
-    /**
-     * Generate a description for a diagram
-     */
-    public ContentGenerateDescriptionResponse generateDescription(
-            DiagramContentGenerateDescriptionRequest request, RequestOptions requestOptions) {
-        return this.rawClient.generateDescription(request, requestOptions).body();
     }
 
     public ContentGetResponse get(DiagramContentFindRequest request) {

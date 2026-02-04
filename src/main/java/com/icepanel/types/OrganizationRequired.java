@@ -37,6 +37,8 @@ public final class OrganizationRequired {
 
     private final Optional<Map<String, Boolean>> experiments;
 
+    private final Optional<OrganizationLanguage> language;
+
     private final Optional<LineShape> lineShapeDefault;
 
     private final String name;
@@ -54,6 +56,7 @@ public final class OrganizationRequired {
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
             Optional<Map<String, Boolean>> experiments,
+            Optional<OrganizationLanguage> language,
             Optional<LineShape> lineShapeDefault,
             String name,
             OptionalNullable<List<String>> shareLinkAuthDomains,
@@ -65,6 +68,7 @@ public final class OrganizationRequired {
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
         this.experiments = experiments;
+        this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
@@ -103,6 +107,11 @@ public final class OrganizationRequired {
     @JsonProperty("experiments")
     public Optional<Map<String, Boolean>> getExperiments() {
         return experiments;
+    }
+
+    @JsonProperty("language")
+    public Optional<OrganizationLanguage> getLanguage() {
+        return language;
     }
 
     @JsonProperty("lineShapeDefault")
@@ -153,6 +162,7 @@ public final class OrganizationRequired {
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
                 && experiments.equals(other.experiments)
+                && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
@@ -168,6 +178,7 @@ public final class OrganizationRequired {
                 this.billingCycle,
                 this.billingEmail,
                 this.experiments,
+                this.language,
                 this.lineShapeDefault,
                 this.name,
                 this.shareLinkAuthDomains,
@@ -219,6 +230,10 @@ public final class OrganizationRequired {
 
         _FinalStage experiments(Map<String, Boolean> experiments);
 
+        _FinalStage language(Optional<OrganizationLanguage> language);
+
+        _FinalStage language(OrganizationLanguage language);
+
         _FinalStage lineShapeDefault(Optional<LineShape> lineShapeDefault);
 
         _FinalStage lineShapeDefault(LineShape lineShapeDefault);
@@ -246,6 +261,8 @@ public final class OrganizationRequired {
 
         private Optional<LineShape> lineShapeDefault = Optional.empty();
 
+        private Optional<OrganizationLanguage> language = Optional.empty();
+
         private Optional<Map<String, Boolean>> experiments = Optional.empty();
 
         private Optional<String> billingEmail = Optional.empty();
@@ -271,6 +288,7 @@ public final class OrganizationRequired {
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
             experiments(other.getExperiments());
+            language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
@@ -343,6 +361,19 @@ public final class OrganizationRequired {
         @JsonSetter(value = "lineShapeDefault", nulls = Nulls.SKIP)
         public _FinalStage lineShapeDefault(Optional<LineShape> lineShapeDefault) {
             this.lineShapeDefault = lineShapeDefault;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage language(OrganizationLanguage language) {
+            this.language = Optional.ofNullable(language);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "language", nulls = Nulls.SKIP)
+        public _FinalStage language(Optional<OrganizationLanguage> language) {
+            this.language = language;
             return this;
         }
 
@@ -440,6 +471,7 @@ public final class OrganizationRequired {
                     billingCycle,
                     billingEmail,
                     experiments,
+                    language,
                     lineShapeDefault,
                     name,
                     shareLinkAuthDomains,

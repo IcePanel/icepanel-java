@@ -76,6 +76,11 @@ public class AsyncRawConnectionsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "expand", request.getExpand().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -149,15 +154,19 @@ public class AsyncRawConnectionsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<ConnectionsCreateResponse>> create(
             ModelConnectionCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model")
-                .addPathSegments("connections")
-                .build();
+                .addPathSegments("connections");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -166,7 +175,7 @@ public class AsyncRawConnectionsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -256,6 +265,11 @@ public class AsyncRawConnectionsClient {
         if (request.getExpand().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "expand", request.getExpand().get(), true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -350,6 +364,11 @@ public class AsyncRawConnectionsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateDiagrams", request.getUpdateDiagrams().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -442,17 +461,21 @@ public class AsyncRawConnectionsClient {
 
     public CompletableFuture<IcePanelClientHttpResponse<ConnectionsDeleteResponse>> delete(
             ModelConnectionDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
                 .addPathSegments("versions")
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/connections")
-                .addPathSegment(request.getModelConnectionId())
-                .build();
+                .addPathSegment(request.getModelConnectionId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -536,6 +559,11 @@ public class AsyncRawConnectionsClient {
         if (request.getUpdateDiagrams().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateDiagrams", request.getUpdateDiagrams().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -635,7 +663,7 @@ public class AsyncRawConnectionsClient {
      */
     public CompletableFuture<IcePanelClientHttpResponse<ConnectionsGenerateDescriptionResponse>> generateDescription(
             ModelConnectionGenerateDescriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -643,8 +671,12 @@ public class AsyncRawConnectionsClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("model/connections")
                 .addPathSegment(request.getModelConnectionId())
-                .addPathSegments("generate-description")
-                .build();
+                .addPathSegments("generate-description");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -653,7 +685,7 @@ public class AsyncRawConnectionsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

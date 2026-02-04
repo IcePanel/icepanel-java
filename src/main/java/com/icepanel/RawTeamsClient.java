@@ -54,14 +54,18 @@ public class RawTeamsClient {
     }
 
     public IcePanelClientHttpResponse<TeamsListResponse> list(TeamsListRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
-                .addPathSegments("teams")
-                .build();
+                .addPathSegments("teams");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -109,12 +113,16 @@ public class RawTeamsClient {
 
     public IcePanelClientHttpResponse<TeamsCreateResponse> create(
             TeamCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
-                .addPathSegments("teams")
-                .build();
+                .addPathSegments("teams");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -123,7 +131,7 @@ public class RawTeamsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -174,15 +182,19 @@ public class RawTeamsClient {
     }
 
     public IcePanelClientHttpResponse<TeamsGetResponse> get(TeamFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("teams")
-                .addPathSegment(request.getTeamId())
-                .build();
+                .addPathSegment(request.getTeamId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -227,15 +239,19 @@ public class RawTeamsClient {
 
     public IcePanelClientHttpResponse<Map<String, Object>> delete(
             TeamDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("teams")
-                .addPathSegment(request.getTeamId())
-                .build();
+                .addPathSegment(request.getTeamId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -288,13 +304,17 @@ public class RawTeamsClient {
 
     public IcePanelClientHttpResponse<TeamsUpdateResponse> update(
             TeamUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("teams")
-                .addPathSegment(request.getTeamId())
-                .build();
+                .addPathSegment(request.getTeamId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -303,7 +323,7 @@ public class RawTeamsClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -358,16 +378,20 @@ public class RawTeamsClient {
 
     public IcePanelClientHttpResponse<TeamsListLandscapesResponse> listLandscapes(
             TeamLandscapesListRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("teams")
                 .addPathSegment(request.getTeamId())
-                .addPathSegments("landscapes")
-                .build();
+                .addPathSegments("landscapes");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -417,17 +441,21 @@ public class RawTeamsClient {
 
     public IcePanelClientHttpResponse<TeamsListModelObjectsResponse> listModelObjects(
             TeamModelObjectsListRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("organizations")
                 .addPathSegment(request.getOrganizationId())
                 .addPathSegments("teams")
                 .addPathSegment(request.getTeamId())
                 .addPathSegments("model")
-                .addPathSegments("objects")
-                .build();
+                .addPathSegments("objects");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

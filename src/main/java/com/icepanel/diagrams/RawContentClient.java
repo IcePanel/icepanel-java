@@ -12,12 +12,10 @@ import com.icepanel.core.MediaTypes;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
-import com.icepanel.diagrams.types.ContentGenerateDescriptionResponse;
 import com.icepanel.diagrams.types.ContentGetResponse;
 import com.icepanel.diagrams.types.ContentReplaceResponse;
 import com.icepanel.diagrams.types.ContentUpdateResponse;
 import com.icepanel.diagrams.types.DiagramContentFindRequest;
-import com.icepanel.diagrams.types.DiagramContentGenerateDescriptionRequest;
 import com.icepanel.diagrams.types.DiagramContentReplaceRequest;
 import com.icepanel.diagrams.types.DiagramContentUpdateRequest;
 import com.icepanel.errors.BadRequestError;
@@ -43,83 +41,6 @@ public class RawContentClient {
         this.clientOptions = clientOptions;
     }
 
-    /**
-     * Generate a description for a diagram
-     */
-    public IcePanelClientHttpResponse<ContentGenerateDescriptionResponse> generateDescription(
-            DiagramContentGenerateDescriptionRequest request) {
-        return generateDescription(request, null);
-    }
-
-    /**
-     * Generate a description for a diagram
-     */
-    public IcePanelClientHttpResponse<ContentGenerateDescriptionResponse> generateDescription(
-            DiagramContentGenerateDescriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("landscapes")
-                .addPathSegment(request.getLandscapeId())
-                .addPathSegments("versions")
-                .addPathSegment(request.getVersionId())
-                .addPathSegments("diagrams")
-                .addPathSegment(request.getDiagramId())
-                .addPathSegments("content")
-                .addPathSegments("generate-description")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new IcePanelClientException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, ContentGenerateDescriptionResponse.class),
-                        response);
-            }
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 422:
-                        throw new UnprocessableEntityError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                    case 500:
-                        throw new InternalServerError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new IcePanelClientApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new IcePanelClientException("Network error executing HTTP request", e);
-        }
-    }
-
     public IcePanelClientHttpResponse<ContentGetResponse> get(DiagramContentFindRequest request) {
         return get(request, null);
     }
@@ -138,6 +59,11 @@ public class RawContentClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -200,6 +126,11 @@ public class RawContentClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {
@@ -277,6 +208,11 @@ public class RawContentClient {
         if (request.getUpdateViewedAt().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "updateViewedAt", request.getUpdateViewedAt().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         RequestBody body;
         try {

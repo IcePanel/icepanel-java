@@ -3,17 +3,9 @@
  */
 package com.icepanel.catalog;
 
-import com.icepanel.catalog.types.CatalogSuggestionBrandGetRequest;
-import com.icepanel.catalog.types.CatalogSuggestionInformationGetRequest;
-import com.icepanel.catalog.types.CatalogTechnologiesListRequest;
 import com.icepanel.catalog.types.CatalogTechnologyFindRequest;
-import com.icepanel.catalog.types.CatalogTechnologySlugFindRequest;
 import com.icepanel.catalog.types.TechnologiesCreateSignedIconUrlResponse;
 import com.icepanel.catalog.types.TechnologiesGetResponse;
-import com.icepanel.catalog.types.TechnologiesGetSlugResponse;
-import com.icepanel.catalog.types.TechnologiesListResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestBrandResponse;
-import com.icepanel.catalog.types.TechnologiesSuggestInformationResponse;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import java.util.concurrent.CompletableFuture;
@@ -33,59 +25,6 @@ public class AsyncTechnologiesClient {
      */
     public AsyncRawTechnologiesClient withRawResponse() {
         return this.rawClient;
-    }
-
-    /**
-     * List technologies
-     */
-    public CompletableFuture<TechnologiesListResponse> list() {
-        return this.rawClient.list().thenApply(response -> response.body());
-    }
-
-    /**
-     * List technologies
-     */
-    public CompletableFuture<TechnologiesListResponse> list(CatalogTechnologiesListRequest request) {
-        return this.rawClient.list(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * List technologies
-     */
-    public CompletableFuture<TechnologiesListResponse> list(
-            CatalogTechnologiesListRequest request, RequestOptions requestOptions) {
-        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public CompletableFuture<TechnologiesSuggestInformationResponse> suggestInformation(
-            CatalogSuggestionInformationGetRequest request) {
-        return this.rawClient.suggestInformation(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Generate suggestions for a technologies information
-     */
-    public CompletableFuture<TechnologiesSuggestInformationResponse> suggestInformation(
-            CatalogSuggestionInformationGetRequest request, RequestOptions requestOptions) {
-        return this.rawClient.suggestInformation(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public CompletableFuture<TechnologiesSuggestBrandResponse> suggestBrand(CatalogSuggestionBrandGetRequest request) {
-        return this.rawClient.suggestBrand(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Generate suggestions for a technologies branding
-     */
-    public CompletableFuture<TechnologiesSuggestBrandResponse> suggestBrand(
-            CatalogSuggestionBrandGetRequest request, RequestOptions requestOptions) {
-        return this.rawClient.suggestBrand(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -116,20 +55,5 @@ public class AsyncTechnologiesClient {
     public CompletableFuture<TechnologiesGetResponse> get(
             CatalogTechnologyFindRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public CompletableFuture<TechnologiesGetSlugResponse> getSlug(CatalogTechnologySlugFindRequest request) {
-        return this.rawClient.getSlug(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Find a technology by the slug
-     */
-    public CompletableFuture<TechnologiesGetSlugResponse> getSlug(
-            CatalogTechnologySlugFindRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getSlug(request, requestOptions).thenApply(response -> response.body());
     }
 }

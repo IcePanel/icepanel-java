@@ -58,7 +58,7 @@ public class RawRepliesClient {
      */
     public IcePanelClientHttpResponse<RepliesListResponse> list(
             CommentRepliesListRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -66,10 +66,14 @@ public class RawRepliesClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
-                .addPathSegments("replies")
-                .build();
+                .addPathSegments("replies");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -123,7 +127,7 @@ public class RawRepliesClient {
      */
     public IcePanelClientHttpResponse<RepliesCreateResponse> create(
             CommentReplyCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -131,8 +135,12 @@ public class RawRepliesClient {
                 .addPathSegment(request.getVersionId())
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
-                .addPathSegments("replies")
-                .build();
+                .addPathSegments("replies");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -141,7 +149,7 @@ public class RawRepliesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -196,7 +204,7 @@ public class RawRepliesClient {
      */
     public IcePanelClientHttpResponse<RepliesGetResponse> get(
             CommentReplyFindRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -205,10 +213,14 @@ public class RawRepliesClient {
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
                 .addPathSegments("replies")
-                .addPathSegment(request.getCommentReplyId())
-                .build();
+                .addPathSegment(request.getCommentReplyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -256,7 +268,7 @@ public class RawRepliesClient {
 
     public IcePanelClientHttpResponse<RepliesUpsertResponse> upsert(
             CommentReplyUpsertRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -265,8 +277,12 @@ public class RawRepliesClient {
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
                 .addPathSegments("replies")
-                .addPathSegment(request.getCommentReplyId())
-                .build();
+                .addPathSegment(request.getCommentReplyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -275,7 +291,7 @@ public class RawRepliesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -333,7 +349,7 @@ public class RawRepliesClient {
      */
     public IcePanelClientHttpResponse<Map<String, Object>> delete(
             CommentReplyDeleteRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -342,10 +358,14 @@ public class RawRepliesClient {
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
                 .addPathSegments("replies")
-                .addPathSegment(request.getCommentReplyId())
-                .build();
+                .addPathSegment(request.getCommentReplyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -404,7 +424,7 @@ public class RawRepliesClient {
      */
     public IcePanelClientHttpResponse<RepliesUpdateResponse> update(
             CommentReplyUpdateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("landscapes")
                 .addPathSegment(request.getLandscapeId())
@@ -413,8 +433,12 @@ public class RawRepliesClient {
                 .addPathSegments("comments")
                 .addPathSegment(request.getCommentId())
                 .addPathSegments("replies")
-                .addPathSegment(request.getCommentReplyId())
-                .build();
+                .addPathSegment(request.getCommentReplyId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -423,7 +447,7 @@ public class RawRepliesClient {
             throw new IcePanelClientException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

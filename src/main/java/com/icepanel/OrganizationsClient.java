@@ -55,6 +55,10 @@ public class OrganizationsClient {
         return this.rawClient.list().body();
     }
 
+    public OrganizationsListResponse list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public OrganizationsListResponse list(OrganizationsListRequest request) {
         return this.rawClient.list(request).body();
     }

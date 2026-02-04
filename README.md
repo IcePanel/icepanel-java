@@ -40,7 +40,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.icepanel</groupId>
   <artifactId>sdk</artifactId>
-  <version>0.0.443</version>
+  <version>0.0.495</version>
 </dependency>
 ```
 
@@ -58,7 +58,7 @@ import com.icepanel.core.Environment;
 
 IcePanelClient client = IcePanelClient
     .builder()
-    .environment(Environment.Production V1)
+    .environment(Environment.API V1)
     .build();
 ```
 

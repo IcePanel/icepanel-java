@@ -36,6 +36,8 @@ public final class OrganizationPartial {
 
     private final Optional<Map<String, Boolean>> experiments;
 
+    private final Optional<OrganizationLanguage> language;
+
     private final Optional<LineShape> lineShapeDefault;
 
     private final Optional<String> name;
@@ -53,6 +55,7 @@ public final class OrganizationPartial {
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
             Optional<Map<String, Boolean>> experiments,
+            Optional<OrganizationLanguage> language,
             Optional<LineShape> lineShapeDefault,
             Optional<String> name,
             OptionalNullable<List<String>> shareLinkAuthDomains,
@@ -64,6 +67,7 @@ public final class OrganizationPartial {
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
         this.experiments = experiments;
+        this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
@@ -102,6 +106,11 @@ public final class OrganizationPartial {
     @JsonProperty("experiments")
     public Optional<Map<String, Boolean>> getExperiments() {
         return experiments;
+    }
+
+    @JsonProperty("language")
+    public Optional<OrganizationLanguage> getLanguage() {
+        return language;
     }
 
     @JsonProperty("lineShapeDefault")
@@ -152,6 +161,7 @@ public final class OrganizationPartial {
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
                 && experiments.equals(other.experiments)
+                && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
@@ -167,6 +177,7 @@ public final class OrganizationPartial {
                 this.billingCycle,
                 this.billingEmail,
                 this.experiments,
+                this.language,
                 this.lineShapeDefault,
                 this.name,
                 this.shareLinkAuthDomains,
@@ -196,6 +207,8 @@ public final class OrganizationPartial {
 
         private Optional<Map<String, Boolean>> experiments = Optional.empty();
 
+        private Optional<OrganizationLanguage> language = Optional.empty();
+
         private Optional<LineShape> lineShapeDefault = Optional.empty();
 
         private Optional<String> name = Optional.empty();
@@ -216,6 +229,7 @@ public final class OrganizationPartial {
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
             experiments(other.getExperiments());
+            language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
@@ -292,6 +306,17 @@ public final class OrganizationPartial {
             return this;
         }
 
+        @JsonSetter(value = "language", nulls = Nulls.SKIP)
+        public Builder language(Optional<OrganizationLanguage> language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder language(OrganizationLanguage language) {
+            this.language = Optional.ofNullable(language);
+            return this;
+        }
+
         @JsonSetter(value = "lineShapeDefault", nulls = Nulls.SKIP)
         public Builder lineShapeDefault(Optional<LineShape> lineShapeDefault) {
             this.lineShapeDefault = lineShapeDefault;
@@ -364,6 +389,7 @@ public final class OrganizationPartial {
                     billingCycle,
                     billingEmail,
                     experiments,
+                    language,
                     lineShapeDefault,
                     name,
                     shareLinkAuthDomains,
