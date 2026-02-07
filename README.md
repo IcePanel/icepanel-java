@@ -68,7 +68,7 @@ public class Example {
         client.model().objects().list(
             ModelObjectsListRequest
                 .builder()
-                .landscapeId("landscapeId")
+                .landscapeId("LANDSCAPE_ID")
                 .versionId("latest")
                 .build()
         );
