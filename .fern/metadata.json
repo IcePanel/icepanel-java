@@ -3,14 +3,14 @@
   "generatorName": "fernapi/fern-java-sdk",
   "generatorVersion": "3.34.6",
   "generatorConfig": {
+    "publish-to": "central",
     "package-prefix": "com.icepanel",
     "client-class-name": "IcePanelClient",
-    "publish-to": "central",
     "collapse-optional-nullable": true,
     "enable-inline-types": true,
     "inline-path-parameters": true,
     "package-layout": "flat",
     "use-local-date-for-dates": true
   },
-  "sdkVersion": "0.0.495"
+  "sdkVersion": "0.1.2"
 }
