@@ -9,6 +9,7 @@ The IcePanel Java library provides convenient access to the IcePanel APIs from J
 
 - [Installation](#installation)
 - [Reference](#reference)
+- [Getting Started](#getting-started)
 - [Environments](#environments)
 - [Base Url](#base-url)
 - [Exception Handling](#exception-handling)
@@ -40,13 +41,41 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.icepanel</groupId>
   <artifactId>sdk</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
 </dependency>
 ```
 
 ## Reference
 
 A full reference for this library is available [here](https://github.com/IcePanel/icepanel-java/blob/HEAD/./reference.md).
+
+## Getting Started
+
+Use the following example to list the model objects in the latest version of a landscape.
+```java
+package com.example.usage;
+
+import com.icepanel.IcePanelClient;
+import com.icepanel.model.types.ModelObjectsListRequest;
+
+public class Example {
+    public static void main(String[] args) {
+        IcePanelClient client = IcePanelClient
+            .builder()
+            .apiKey("YOUR_API_KEY")
+            .build();
+
+        client.model().objects().list(
+            ModelObjectsListRequest
+                .builder()
+                .landscapeId("landscapeId")
+                .versionId("latest")
+                .build()
+        );
+    }
+}
+```
+
 
 ## Environments
 

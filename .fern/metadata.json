@@ -12,5 +12,5 @@
     "package-layout": "flat",
     "use-local-date-for-dates": true
   },
-  "sdkVersion": "0.1.2"
+  "sdkVersion": "0.1.3"
 }
