@@ -40,7 +40,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.icepanel</groupId>
   <artifactId>sdk</artifactId>
-  <version>0.0.495</version>
+  <version>0.1.2</version>
 </dependency>
 ```
 

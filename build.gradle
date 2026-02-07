@@ -47,7 +47,7 @@ java {
 
 group = 'com.icepanel'
 
-version = '0.0.495'
+version = '0.1.2'
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
@@ -78,7 +78,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.icepanel'
             artifactId = 'sdk'
-            version = '0.0.495'
+            version = '0.1.2'
             from components.java
             pom {
                 name = 'IcePanel <mail@icepanel.io>'
