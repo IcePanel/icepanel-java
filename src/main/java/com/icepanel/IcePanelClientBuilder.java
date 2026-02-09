@@ -17,7 +17,7 @@ public class IcePanelClientBuilder {
 
     private final Map<String, String> customHeaders = new HashMap<>();
 
-    private String key = System.getenv("ICEPANEL_API_KEY");
+    private String apiKey = System.getenv("ICEPANEL_API_KEY");
 
     private String token = null;
 
@@ -26,11 +26,11 @@ public class IcePanelClientBuilder {
     private OkHttpClient httpClient;
 
     /**
-     * Sets key.
+     * Sets apiKey.
      * Defaults to the ICEPANEL_API_KEY environment variable.
      */
-    public IcePanelClientBuilder key(String key) {
-        this.key = key;
+    public IcePanelClientBuilder apiKey(String apiKey) {
+        this.apiKey = apiKey;
         return this;
     }
 
@@ -129,7 +129,7 @@ public class IcePanelClientBuilder {
      * }</pre>
      */
     protected void setAuthentication(ClientOptions.Builder builder) {
-        builder.addHeader("X-API-Key", this.key);
+        builder.addHeader("X-API-Key", this.apiKey);
         if (this.token != null) {
             builder.addHeader("Authorization", "Bearer " + this.token);
         }
@@ -208,8 +208,8 @@ public class IcePanelClientBuilder {
     protected void validateConfiguration() {}
 
     public IcePanelClient build() {
-        if (key == null) {
-            throw new RuntimeException("Please provide key or set the ICEPANEL_API_KEY environment variable.");
+        if (apiKey == null) {
+            throw new RuntimeException("Please provide apiKey or set the ICEPANEL_API_KEY environment variable.");
         }
         validateConfiguration();
         return new IcePanelClient(buildClientOptions());

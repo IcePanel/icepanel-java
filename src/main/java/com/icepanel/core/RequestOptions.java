@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 public final class RequestOptions {
-    private final String key;
+    private final String apiKey;
 
     private final String token;
 
@@ -27,7 +27,7 @@ public final class RequestOptions {
     private final Map<String, Supplier<String>> queryParameterSuppliers;
 
     private RequestOptions(
-            String key,
+            String apiKey,
             String token,
             Optional<Integer> timeout,
             TimeUnit timeoutTimeUnit,
@@ -35,7 +35,7 @@ public final class RequestOptions {
             Map<String, Supplier<String>> headerSuppliers,
             Map<String, String> queryParameters,
             Map<String, Supplier<String>> queryParameterSuppliers) {
-        this.key = key;
+        this.apiKey = apiKey;
         this.token = token;
         this.timeout = timeout;
         this.timeoutTimeUnit = timeoutTimeUnit;
@@ -55,8 +55,8 @@ public final class RequestOptions {
 
     public Map<String, String> getHeaders() {
         Map<String, String> headers = new HashMap<>();
-        if (this.key != null) {
-            headers.put("X-API-Key", this.key);
+        if (this.apiKey != null) {
+            headers.put("X-API-Key", this.apiKey);
         }
         if (this.token != null) {
             headers.put("Authorization", "Bearer " + this.token);
@@ -81,7 +81,7 @@ public final class RequestOptions {
     }
 
     public static class Builder {
-        private String key = null;
+        private String apiKey = null;
 
         private String token = null;
 
@@ -97,8 +97,8 @@ public final class RequestOptions {
 
         private final Map<String, Supplier<String>> queryParameterSuppliers = new HashMap<>();
 
-        public Builder key(String key) {
-            this.key = key;
+        public Builder apiKey(String apiKey) {
+            this.apiKey = apiKey;
             return this;
         }
 
@@ -140,7 +140,7 @@ public final class RequestOptions {
 
         public RequestOptions build() {
             return new RequestOptions(
-                    key,
+                    apiKey,
                     token,
                     timeout,
                     timeoutTimeUnit,
