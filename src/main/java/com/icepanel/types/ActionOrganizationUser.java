@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.icepanel.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = ActionOrganizationUser.Deserializer.class)
@@ -89,17 +90,34 @@ public final class ActionOrganizationUser {
         @java.lang.Override
         public ActionOrganizationUser deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserAdd.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserAdd.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserRemove.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOrganizationUserRemove.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

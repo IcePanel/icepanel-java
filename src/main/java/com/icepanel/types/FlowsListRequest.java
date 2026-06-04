@@ -99,6 +99,10 @@ public final class FlowsListRequest {
     public interface _FinalStage {
         FlowsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<FlowFilter> filter);
 
         _FinalStage filter(FlowFilter filter);
@@ -155,6 +159,18 @@ public final class FlowsListRequest {
         @java.lang.Override
         public FlowsListRequest build() {
             return new FlowsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

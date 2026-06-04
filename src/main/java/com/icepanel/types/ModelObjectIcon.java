@@ -128,6 +128,10 @@ public final class ModelObjectIcon {
     public interface _FinalStage {
         ModelObjectIcon build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Use either urlDark or urlLight</p>
          */
@@ -255,6 +259,18 @@ public final class ModelObjectIcon {
         @java.lang.Override
         public ModelObjectIcon build() {
             return new ModelObjectIcon(catalogTechnologyId, name, url, urlDark, urlLight, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

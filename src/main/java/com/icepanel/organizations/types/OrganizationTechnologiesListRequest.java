@@ -84,6 +84,10 @@ public final class OrganizationTechnologiesListRequest {
     public interface _FinalStage {
         OrganizationTechnologiesListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<CatalogTechnologyFilter> filter);
 
         _FinalStage filter(CatalogTechnologyFilter filter);
@@ -130,6 +134,18 @@ public final class OrganizationTechnologiesListRequest {
         @java.lang.Override
         public OrganizationTechnologiesListRequest build() {
             return new OrganizationTechnologiesListRequest(organizationId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

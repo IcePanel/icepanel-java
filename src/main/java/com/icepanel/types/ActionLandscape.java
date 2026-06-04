@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.icepanel.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = ActionLandscape.Deserializer.class)
@@ -43,6 +44,8 @@ public final class ActionLandscape {
             return visitor.visit((ActionLandscapeDelete) this.value);
         } else if (this.type == 5) {
             return visitor.visit((ActionLandscapeExport) this.value);
+        } else if (this.type == 6) {
+            return visitor.visit((ActionLandscapeImport) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -91,6 +94,10 @@ public final class ActionLandscape {
         return new ActionLandscape(value, 5);
     }
 
+    public static ActionLandscape of(ActionLandscapeImport value) {
+        return new ActionLandscape(value, 6);
+    }
+
     public interface Visitor<T> {
         T visit(ActionLandscapeCreate value);
 
@@ -103,6 +110,8 @@ public final class ActionLandscape {
         T visit(ActionLandscapeDelete value);
 
         T visit(ActionLandscapeExport value);
+
+        T visit(ActionLandscapeImport value);
     }
 
     static final class Deserializer extends StdDeserializer<ActionLandscape> {
@@ -113,29 +122,73 @@ public final class ActionLandscape {
         @java.lang.Override
         public ActionLandscape deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeDuplicate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeDuplicate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeCopy.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeCopy.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeExport.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeExport.class));
+                } catch (RuntimeException e) {
+                }
+            }
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("context")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionLandscapeImport.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

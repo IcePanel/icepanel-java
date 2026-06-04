@@ -464,6 +464,16 @@ public final class DiagramConnectionPartial {
                     targetId,
                     additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -532,6 +542,10 @@ public final class DiagramConnectionPartial {
 
         public interface _FinalStage {
             PointsItem build();
+
+            _FinalStage additionalProperty(String key, Object value);
+
+            _FinalStage additionalProperties(Map<String, Object> additionalProperties);
         }
 
         @JsonIgnoreProperties(ignoreUnknown = true)
@@ -569,6 +583,18 @@ public final class DiagramConnectionPartial {
             @java.lang.Override
             public PointsItem build() {
                 return new PointsItem(x, y, additionalProperties);
+            }
+
+            @java.lang.Override
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            @java.lang.Override
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }

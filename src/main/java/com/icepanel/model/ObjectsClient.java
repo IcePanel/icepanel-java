@@ -6,19 +6,23 @@ package com.icepanel.model;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.model.objects.ExportClient;
 import com.icepanel.model.types.ModelObjectCreateRequest;
 import com.icepanel.model.types.ModelObjectDeleteRequest;
+import com.icepanel.model.types.ModelObjectDependenciesListRequest;
 import com.icepanel.model.types.ModelObjectFindRequest;
 import com.icepanel.model.types.ModelObjectUpdateRequest;
 import com.icepanel.model.types.ModelObjectUpsertRequest;
 import com.icepanel.model.types.ModelObjectsListRequest;
 import com.icepanel.model.types.ObjectsCreateResponse;
 import com.icepanel.model.types.ObjectsDeleteResponse;
+import com.icepanel.model.types.ObjectsDependenciesListResponseValue;
 import com.icepanel.model.types.ObjectsGetResponse;
-import com.icepanel.model.types.ObjectsListResponse;
 import com.icepanel.model.types.ObjectsUpdateResponse;
 import com.icepanel.model.types.ObjectsUpsertResponse;
+import com.icepanel.types.ModelObjectExpanded;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ObjectsClient {
@@ -41,11 +45,28 @@ public class ObjectsClient {
         return this.rawClient;
     }
 
-    public ObjectsListResponse list(ModelObjectsListRequest request) {
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public Map<String, ObjectsDependenciesListResponseValue> dependenciesList(
+            ModelObjectDependenciesListRequest request) {
+        return this.rawClient.dependenciesList(request).body();
+    }
+
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public Map<String, ObjectsDependenciesListResponseValue> dependenciesList(
+            ModelObjectDependenciesListRequest request, RequestOptions requestOptions) {
+        return this.rawClient.dependenciesList(request, requestOptions).body();
+    }
+
+    public SyncPagingIterable<ModelObjectExpanded> list(ModelObjectsListRequest request) {
         return this.rawClient.list(request).body();
     }
 
-    public ObjectsListResponse list(ModelObjectsListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<ModelObjectExpanded> list(
+            ModelObjectsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 

@@ -127,6 +127,10 @@ public final class SearchResult {
     public interface _FinalStage {
         SearchResult build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage data(Optional<SearchResultData> data);
 
         _FinalStage data(SearchResultData data);
@@ -203,6 +207,18 @@ public final class SearchResult {
         @java.lang.Override
         public SearchResult build() {
             return new SearchResult(data, id, name, score, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

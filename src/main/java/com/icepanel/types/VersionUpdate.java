@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = VersionPartial.Builder.class)
-public final class VersionPartial {
+@JsonDeserialize(builder = VersionUpdate.Builder.class)
+public final class VersionUpdate {
     private final OptionalNullable<String> modelHandleId;
 
     private final Optional<String> name;
@@ -31,7 +31,7 @@ public final class VersionPartial {
 
     private final Map<String, Object> additionalProperties;
 
-    private VersionPartial(
+    private VersionUpdate(
             OptionalNullable<String> modelHandleId,
             Optional<String> name,
             Optional<String> notes,
@@ -70,7 +70,7 @@ public final class VersionPartial {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof VersionPartial && equalTo((VersionPartial) other);
+        return other instanceof VersionUpdate && equalTo((VersionUpdate) other);
     }
 
     @JsonAnyGetter
@@ -78,7 +78,7 @@ public final class VersionPartial {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(VersionPartial other) {
+    private boolean equalTo(VersionUpdate other) {
         return modelHandleId.equals(other.modelHandleId) && name.equals(other.name) && notes.equals(other.notes);
     }
 
@@ -109,7 +109,7 @@ public final class VersionPartial {
 
         private Builder() {}
 
-        public Builder from(VersionPartial other) {
+        public Builder from(VersionUpdate other) {
             modelHandleId(other.getModelHandleId());
             name(other.getName());
             notes(other.getNotes());
@@ -169,8 +169,18 @@ public final class VersionPartial {
             return this;
         }
 
-        public VersionPartial build() {
-            return new VersionPartial(modelHandleId, name, notes, additionalProperties);
+        public VersionUpdate build() {
+            return new VersionUpdate(modelHandleId, name, notes, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

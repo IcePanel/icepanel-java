@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CatalogTechnologyReviewRejectionReason {
-    public static final CatalogTechnologyReviewRejectionReason OTHER =
-            new CatalogTechnologyReviewRejectionReason(Value.OTHER, "other");
-
     public static final CatalogTechnologyReviewRejectionReason INVALID =
             new CatalogTechnologyReviewRejectionReason(Value.INVALID, "invalid");
+
+    public static final CatalogTechnologyReviewRejectionReason OTHER =
+            new CatalogTechnologyReviewRejectionReason(Value.OTHER, "other");
 
     public static final CatalogTechnologyReviewRejectionReason INCOMPLETE =
             new CatalogTechnologyReviewRejectionReason(Value.INCOMPLETE, "incomplete");
@@ -52,10 +52,10 @@ public final class CatalogTechnologyReviewRejectionReason {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case OTHER:
-                return visitor.visitOther();
             case INVALID:
                 return visitor.visitInvalid();
+            case OTHER:
+                return visitor.visitOther();
             case INCOMPLETE:
                 return visitor.visitIncomplete();
             case DUPLICATE:
@@ -69,10 +69,10 @@ public final class CatalogTechnologyReviewRejectionReason {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CatalogTechnologyReviewRejectionReason valueOf(String value) {
         switch (value) {
-            case "other":
-                return OTHER;
             case "invalid":
                 return INVALID;
+            case "other":
+                return OTHER;
             case "incomplete":
                 return INCOMPLETE;
             case "duplicate":

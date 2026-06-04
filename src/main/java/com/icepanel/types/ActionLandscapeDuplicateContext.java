@@ -82,6 +82,10 @@ public final class ActionLandscapeDuplicateContext {
     public interface _FinalStage {
         ActionLandscapeDuplicateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage targetOrganizationName(Optional<String> targetOrganizationName);
 
         _FinalStage targetOrganizationName(String targetOrganizationName);
@@ -128,6 +132,18 @@ public final class ActionLandscapeDuplicateContext {
         @java.lang.Override
         public ActionLandscapeDuplicateContext build() {
             return new ActionLandscapeDuplicateContext(name, targetOrganizationName, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

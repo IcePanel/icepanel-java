@@ -97,6 +97,10 @@ public final class DraftTaskTagGroupCreate {
 
     public interface _FinalStage {
         DraftTaskTagGroupCreate build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -144,6 +148,18 @@ public final class DraftTaskTagGroupCreate {
         @java.lang.Override
         public DraftTaskTagGroupCreate build() {
             return new DraftTaskTagGroupCreate(entityId, props, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

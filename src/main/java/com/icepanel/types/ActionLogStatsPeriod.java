@@ -11,9 +11,9 @@ public final class ActionLogStatsPeriod {
 
     public static final ActionLogStatsPeriod ALL = new ActionLogStatsPeriod(Value.ALL, "all");
 
-    public static final ActionLogStatsPeriod WEEK = new ActionLogStatsPeriod(Value.WEEK, "week");
-
     public static final ActionLogStatsPeriod DAY = new ActionLogStatsPeriod(Value.DAY, "day");
+
+    public static final ActionLogStatsPeriod WEEK = new ActionLogStatsPeriod(Value.WEEK, "week");
 
     public static final ActionLogStatsPeriod YEAR = new ActionLogStatsPeriod(Value.YEAR, "year");
 
@@ -53,10 +53,10 @@ public final class ActionLogStatsPeriod {
                 return visitor.visitMonth();
             case ALL:
                 return visitor.visitAll();
-            case WEEK:
-                return visitor.visitWeek();
             case DAY:
                 return visitor.visitDay();
+            case WEEK:
+                return visitor.visitWeek();
             case YEAR:
                 return visitor.visitYear();
             case UNKNOWN:
@@ -72,10 +72,10 @@ public final class ActionLogStatsPeriod {
                 return MONTH;
             case "all":
                 return ALL;
-            case "week":
-                return WEEK;
             case "day":
                 return DAY;
+            case "week":
+                return WEEK;
             case "year":
                 return YEAR;
             default:

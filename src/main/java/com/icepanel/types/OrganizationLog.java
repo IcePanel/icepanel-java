@@ -41,9 +41,17 @@ public final class OrganizationLog {
 
     private final AuthType performedBy;
 
+    private final Optional<String> performedByAuthProvider;
+
+    private final Optional<String> performedByClientId;
+
     private final String performedById;
 
+    private final Optional<String> performedByIp;
+
     private final Optional<String> performedByName;
+
+    private final Optional<String> performedByUserAgent;
 
     private final Map<String, Object> additionalProperties;
 
@@ -55,8 +63,12 @@ public final class OrganizationLog {
             OptionalNullable<String> parentId,
             OffsetDateTime performedAt,
             AuthType performedBy,
+            Optional<String> performedByAuthProvider,
+            Optional<String> performedByClientId,
             String performedById,
+            Optional<String> performedByIp,
             Optional<String> performedByName,
+            Optional<String> performedByUserAgent,
             Map<String, Object> additionalProperties) {
         this.action = action;
         this.actionIds = actionIds;
@@ -65,8 +77,12 @@ public final class OrganizationLog {
         this.parentId = parentId;
         this.performedAt = performedAt;
         this.performedBy = performedBy;
+        this.performedByAuthProvider = performedByAuthProvider;
+        this.performedByClientId = performedByClientId;
         this.performedById = performedById;
+        this.performedByIp = performedByIp;
         this.performedByName = performedByName;
+        this.performedByUserAgent = performedByUserAgent;
         this.additionalProperties = additionalProperties;
     }
 
@@ -118,14 +134,37 @@ public final class OrganizationLog {
         return performedBy;
     }
 
+    @JsonProperty("performedByAuthProvider")
+    public Optional<String> getPerformedByAuthProvider() {
+        return performedByAuthProvider;
+    }
+
+    @JsonProperty("performedByClientId")
+    public Optional<String> getPerformedByClientId() {
+        return performedByClientId;
+    }
+
     @JsonProperty("performedById")
     public String getPerformedById() {
         return performedById;
     }
 
+    /**
+     * @return ip address of the user or api key who performed the action
+     */
+    @JsonProperty("performedByIp")
+    public Optional<String> getPerformedByIp() {
+        return performedByIp;
+    }
+
     @JsonProperty("performedByName")
     public Optional<String> getPerformedByName() {
         return performedByName;
+    }
+
+    @JsonProperty("performedByUserAgent")
+    public Optional<String> getPerformedByUserAgent() {
+        return performedByUserAgent;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -153,8 +192,12 @@ public final class OrganizationLog {
                 && parentId.equals(other.parentId)
                 && performedAt.equals(other.performedAt)
                 && performedBy.equals(other.performedBy)
+                && performedByAuthProvider.equals(other.performedByAuthProvider)
+                && performedByClientId.equals(other.performedByClientId)
                 && performedById.equals(other.performedById)
-                && performedByName.equals(other.performedByName);
+                && performedByIp.equals(other.performedByIp)
+                && performedByName.equals(other.performedByName)
+                && performedByUserAgent.equals(other.performedByUserAgent);
     }
 
     @java.lang.Override
@@ -167,8 +210,12 @@ public final class OrganizationLog {
                 this.parentId,
                 this.performedAt,
                 this.performedBy,
+                this.performedByAuthProvider,
+                this.performedByClientId,
                 this.performedById,
-                this.performedByName);
+                this.performedByIp,
+                this.performedByName,
+                this.performedByUserAgent);
     }
 
     @java.lang.Override
@@ -208,6 +255,10 @@ public final class OrganizationLog {
     public interface _FinalStage {
         OrganizationLog build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>id of the action and any related ids that were part of the action</p>
          */
@@ -232,9 +283,28 @@ public final class OrganizationLog {
 
         _FinalStage parentId(Nullable<String> parentId);
 
+        _FinalStage performedByAuthProvider(Optional<String> performedByAuthProvider);
+
+        _FinalStage performedByAuthProvider(String performedByAuthProvider);
+
+        _FinalStage performedByClientId(Optional<String> performedByClientId);
+
+        _FinalStage performedByClientId(String performedByClientId);
+
+        /**
+         * <p>ip address of the user or api key who performed the action</p>
+         */
+        _FinalStage performedByIp(Optional<String> performedByIp);
+
+        _FinalStage performedByIp(String performedByIp);
+
         _FinalStage performedByName(Optional<String> performedByName);
 
         _FinalStage performedByName(String performedByName);
+
+        _FinalStage performedByUserAgent(Optional<String> performedByUserAgent);
+
+        _FinalStage performedByUserAgent(String performedByUserAgent);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -250,7 +320,15 @@ public final class OrganizationLog {
 
         private String performedById;
 
+        private Optional<String> performedByUserAgent = Optional.empty();
+
         private Optional<String> performedByName = Optional.empty();
+
+        private Optional<String> performedByIp = Optional.empty();
+
+        private Optional<String> performedByClientId = Optional.empty();
+
+        private Optional<String> performedByAuthProvider = Optional.empty();
 
         private OptionalNullable<String> parentId = OptionalNullable.absent();
 
@@ -272,8 +350,12 @@ public final class OrganizationLog {
             parentId(other.getParentId());
             performedAt(other.getPerformedAt());
             performedBy(other.getPerformedBy());
+            performedByAuthProvider(other.getPerformedByAuthProvider());
+            performedByClientId(other.getPerformedByClientId());
             performedById(other.getPerformedById());
+            performedByIp(other.getPerformedByIp());
             performedByName(other.getPerformedByName());
+            performedByUserAgent(other.getPerformedByUserAgent());
             return this;
         }
 
@@ -318,6 +400,19 @@ public final class OrganizationLog {
         }
 
         @java.lang.Override
+        public _FinalStage performedByUserAgent(String performedByUserAgent) {
+            this.performedByUserAgent = Optional.ofNullable(performedByUserAgent);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "performedByUserAgent", nulls = Nulls.SKIP)
+        public _FinalStage performedByUserAgent(Optional<String> performedByUserAgent) {
+            this.performedByUserAgent = performedByUserAgent;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage performedByName(String performedByName) {
             this.performedByName = Optional.ofNullable(performedByName);
             return this;
@@ -327,6 +422,52 @@ public final class OrganizationLog {
         @JsonSetter(value = "performedByName", nulls = Nulls.SKIP)
         public _FinalStage performedByName(Optional<String> performedByName) {
             this.performedByName = performedByName;
+            return this;
+        }
+
+        /**
+         * <p>ip address of the user or api key who performed the action</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage performedByIp(String performedByIp) {
+            this.performedByIp = Optional.ofNullable(performedByIp);
+            return this;
+        }
+
+        /**
+         * <p>ip address of the user or api key who performed the action</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "performedByIp", nulls = Nulls.SKIP)
+        public _FinalStage performedByIp(Optional<String> performedByIp) {
+            this.performedByIp = performedByIp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage performedByClientId(String performedByClientId) {
+            this.performedByClientId = Optional.ofNullable(performedByClientId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "performedByClientId", nulls = Nulls.SKIP)
+        public _FinalStage performedByClientId(Optional<String> performedByClientId) {
+            this.performedByClientId = performedByClientId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage performedByAuthProvider(String performedByAuthProvider) {
+            this.performedByAuthProvider = Optional.ofNullable(performedByAuthProvider);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "performedByAuthProvider", nulls = Nulls.SKIP)
+        public _FinalStage performedByAuthProvider(Optional<String> performedByAuthProvider) {
+            this.performedByAuthProvider = performedByAuthProvider;
             return this;
         }
 
@@ -438,9 +579,25 @@ public final class OrganizationLog {
                     parentId,
                     performedAt,
                     performedBy,
+                    performedByAuthProvider,
+                    performedByClientId,
                     performedById,
+                    performedByIp,
                     performedByName,
+                    performedByUserAgent,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

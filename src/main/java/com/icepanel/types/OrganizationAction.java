@@ -34,13 +34,17 @@ public final class OrganizationAction {
         if (this.type == 0) {
             return visitor.visit((ActionApiKey) this.value);
         } else if (this.type == 1) {
-            return visitor.visit((ActionOrganization) this.value);
+            return visitor.visit((ActionOAuth) this.value);
         } else if (this.type == 2) {
-            return visitor.visit((ActionOrganizationUser) this.value);
+            return visitor.visit((ActionOrganization) this.value);
         } else if (this.type == 3) {
-            return visitor.visit((ActionOrganizationUserInvite) this.value);
+            return visitor.visit((ActionOrganizationUser) this.value);
         } else if (this.type == 4) {
+            return visitor.visit((ActionOrganizationUserInvite) this.value);
+        } else if (this.type == 5) {
             return visitor.visit((ActionTeam) this.value);
+        } else if (this.type == 6) {
+            return visitor.visit((ActionUser) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -69,24 +73,34 @@ public final class OrganizationAction {
         return new OrganizationAction(value, 0);
     }
 
-    public static OrganizationAction of(ActionOrganization value) {
+    public static OrganizationAction of(ActionOAuth value) {
         return new OrganizationAction(value, 1);
     }
 
-    public static OrganizationAction of(ActionOrganizationUser value) {
+    public static OrganizationAction of(ActionOrganization value) {
         return new OrganizationAction(value, 2);
     }
 
-    public static OrganizationAction of(ActionOrganizationUserInvite value) {
+    public static OrganizationAction of(ActionOrganizationUser value) {
         return new OrganizationAction(value, 3);
     }
 
-    public static OrganizationAction of(ActionTeam value) {
+    public static OrganizationAction of(ActionOrganizationUserInvite value) {
         return new OrganizationAction(value, 4);
+    }
+
+    public static OrganizationAction of(ActionTeam value) {
+        return new OrganizationAction(value, 5);
+    }
+
+    public static OrganizationAction of(ActionUser value) {
+        return new OrganizationAction(value, 6);
     }
 
     public interface Visitor<T> {
         T visit(ActionApiKey value);
+
+        T visit(ActionOAuth value);
 
         T visit(ActionOrganization value);
 
@@ -95,6 +109,8 @@ public final class OrganizationAction {
         T visit(ActionOrganizationUserInvite value);
 
         T visit(ActionTeam value);
+
+        T visit(ActionUser value);
     }
 
     static final class Deserializer extends StdDeserializer<OrganizationAction> {
@@ -107,6 +123,10 @@ public final class OrganizationAction {
             Object value = p.readValueAs(Object.class);
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionApiKey.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionOAuth.class));
             } catch (RuntimeException e) {
             }
             try {
@@ -123,6 +143,10 @@ public final class OrganizationAction {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionTeam.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ActionUser.class));
             } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

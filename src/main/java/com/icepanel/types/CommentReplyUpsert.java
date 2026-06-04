@@ -83,6 +83,10 @@ public final class CommentReplyUpsert {
     public interface _FinalStage {
         CommentReplyUpsert build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage mentionedUserIds(Optional<List<String>> mentionedUserIds);
 
         _FinalStage mentionedUserIds(List<String> mentionedUserIds);
@@ -129,6 +133,18 @@ public final class CommentReplyUpsert {
         @java.lang.Override
         public CommentReplyUpsert build() {
             return new CommentReplyUpsert(content, mentionedUserIds, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -116,6 +116,10 @@ public final class ActionDiagramGroupUpdate {
 
     public interface _FinalStage {
         ActionDiagramGroupUpdate build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -173,6 +177,18 @@ public final class ActionDiagramGroupUpdate {
         @java.lang.Override
         public ActionDiagramGroupUpdate build() {
             return new ActionDiagramGroupUpdate(context, id, props, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

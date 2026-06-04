@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.icepanel.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = DraftTask.Deserializer.class)
@@ -289,117 +290,261 @@ public final class DraftTask {
         @java.lang.Override
         public DraftTask deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commentId")
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commentId")
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commentId")
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskCommentReplyDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramContentUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramContentUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskDiagramGroupDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelObjectDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskModelConnectionDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskFlowDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupCreate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupCreate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupUpdate.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("props")
+                    && ((Map<?, ?>) value).containsKey("snapshot")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupUpdate.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupDelete.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("entityId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, DraftTaskTagGroupDelete.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

@@ -120,6 +120,10 @@ public final class ActionOrganizationUserRemoveContext {
     public interface _FinalStage {
         ActionOrganizationUserRemoveContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage landscapeNames(Optional<Map<String, String>> landscapeNames);
 
         _FinalStage landscapeNames(Map<String, String> landscapeNames);
@@ -217,6 +221,18 @@ public final class ActionOrganizationUserRemoveContext {
         public ActionOrganizationUserRemoveContext build() {
             return new ActionOrganizationUserRemoveContext(
                     email, landscapeNames, landscapePermissions, name, permission, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -6,12 +6,12 @@ package com.icepanel.model;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.model.connections.AsyncExportClient;
 import com.icepanel.model.types.ConnectionsCreateResponse;
 import com.icepanel.model.types.ConnectionsDeleteResponse;
 import com.icepanel.model.types.ConnectionsGenerateDescriptionResponse;
 import com.icepanel.model.types.ConnectionsGetResponse;
-import com.icepanel.model.types.ConnectionsListResponse;
 import com.icepanel.model.types.ConnectionsUpdateResponse;
 import com.icepanel.model.types.ConnectionsUpsertResponse;
 import com.icepanel.model.types.ModelConnectionCreateRequest;
@@ -21,6 +21,7 @@ import com.icepanel.model.types.ModelConnectionGenerateDescriptionRequest;
 import com.icepanel.model.types.ModelConnectionUpdateRequest;
 import com.icepanel.model.types.ModelConnectionUpsertRequest;
 import com.icepanel.model.types.ModelConnectionsListRequest;
+import com.icepanel.types.ModelConnectionExpanded;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -44,11 +45,11 @@ public class AsyncConnectionsClient {
         return this.rawClient;
     }
 
-    public CompletableFuture<ConnectionsListResponse> list(ModelConnectionsListRequest request) {
+    public CompletableFuture<SyncPagingIterable<ModelConnectionExpanded>> list(ModelConnectionsListRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<ConnectionsListResponse> list(
+    public CompletableFuture<SyncPagingIterable<ModelConnectionExpanded>> list(
             ModelConnectionsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }

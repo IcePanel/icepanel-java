@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public final class Diagram {
     private final double commit;
 
-    private final String description;
+    private final Optional<String> description;
 
     private final OptionalNullable<String> groupId;
 
@@ -94,7 +94,7 @@ public final class Diagram {
 
     private Diagram(
             double commit,
-            String description,
+            Optional<String> description,
             OptionalNullable<String> groupId,
             double index,
             Map<String, String> labels,
@@ -167,7 +167,7 @@ public final class Diagram {
     }
 
     @JsonProperty("description")
-    public String getDescription() {
+    public Optional<String> getDescription() {
         return description;
     }
 
@@ -447,13 +447,9 @@ public final class Diagram {
     }
 
     public interface CommitStage {
-        DescriptionStage commit(double commit);
+        IndexStage commit(double commit);
 
         Builder from(Diagram other);
-    }
-
-    public interface DescriptionStage {
-        IndexStage description(@NotNull String description);
     }
 
     public interface IndexStage {
@@ -542,6 +538,14 @@ public final class Diagram {
     public interface _FinalStage {
         Diagram build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage description(Optional<String> description);
+
+        _FinalStage description(String description);
+
         _FinalStage groupId(OptionalNullable<String> groupId);
 
         _FinalStage groupId(String groupId);
@@ -600,7 +604,6 @@ public final class Diagram {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
             implements CommitStage,
-                    DescriptionStage,
                     IndexStage,
                     ModelIdStage,
                     NameStage,
@@ -623,8 +626,6 @@ public final class Diagram {
                     VersionIdStage,
                     _FinalStage {
         private double commit;
-
-        private String description;
 
         private double index;
 
@@ -686,6 +687,8 @@ public final class Diagram {
 
         private OptionalNullable<String> groupId = OptionalNullable.absent();
 
+        private Optional<String> description = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -730,15 +733,8 @@ public final class Diagram {
 
         @java.lang.Override
         @JsonSetter("commit")
-        public DescriptionStage commit(double commit) {
+        public IndexStage commit(double commit) {
             this.commit = commit;
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("description")
-        public IndexStage description(@NotNull String description) {
-            this.description = Objects.requireNonNull(description, "description must not be null");
             return this;
         }
 
@@ -1095,6 +1091,19 @@ public final class Diagram {
         }
 
         @java.lang.Override
+        public _FinalStage description(String description) {
+            this.description = Optional.ofNullable(description);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "description", nulls = Nulls.SKIP)
+        public _FinalStage description(Optional<String> description) {
+            this.description = description;
+            return this;
+        }
+
+        @java.lang.Override
         public Diagram build() {
             return new Diagram(
                     commit,
@@ -1130,6 +1139,18 @@ public final class Diagram {
                     version,
                     versionId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

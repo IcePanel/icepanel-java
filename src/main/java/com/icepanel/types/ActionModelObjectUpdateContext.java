@@ -169,6 +169,10 @@ public final class ActionModelObjectUpdateContext {
     public interface _FinalStage {
         ActionModelObjectUpdateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage domainHandleId(Optional<String> domainHandleId);
 
         _FinalStage domainHandleId(String domainHandleId);
@@ -355,6 +359,18 @@ public final class ActionModelObjectUpdateContext {
                     technologyNames,
                     type,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -143,6 +143,10 @@ public final class ActionShareLinkDeleteContext {
     public interface _FinalStage {
         ActionShareLinkDeleteContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage draftHandleId(OptionalNullable<String> draftHandleId);
 
         _FinalStage draftHandleId(String draftHandleId);
@@ -292,6 +296,18 @@ public final class ActionShareLinkDeleteContext {
         public ActionShareLinkDeleteContext build() {
             return new ActionShareLinkDeleteContext(
                     draftHandleId, draftName, shortId, versionModelHandleId, versionName, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

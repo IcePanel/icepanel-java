@@ -103,6 +103,10 @@ public final class ActionLogStatsItemByEntity {
     public interface _FinalStage {
         ActionLogStatsItemByEntity build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage contributors(Map<String, ActionLogStatsContributor> contributors);
 
         _FinalStage putAllContributors(Map<String, ActionLogStatsContributor> contributors);
@@ -177,6 +181,18 @@ public final class ActionLogStatsItemByEntity {
         @java.lang.Override
         public ActionLogStatsItemByEntity build() {
             return new ActionLogStatsItemByEntity(contributors, count, entityId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

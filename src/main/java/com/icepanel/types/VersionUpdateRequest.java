@@ -23,12 +23,12 @@ public final class VersionUpdateRequest {
 
     private final String versionId;
 
-    private final VersionPartial body;
+    private final VersionUpdate body;
 
     private final Map<String, Object> additionalProperties;
 
     private VersionUpdateRequest(
-            String landscapeId, String versionId, VersionPartial body, Map<String, Object> additionalProperties) {
+            String landscapeId, String versionId, VersionUpdate body, Map<String, Object> additionalProperties) {
         this.landscapeId = landscapeId;
         this.versionId = versionId;
         this.body = body;
@@ -46,7 +46,7 @@ public final class VersionUpdateRequest {
     }
 
     @JsonProperty("body")
-    public VersionPartial getBody() {
+    public VersionUpdate getBody() {
         return body;
     }
 
@@ -90,11 +90,15 @@ public final class VersionUpdateRequest {
     }
 
     public interface BodyStage {
-        _FinalStage body(@NotNull VersionPartial body);
+        _FinalStage body(@NotNull VersionUpdate body);
     }
 
     public interface _FinalStage {
         VersionUpdateRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -103,7 +107,7 @@ public final class VersionUpdateRequest {
 
         private String versionId;
 
-        private VersionPartial body;
+        private VersionUpdate body;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -134,7 +138,7 @@ public final class VersionUpdateRequest {
 
         @java.lang.Override
         @JsonSetter("body")
-        public _FinalStage body(@NotNull VersionPartial body) {
+        public _FinalStage body(@NotNull VersionUpdate body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
             return this;
         }
@@ -142,6 +146,18 @@ public final class VersionUpdateRequest {
         @java.lang.Override
         public VersionUpdateRequest build() {
             return new VersionUpdateRequest(landscapeId, versionId, body, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

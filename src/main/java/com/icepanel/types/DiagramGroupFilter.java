@@ -173,6 +173,16 @@ public final class DiagramGroupFilter {
         public DiagramGroupFilter build() {
             return new DiagramGroupFilter(handleId, labels, modelId, name, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonDeserialize(using = HandleId.Deserializer.class)

@@ -83,6 +83,10 @@ public final class OrganizationLogsListRequest {
     public interface _FinalStage {
         OrganizationLogsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<OrganizationLogFilter> filter);
 
         _FinalStage filter(OrganizationLogFilter filter);
@@ -129,6 +133,18 @@ public final class OrganizationLogsListRequest {
         @java.lang.Override
         public OrganizationLogsListRequest build() {
             return new OrganizationLogsListRequest(organizationId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

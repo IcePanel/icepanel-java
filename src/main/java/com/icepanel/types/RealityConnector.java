@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.icepanel.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = RealityConnector.Deserializer.class)
@@ -233,89 +234,228 @@ public final class RealityConnector {
         @java.lang.Override
         public RealityConnector deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorUrl.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("url")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorUrl.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsRepo.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("accountName")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsRepo.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsBranch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("accountName")
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsBranch.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsFolder.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("accountName")
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsFolder.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsFile.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("accountName")
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorAzureDevopsFile.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketRepo.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("workspaceId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketRepo.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketBranch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("workspaceId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketBranch.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketFolder.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("workspaceId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketFolder.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketFile.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("workspaceId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketFile.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerRepo.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("serverUrl")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerRepo.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerBranch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("serverUrl")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerBranch.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerFolder.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("serverUrl")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(
+                            ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerFolder.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerFile.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("serverUrl")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorBitbucketServerFile.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubRepo.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("ownerId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubRepo.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubBranch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("ownerId")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubBranch.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubFolder.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("ownerId")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubFolder.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubFile.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("ownerId")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("repositoryId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGithubFile.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabRepo.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabRepo.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabBranch.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabBranch.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabFolder.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabFolder.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabFile.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("branchName")
+                    && ((Map<?, ?>) value).containsKey("path")
+                    && ((Map<?, ?>) value).containsKey("projectId")
+                    && ((Map<?, ?>) value).containsKey("type")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, RealityConnectorGitlabFile.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

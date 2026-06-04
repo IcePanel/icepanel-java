@@ -97,6 +97,10 @@ public final class DiagramGroupDeleteRequest {
 
     public interface _FinalStage {
         DiagramGroupDeleteRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -144,6 +148,18 @@ public final class DiagramGroupDeleteRequest {
         @java.lang.Override
         public DiagramGroupDeleteRequest build() {
             return new DiagramGroupDeleteRequest(landscapeId, versionId, diagramGroupId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

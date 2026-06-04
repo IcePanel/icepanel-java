@@ -18,22 +18,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ObjectsListResponse.Builder.class)
 public final class ObjectsListResponse {
     private final List<ModelObjectExpanded> modelObjects;
 
+    private final Optional<String> nextCursor;
+
     private final Map<String, Object> additionalProperties;
 
-    private ObjectsListResponse(List<ModelObjectExpanded> modelObjects, Map<String, Object> additionalProperties) {
+    private ObjectsListResponse(
+            List<ModelObjectExpanded> modelObjects,
+            Optional<String> nextCursor,
+            Map<String, Object> additionalProperties) {
         this.modelObjects = modelObjects;
+        this.nextCursor = nextCursor;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("modelObjects")
     public List<ModelObjectExpanded> getModelObjects() {
         return modelObjects;
+    }
+
+    @JsonProperty("nextCursor")
+    public Optional<String> getNextCursor() {
+        return nextCursor;
     }
 
     @java.lang.Override
@@ -48,12 +60,12 @@ public final class ObjectsListResponse {
     }
 
     private boolean equalTo(ObjectsListResponse other) {
-        return modelObjects.equals(other.modelObjects);
+        return modelObjects.equals(other.modelObjects) && nextCursor.equals(other.nextCursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.modelObjects);
+        return Objects.hash(this.modelObjects, this.nextCursor);
     }
 
     @java.lang.Override
@@ -69,6 +81,8 @@ public final class ObjectsListResponse {
     public static final class Builder {
         private List<ModelObjectExpanded> modelObjects = new ArrayList<>();
 
+        private Optional<String> nextCursor = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -76,6 +90,7 @@ public final class ObjectsListResponse {
 
         public Builder from(ObjectsListResponse other) {
             modelObjects(other.getModelObjects());
+            nextCursor(other.getNextCursor());
             return this;
         }
 
@@ -100,8 +115,29 @@ public final class ObjectsListResponse {
             return this;
         }
 
+        @JsonSetter(value = "nextCursor", nulls = Nulls.SKIP)
+        public Builder nextCursor(Optional<String> nextCursor) {
+            this.nextCursor = nextCursor;
+            return this;
+        }
+
+        public Builder nextCursor(String nextCursor) {
+            this.nextCursor = Optional.ofNullable(nextCursor);
+            return this;
+        }
+
         public ObjectsListResponse build() {
-            return new ObjectsListResponse(modelObjects, additionalProperties);
+            return new ObjectsListResponse(modelObjects, nextCursor, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

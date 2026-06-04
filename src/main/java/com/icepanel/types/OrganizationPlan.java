@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OrganizationPlan {
-    public static final OrganizationPlan ISOLATION = new OrganizationPlan(Value.ISOLATION, "isolation");
-
     public static final OrganizationPlan PILOT = new OrganizationPlan(Value.PILOT, "pilot");
 
-    public static final OrganizationPlan FREE = new OrganizationPlan(Value.FREE, "free");
+    public static final OrganizationPlan ISOLATION = new OrganizationPlan(Value.ISOLATION, "isolation");
 
     public static final OrganizationPlan SCALE = new OrganizationPlan(Value.SCALE, "scale");
+
+    public static final OrganizationPlan FREE = new OrganizationPlan(Value.FREE, "free");
 
     public static final OrganizationPlan INDIE = new OrganizationPlan(Value.INDIE, "indie");
 
@@ -51,14 +51,14 @@ public final class OrganizationPlan {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case ISOLATION:
-                return visitor.visitIsolation();
             case PILOT:
                 return visitor.visitPilot();
-            case FREE:
-                return visitor.visitFree();
+            case ISOLATION:
+                return visitor.visitIsolation();
             case SCALE:
                 return visitor.visitScale();
+            case FREE:
+                return visitor.visitFree();
             case INDIE:
                 return visitor.visitIndie();
             case GROWTH:
@@ -72,14 +72,14 @@ public final class OrganizationPlan {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrganizationPlan valueOf(String value) {
         switch (value) {
-            case "isolation":
-                return ISOLATION;
             case "pilot":
                 return PILOT;
-            case "free":
-                return FREE;
+            case "isolation":
+                return ISOLATION;
             case "scale":
                 return SCALE;
+            case "free":
+                return FREE;
             case "indie":
                 return INDIE;
             case "growth":

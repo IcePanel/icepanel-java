@@ -155,6 +155,10 @@ public final class ModelConnectionUpsertRequest {
     public interface _FinalStage {
         ModelConnectionUpsertRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage originConnector(Optional<ConnectionsUpsertRequestOriginConnector> originConnector);
 
         _FinalStage originConnector(ConnectionsUpsertRequestOriginConnector originConnector);
@@ -280,6 +284,18 @@ public final class ModelConnectionUpsertRequest {
                     updateDiagrams,
                     body,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

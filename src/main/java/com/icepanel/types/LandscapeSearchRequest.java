@@ -134,6 +134,10 @@ public final class LandscapeSearchRequest {
     public interface _FinalStage {
         LandscapeSearchRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<SearchFilter> filter);
 
         _FinalStage filter(SearchFilter filter);
@@ -241,6 +245,18 @@ public final class LandscapeSearchRequest {
         public LandscapeSearchRequest build() {
             return new LandscapeSearchRequest(
                     landscapeId, versionId, search, filter, includeData, maxResults, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

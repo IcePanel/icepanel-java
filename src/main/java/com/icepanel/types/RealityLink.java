@@ -208,6 +208,10 @@ public final class RealityLink {
     public interface _FinalStage {
         RealityLink build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Resolve the connector from a publicly accessible URL</p>
          */
@@ -503,6 +507,18 @@ public final class RealityLink {
                     name,
                     status,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

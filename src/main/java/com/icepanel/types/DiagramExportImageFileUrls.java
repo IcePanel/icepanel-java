@@ -82,6 +82,10 @@ public final class DiagramExportImageFileUrls {
 
     public interface _FinalStage {
         DiagramExportImageFileUrls build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -119,6 +123,18 @@ public final class DiagramExportImageFileUrls {
         @java.lang.Override
         public DiagramExportImageFileUrls build() {
             return new DiagramExportImageFileUrls(png, svg, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

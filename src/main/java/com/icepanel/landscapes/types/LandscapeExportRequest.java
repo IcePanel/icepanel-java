@@ -130,6 +130,10 @@ public final class LandscapeExportRequest {
     public interface _FinalStage {
         LandscapeExportRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<LandscapeExportFilter> filter);
 
         _FinalStage filter(LandscapeExportFilter filter);
@@ -206,6 +210,18 @@ public final class LandscapeExportRequest {
         @java.lang.Override
         public LandscapeExportRequest build() {
             return new LandscapeExportRequest(landscapeId, versionId, type, filter, body, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

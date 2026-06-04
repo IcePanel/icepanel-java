@@ -97,6 +97,10 @@ public final class DiagramGroupFindRequest {
 
     public interface _FinalStage {
         DiagramGroupFindRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -144,6 +148,18 @@ public final class DiagramGroupFindRequest {
         @java.lang.Override
         public DiagramGroupFindRequest build() {
             return new DiagramGroupFindRequest(landscapeId, versionId, diagramGroupId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

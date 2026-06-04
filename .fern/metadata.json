@@ -1,7 +1,7 @@
 {
-  "cliVersion": "3.56.8",
+  "cliVersion": "5.44.7",
   "generatorName": "fernapi/fern-java-sdk",
-  "generatorVersion": "3.34.6",
+  "generatorVersion": "4.8.11",
   "generatorConfig": {
     "publish-to": "central",
     "package-prefix": "com.icepanel",
@@ -12,5 +12,8 @@
     "package-layout": "flat",
     "use-local-date-for-dates": true
   },
-  "sdkVersion": "0.1.4"
+  "originGitCommit": "d43b488b595adb22c371e7454af5093ac0019371",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "manual",
+  "sdkVersion": "0.1.5"
 }

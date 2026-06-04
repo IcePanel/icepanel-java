@@ -70,6 +70,10 @@ public final class ActionLandscapeUpdateContext {
 
     public interface _FinalStage {
         ActionLandscapeUpdateContext build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -97,6 +101,18 @@ public final class ActionLandscapeUpdateContext {
         @java.lang.Override
         public ActionLandscapeUpdateContext build() {
             return new ActionLandscapeUpdateContext(name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }
