@@ -72,6 +72,10 @@ public final class InvitesRevokeResponse {
 
     public interface _FinalStage {
         InvitesRevokeResponse build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -100,6 +104,18 @@ public final class InvitesRevokeResponse {
         @java.lang.Override
         public InvitesRevokeResponse build() {
             return new InvitesRevokeResponse(organizationUserInvite, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -7,37 +7,37 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CatalogTechnologyTypeNullable {
-    public static final CatalogTechnologyTypeNullable DATA_STORAGE =
-            new CatalogTechnologyTypeNullable(Value.DATA_STORAGE, "data-storage");
-
-    public static final CatalogTechnologyTypeNullable OTHER = new CatalogTechnologyTypeNullable(Value.OTHER, "other");
-
-    public static final CatalogTechnologyTypeNullable SERVICE_TOOL =
-            new CatalogTechnologyTypeNullable(Value.SERVICE_TOOL, "service-tool");
-
     public static final CatalogTechnologyTypeNullable LANGUAGE =
             new CatalogTechnologyTypeNullable(Value.LANGUAGE, "language");
-
-    public static final CatalogTechnologyTypeNullable FRAMEWORK_LIBRARY =
-            new CatalogTechnologyTypeNullable(Value.FRAMEWORK_LIBRARY, "framework-library");
-
-    public static final CatalogTechnologyTypeNullable NETWORK =
-            new CatalogTechnologyTypeNullable(Value.NETWORK, "network");
-
-    public static final CatalogTechnologyTypeNullable PROTOCOL =
-            new CatalogTechnologyTypeNullable(Value.PROTOCOL, "protocol");
-
-    public static final CatalogTechnologyTypeNullable DEPLOYMENT =
-            new CatalogTechnologyTypeNullable(Value.DEPLOYMENT, "deployment");
-
-    public static final CatalogTechnologyTypeNullable RUNTIME =
-            new CatalogTechnologyTypeNullable(Value.RUNTIME, "runtime");
 
     public static final CatalogTechnologyTypeNullable MESSAGE_BROKER =
             new CatalogTechnologyTypeNullable(Value.MESSAGE_BROKER, "message-broker");
 
+    public static final CatalogTechnologyTypeNullable OTHER = new CatalogTechnologyTypeNullable(Value.OTHER, "other");
+
+    public static final CatalogTechnologyTypeNullable NETWORK =
+            new CatalogTechnologyTypeNullable(Value.NETWORK, "network");
+
+    public static final CatalogTechnologyTypeNullable SERVICE_TOOL =
+            new CatalogTechnologyTypeNullable(Value.SERVICE_TOOL, "service-tool");
+
+    public static final CatalogTechnologyTypeNullable DEPLOYMENT =
+            new CatalogTechnologyTypeNullable(Value.DEPLOYMENT, "deployment");
+
+    public static final CatalogTechnologyTypeNullable PROTOCOL =
+            new CatalogTechnologyTypeNullable(Value.PROTOCOL, "protocol");
+
+    public static final CatalogTechnologyTypeNullable FRAMEWORK_LIBRARY =
+            new CatalogTechnologyTypeNullable(Value.FRAMEWORK_LIBRARY, "framework-library");
+
     public static final CatalogTechnologyTypeNullable GATEWAY =
             new CatalogTechnologyTypeNullable(Value.GATEWAY, "gateway");
+
+    public static final CatalogTechnologyTypeNullable DATA_STORAGE =
+            new CatalogTechnologyTypeNullable(Value.DATA_STORAGE, "data-storage");
+
+    public static final CatalogTechnologyTypeNullable RUNTIME =
+            new CatalogTechnologyTypeNullable(Value.RUNTIME, "runtime");
 
     private final Value value;
 
@@ -72,28 +72,28 @@ public final class CatalogTechnologyTypeNullable {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case DATA_STORAGE:
-                return visitor.visitDataStorage();
-            case OTHER:
-                return visitor.visitOther();
-            case SERVICE_TOOL:
-                return visitor.visitServiceTool();
             case LANGUAGE:
                 return visitor.visitLanguage();
-            case FRAMEWORK_LIBRARY:
-                return visitor.visitFrameworkLibrary();
-            case NETWORK:
-                return visitor.visitNetwork();
-            case PROTOCOL:
-                return visitor.visitProtocol();
-            case DEPLOYMENT:
-                return visitor.visitDeployment();
-            case RUNTIME:
-                return visitor.visitRuntime();
             case MESSAGE_BROKER:
                 return visitor.visitMessageBroker();
+            case OTHER:
+                return visitor.visitOther();
+            case NETWORK:
+                return visitor.visitNetwork();
+            case SERVICE_TOOL:
+                return visitor.visitServiceTool();
+            case DEPLOYMENT:
+                return visitor.visitDeployment();
+            case PROTOCOL:
+                return visitor.visitProtocol();
+            case FRAMEWORK_LIBRARY:
+                return visitor.visitFrameworkLibrary();
             case GATEWAY:
                 return visitor.visitGateway();
+            case DATA_STORAGE:
+                return visitor.visitDataStorage();
+            case RUNTIME:
+                return visitor.visitRuntime();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -103,28 +103,28 @@ public final class CatalogTechnologyTypeNullable {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CatalogTechnologyTypeNullable valueOf(String value) {
         switch (value) {
-            case "data-storage":
-                return DATA_STORAGE;
-            case "other":
-                return OTHER;
-            case "service-tool":
-                return SERVICE_TOOL;
             case "language":
                 return LANGUAGE;
-            case "framework-library":
-                return FRAMEWORK_LIBRARY;
-            case "network":
-                return NETWORK;
-            case "protocol":
-                return PROTOCOL;
-            case "deployment":
-                return DEPLOYMENT;
-            case "runtime":
-                return RUNTIME;
             case "message-broker":
                 return MESSAGE_BROKER;
+            case "other":
+                return OTHER;
+            case "network":
+                return NETWORK;
+            case "service-tool":
+                return SERVICE_TOOL;
+            case "deployment":
+                return DEPLOYMENT;
+            case "protocol":
+                return PROTOCOL;
+            case "framework-library":
+                return FRAMEWORK_LIBRARY;
             case "gateway":
                 return GATEWAY;
+            case "data-storage":
+                return DATA_STORAGE;
+            case "runtime":
+                return RUNTIME;
             default:
                 return new CatalogTechnologyTypeNullable(Value.UNKNOWN, value);
         }

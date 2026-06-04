@@ -111,6 +111,10 @@ public final class OrganizationLandscapeCreateRequest implements ILandscapeRequi
     public interface _FinalStage {
         OrganizationLandscapeCreateRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage scheduledVersions(Optional<Boolean> scheduledVersions);
 
         _FinalStage scheduledVersions(Boolean scheduledVersions);
@@ -188,6 +192,18 @@ public final class OrganizationLandscapeCreateRequest implements ILandscapeRequi
         public OrganizationLandscapeCreateRequest build() {
             return new OrganizationLandscapeCreateRequest(
                     name, scheduledVersions, organizationId, templateId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

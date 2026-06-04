@@ -277,6 +277,16 @@ public final class DiagramFilter {
             return new DiagramFilter(
                     empty, handleId, labels, modelId, name, pinned, status, type, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonDeserialize(using = Status.Deserializer.class)

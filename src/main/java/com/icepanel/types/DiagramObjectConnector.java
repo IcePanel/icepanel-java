@@ -7,23 +7,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class DiagramObjectConnector {
-    public static final DiagramObjectConnector LEFT_MIDDLE =
-            new DiagramObjectConnector(Value.LEFT_MIDDLE, "left-middle");
+    public static final DiagramObjectConnector TOP_LEFT = new DiagramObjectConnector(Value.TOP_LEFT, "top-left");
 
     public static final DiagramObjectConnector RIGHT_TOP = new DiagramObjectConnector(Value.RIGHT_TOP, "right-top");
 
-    public static final DiagramObjectConnector TOP_LEFT = new DiagramObjectConnector(Value.TOP_LEFT, "top-left");
-
-    public static final DiagramObjectConnector BOTTOM_CENTER =
-            new DiagramObjectConnector(Value.BOTTOM_CENTER, "bottom-center");
-
-    public static final DiagramObjectConnector BOTTOM_LEFT =
-            new DiagramObjectConnector(Value.BOTTOM_LEFT, "bottom-left");
-
     public static final DiagramObjectConnector RIGHT_MIDDLE =
             new DiagramObjectConnector(Value.RIGHT_MIDDLE, "right-middle");
-
-    public static final DiagramObjectConnector TOP_CENTER = new DiagramObjectConnector(Value.TOP_CENTER, "top-center");
 
     public static final DiagramObjectConnector LEFT_BOTTOM =
             new DiagramObjectConnector(Value.LEFT_BOTTOM, "left-bottom");
@@ -31,12 +20,23 @@ public final class DiagramObjectConnector {
     public static final DiagramObjectConnector BOTTOM_RIGHT =
             new DiagramObjectConnector(Value.BOTTOM_RIGHT, "bottom-right");
 
-    public static final DiagramObjectConnector RIGHT_BOTTOM =
-            new DiagramObjectConnector(Value.RIGHT_BOTTOM, "right-bottom");
+    public static final DiagramObjectConnector BOTTOM_CENTER =
+            new DiagramObjectConnector(Value.BOTTOM_CENTER, "bottom-center");
+
+    public static final DiagramObjectConnector BOTTOM_LEFT =
+            new DiagramObjectConnector(Value.BOTTOM_LEFT, "bottom-left");
 
     public static final DiagramObjectConnector TOP_RIGHT = new DiagramObjectConnector(Value.TOP_RIGHT, "top-right");
 
     public static final DiagramObjectConnector LEFT_TOP = new DiagramObjectConnector(Value.LEFT_TOP, "left-top");
+
+    public static final DiagramObjectConnector RIGHT_BOTTOM =
+            new DiagramObjectConnector(Value.RIGHT_BOTTOM, "right-bottom");
+
+    public static final DiagramObjectConnector LEFT_MIDDLE =
+            new DiagramObjectConnector(Value.LEFT_MIDDLE, "left-middle");
+
+    public static final DiagramObjectConnector TOP_CENTER = new DiagramObjectConnector(Value.TOP_CENTER, "top-center");
 
     private final Value value;
 
@@ -71,30 +71,30 @@ public final class DiagramObjectConnector {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case LEFT_MIDDLE:
-                return visitor.visitLeftMiddle();
-            case RIGHT_TOP:
-                return visitor.visitRightTop();
             case TOP_LEFT:
                 return visitor.visitTopLeft();
-            case BOTTOM_CENTER:
-                return visitor.visitBottomCenter();
-            case BOTTOM_LEFT:
-                return visitor.visitBottomLeft();
+            case RIGHT_TOP:
+                return visitor.visitRightTop();
             case RIGHT_MIDDLE:
                 return visitor.visitRightMiddle();
-            case TOP_CENTER:
-                return visitor.visitTopCenter();
             case LEFT_BOTTOM:
                 return visitor.visitLeftBottom();
             case BOTTOM_RIGHT:
                 return visitor.visitBottomRight();
-            case RIGHT_BOTTOM:
-                return visitor.visitRightBottom();
+            case BOTTOM_CENTER:
+                return visitor.visitBottomCenter();
+            case BOTTOM_LEFT:
+                return visitor.visitBottomLeft();
             case TOP_RIGHT:
                 return visitor.visitTopRight();
             case LEFT_TOP:
                 return visitor.visitLeftTop();
+            case RIGHT_BOTTOM:
+                return visitor.visitRightBottom();
+            case LEFT_MIDDLE:
+                return visitor.visitLeftMiddle();
+            case TOP_CENTER:
+                return visitor.visitTopCenter();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -104,30 +104,30 @@ public final class DiagramObjectConnector {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DiagramObjectConnector valueOf(String value) {
         switch (value) {
-            case "left-middle":
-                return LEFT_MIDDLE;
-            case "right-top":
-                return RIGHT_TOP;
             case "top-left":
                 return TOP_LEFT;
-            case "bottom-center":
-                return BOTTOM_CENTER;
-            case "bottom-left":
-                return BOTTOM_LEFT;
+            case "right-top":
+                return RIGHT_TOP;
             case "right-middle":
                 return RIGHT_MIDDLE;
-            case "top-center":
-                return TOP_CENTER;
             case "left-bottom":
                 return LEFT_BOTTOM;
             case "bottom-right":
                 return BOTTOM_RIGHT;
-            case "right-bottom":
-                return RIGHT_BOTTOM;
+            case "bottom-center":
+                return BOTTOM_CENTER;
+            case "bottom-left":
+                return BOTTOM_LEFT;
             case "top-right":
                 return TOP_RIGHT;
             case "left-top":
                 return LEFT_TOP;
+            case "right-bottom":
+                return RIGHT_BOTTOM;
+            case "left-middle":
+                return LEFT_MIDDLE;
+            case "top-center":
+                return TOP_CENTER;
             default:
                 return new DiagramObjectConnector(Value.UNKNOWN, value);
         }

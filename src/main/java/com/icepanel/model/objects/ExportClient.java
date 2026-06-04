@@ -42,14 +42,14 @@ public class ExportClient {
     }
 
     /**
-     * Export all model objects as CSV
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=object-csv instead
      */
     public String csv(ModelObjectsExportCsvRequest request) {
         return this.rawClient.csv(request).body();
     }
 
     /**
-     * Export all model objects as CSV
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=object-csv instead
      */
     public String csv(ModelObjectsExportCsvRequest request, RequestOptions requestOptions) {
         return this.rawClient.csv(request, requestOptions).body();

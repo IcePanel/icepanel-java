@@ -6,19 +6,23 @@ package com.icepanel.model;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.model.objects.AsyncExportClient;
 import com.icepanel.model.types.ModelObjectCreateRequest;
 import com.icepanel.model.types.ModelObjectDeleteRequest;
+import com.icepanel.model.types.ModelObjectDependenciesListRequest;
 import com.icepanel.model.types.ModelObjectFindRequest;
 import com.icepanel.model.types.ModelObjectUpdateRequest;
 import com.icepanel.model.types.ModelObjectUpsertRequest;
 import com.icepanel.model.types.ModelObjectsListRequest;
 import com.icepanel.model.types.ObjectsCreateResponse;
 import com.icepanel.model.types.ObjectsDeleteResponse;
+import com.icepanel.model.types.ObjectsDependenciesListResponseValue;
 import com.icepanel.model.types.ObjectsGetResponse;
-import com.icepanel.model.types.ObjectsListResponse;
 import com.icepanel.model.types.ObjectsUpdateResponse;
 import com.icepanel.model.types.ObjectsUpsertResponse;
+import com.icepanel.types.ModelObjectExpanded;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -42,11 +46,28 @@ public class AsyncObjectsClient {
         return this.rawClient;
     }
 
-    public CompletableFuture<ObjectsListResponse> list(ModelObjectsListRequest request) {
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public CompletableFuture<Map<String, ObjectsDependenciesListResponseValue>> dependenciesList(
+            ModelObjectDependenciesListRequest request) {
+        return this.rawClient.dependenciesList(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public CompletableFuture<Map<String, ObjectsDependenciesListResponseValue>> dependenciesList(
+            ModelObjectDependenciesListRequest request, RequestOptions requestOptions) {
+        return this.rawClient.dependenciesList(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<SyncPagingIterable<ModelObjectExpanded>> list(ModelObjectsListRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<ObjectsListResponse> list(ModelObjectsListRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<SyncPagingIterable<ModelObjectExpanded>> list(
+            ModelObjectsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 

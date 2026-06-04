@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OrganizationCollectionMethod {
+    public static final OrganizationCollectionMethod CHARGE = new OrganizationCollectionMethod(Value.CHARGE, "charge");
+
     public static final OrganizationCollectionMethod INVOICE =
             new OrganizationCollectionMethod(Value.INVOICE, "invoice");
-
-    public static final OrganizationCollectionMethod CHARGE = new OrganizationCollectionMethod(Value.CHARGE, "charge");
 
     private final Value value;
 
@@ -45,10 +45,10 @@ public final class OrganizationCollectionMethod {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case INVOICE:
-                return visitor.visitInvoice();
             case CHARGE:
                 return visitor.visitCharge();
+            case INVOICE:
+                return visitor.visitInvoice();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -58,10 +58,10 @@ public final class OrganizationCollectionMethod {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrganizationCollectionMethod valueOf(String value) {
         switch (value) {
-            case "invoice":
-                return INVOICE;
             case "charge":
                 return CHARGE;
+            case "invoice":
+                return INVOICE;
             default:
                 return new OrganizationCollectionMethod(Value.UNKNOWN, value);
         }

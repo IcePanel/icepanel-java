@@ -315,6 +315,10 @@ public final class ModelObjectUpsert {
     public interface _FinalStage {
         ModelObjectUpsert build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Short summary of the object shown as the display description</p>
          */
@@ -830,6 +834,18 @@ public final class ModelObjectUpsert {
                     domainId,
                     handleId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

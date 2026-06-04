@@ -115,6 +115,10 @@ public final class CommentBodyNewInaccuracy {
     public interface _FinalStage {
         CommentBodyNewInaccuracy build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage showContentPreview(Optional<Boolean> showContentPreview);
 
         _FinalStage showContentPreview(Boolean showContentPreview);
@@ -181,6 +185,18 @@ public final class CommentBodyNewInaccuracy {
         @java.lang.Override
         public CommentBodyNewInaccuracy build() {
             return new CommentBodyNewInaccuracy(content, showContentPreview, status, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

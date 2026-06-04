@@ -33,6 +33,10 @@ public final class ModelConnectionsListRequest {
 
     private final Optional<ModelConnectionFilter> filter;
 
+    private final Optional<String> cursor;
+
+    private final Optional<Integer> limit;
+
     private final Map<String, Object> additionalProperties;
 
     private ModelConnectionsListRequest(
@@ -40,11 +44,15 @@ public final class ModelConnectionsListRequest {
             String landscapeId,
             String versionId,
             Optional<ModelConnectionFilter> filter,
+            Optional<String> cursor,
+            Optional<Integer> limit,
             Map<String, Object> additionalProperties) {
         this.expand = expand;
         this.landscapeId = landscapeId;
         this.versionId = versionId;
         this.filter = filter;
+        this.cursor = cursor;
+        this.limit = limit;
         this.additionalProperties = additionalProperties;
     }
 
@@ -68,6 +76,16 @@ public final class ModelConnectionsListRequest {
         return filter;
     }
 
+    @JsonProperty("cursor")
+    public Optional<String> getCursor() {
+        return cursor;
+    }
+
+    @JsonProperty("limit")
+    public Optional<Integer> getLimit() {
+        return limit;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -83,12 +101,14 @@ public final class ModelConnectionsListRequest {
         return expand.equals(other.expand)
                 && landscapeId.equals(other.landscapeId)
                 && versionId.equals(other.versionId)
-                && filter.equals(other.filter);
+                && filter.equals(other.filter)
+                && cursor.equals(other.cursor)
+                && limit.equals(other.limit);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.expand, this.landscapeId, this.versionId, this.filter);
+        return Objects.hash(this.expand, this.landscapeId, this.versionId, this.filter, this.cursor, this.limit);
     }
 
     @java.lang.Override
@@ -113,6 +133,10 @@ public final class ModelConnectionsListRequest {
     public interface _FinalStage {
         ModelConnectionsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage expand(Optional<List<ModelConnectionExpandKey>> expand);
 
         _FinalStage expand(List<ModelConnectionExpandKey> expand);
@@ -122,6 +146,14 @@ public final class ModelConnectionsListRequest {
         _FinalStage filter(Optional<ModelConnectionFilter> filter);
 
         _FinalStage filter(ModelConnectionFilter filter);
+
+        _FinalStage cursor(Optional<String> cursor);
+
+        _FinalStage cursor(String cursor);
+
+        _FinalStage limit(Optional<Integer> limit);
+
+        _FinalStage limit(Integer limit);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -129,6 +161,10 @@ public final class ModelConnectionsListRequest {
         private String landscapeId;
 
         private String versionId;
+
+        private Optional<Integer> limit = Optional.empty();
+
+        private Optional<String> cursor = Optional.empty();
 
         private Optional<ModelConnectionFilter> filter = Optional.empty();
 
@@ -145,6 +181,8 @@ public final class ModelConnectionsListRequest {
             landscapeId(other.getLandscapeId());
             versionId(other.getVersionId());
             filter(other.getFilter());
+            cursor(other.getCursor());
+            limit(other.getLimit());
             return this;
         }
 
@@ -159,6 +197,32 @@ public final class ModelConnectionsListRequest {
         @JsonSetter("versionId")
         public _FinalStage versionId(@NotNull String versionId) {
             this.versionId = Objects.requireNonNull(versionId, "versionId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage limit(Integer limit) {
+            this.limit = Optional.ofNullable(limit);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "limit", nulls = Nulls.SKIP)
+        public _FinalStage limit(Optional<Integer> limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage cursor(String cursor) {
+            this.cursor = Optional.ofNullable(cursor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
+        public _FinalStage cursor(Optional<String> cursor) {
+            this.cursor = cursor;
             return this;
         }
 
@@ -196,7 +260,20 @@ public final class ModelConnectionsListRequest {
 
         @java.lang.Override
         public ModelConnectionsListRequest build() {
-            return new ModelConnectionsListRequest(expand, landscapeId, versionId, filter, additionalProperties);
+            return new ModelConnectionsListRequest(
+                    expand, landscapeId, versionId, filter, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

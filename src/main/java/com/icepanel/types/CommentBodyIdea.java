@@ -115,6 +115,10 @@ public final class CommentBodyIdea {
     public interface _FinalStage {
         CommentBodyIdea build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage showContentPreview(Optional<Boolean> showContentPreview);
 
         _FinalStage showContentPreview(Boolean showContentPreview);
@@ -182,12 +186,24 @@ public final class CommentBodyIdea {
         public CommentBodyIdea build() {
             return new CommentBodyIdea(content, showContentPreview, status, type, additionalProperties);
         }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     public static final class Status {
-        public static final Status ACTIVE = new Status(Value.ACTIVE, "active");
-
         public static final Status DISMISSED = new Status(Value.DISMISSED, "dismissed");
+
+        public static final Status ACTIVE = new Status(Value.ACTIVE, "active");
 
         private final Value value;
 
@@ -220,10 +236,10 @@ public final class CommentBodyIdea {
 
         public <T> T visit(Visitor<T> visitor) {
             switch (value) {
-                case ACTIVE:
-                    return visitor.visitActive();
                 case DISMISSED:
                     return visitor.visitDismissed();
+                case ACTIVE:
+                    return visitor.visitActive();
                 case UNKNOWN:
                 default:
                     return visitor.visitUnknown(string);
@@ -233,10 +249,10 @@ public final class CommentBodyIdea {
         @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         public static Status valueOf(String value) {
             switch (value) {
-                case "active":
-                    return ACTIVE;
                 case "dismissed":
                     return DISMISSED;
+                case "active":
+                    return ACTIVE;
                 default:
                     return new Status(Value.UNKNOWN, value);
             }

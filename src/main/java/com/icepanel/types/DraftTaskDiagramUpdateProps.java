@@ -586,6 +586,16 @@ public final class DraftTaskDiagramUpdateProps {
                     objects,
                     additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -735,6 +745,16 @@ public final class DraftTaskDiagramUpdateProps {
 
             public Objects build() {
                 return new Objects(add, remove, replace, update, additionalProperties);
+            }
+
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }
@@ -887,6 +907,16 @@ public final class DraftTaskDiagramUpdateProps {
             public Connections build() {
                 return new Connections(add, remove, replace, update, additionalProperties);
             }
+
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
+            }
         }
     }
 
@@ -1037,6 +1067,16 @@ public final class DraftTaskDiagramUpdateProps {
 
             public Comments build() {
                 return new Comments(add, remove, replace, update, additionalProperties);
+            }
+
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }

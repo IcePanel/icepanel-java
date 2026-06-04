@@ -18,23 +18,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConnectionsListResponse.Builder.class)
 public final class ConnectionsListResponse {
     private final List<ModelConnectionExpanded> modelConnections;
 
+    private final Optional<String> nextCursor;
+
     private final Map<String, Object> additionalProperties;
 
     private ConnectionsListResponse(
-            List<ModelConnectionExpanded> modelConnections, Map<String, Object> additionalProperties) {
+            List<ModelConnectionExpanded> modelConnections,
+            Optional<String> nextCursor,
+            Map<String, Object> additionalProperties) {
         this.modelConnections = modelConnections;
+        this.nextCursor = nextCursor;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("modelConnections")
     public List<ModelConnectionExpanded> getModelConnections() {
         return modelConnections;
+    }
+
+    @JsonProperty("nextCursor")
+    public Optional<String> getNextCursor() {
+        return nextCursor;
     }
 
     @java.lang.Override
@@ -49,12 +60,12 @@ public final class ConnectionsListResponse {
     }
 
     private boolean equalTo(ConnectionsListResponse other) {
-        return modelConnections.equals(other.modelConnections);
+        return modelConnections.equals(other.modelConnections) && nextCursor.equals(other.nextCursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.modelConnections);
+        return Objects.hash(this.modelConnections, this.nextCursor);
     }
 
     @java.lang.Override
@@ -70,6 +81,8 @@ public final class ConnectionsListResponse {
     public static final class Builder {
         private List<ModelConnectionExpanded> modelConnections = new ArrayList<>();
 
+        private Optional<String> nextCursor = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -77,6 +90,7 @@ public final class ConnectionsListResponse {
 
         public Builder from(ConnectionsListResponse other) {
             modelConnections(other.getModelConnections());
+            nextCursor(other.getNextCursor());
             return this;
         }
 
@@ -101,8 +115,29 @@ public final class ConnectionsListResponse {
             return this;
         }
 
+        @JsonSetter(value = "nextCursor", nulls = Nulls.SKIP)
+        public Builder nextCursor(Optional<String> nextCursor) {
+            this.nextCursor = nextCursor;
+            return this;
+        }
+
+        public Builder nextCursor(String nextCursor) {
+            this.nextCursor = Optional.ofNullable(nextCursor);
+            return this;
+        }
+
         public ConnectionsListResponse build() {
-            return new ConnectionsListResponse(modelConnections, additionalProperties);
+            return new ConnectionsListResponse(modelConnections, nextCursor, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

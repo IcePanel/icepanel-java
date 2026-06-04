@@ -7,19 +7,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CatalogRestriction {
-    public static final CatalogRestriction APP = new CatalogRestriction(Value.APP, "app");
-
     public static final CatalogRestriction COMPONENT = new CatalogRestriction(Value.COMPONENT, "component");
 
     public static final CatalogRestriction ACTOR = new CatalogRestriction(Value.ACTOR, "actor");
 
+    public static final CatalogRestriction APP = new CatalogRestriction(Value.APP, "app");
+
     public static final CatalogRestriction STORE = new CatalogRestriction(Value.STORE, "store");
+
+    public static final CatalogRestriction SYSTEM = new CatalogRestriction(Value.SYSTEM, "system");
 
     public static final CatalogRestriction GROUP = new CatalogRestriction(Value.GROUP, "group");
 
     public static final CatalogRestriction CONNECTION = new CatalogRestriction(Value.CONNECTION, "connection");
-
-    public static final CatalogRestriction SYSTEM = new CatalogRestriction(Value.SYSTEM, "system");
 
     private final Value value;
 
@@ -53,20 +53,20 @@ public final class CatalogRestriction {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case APP:
-                return visitor.visitApp();
             case COMPONENT:
                 return visitor.visitComponent();
             case ACTOR:
                 return visitor.visitActor();
+            case APP:
+                return visitor.visitApp();
             case STORE:
                 return visitor.visitStore();
+            case SYSTEM:
+                return visitor.visitSystem();
             case GROUP:
                 return visitor.visitGroup();
             case CONNECTION:
                 return visitor.visitConnection();
-            case SYSTEM:
-                return visitor.visitSystem();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -76,20 +76,20 @@ public final class CatalogRestriction {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CatalogRestriction valueOf(String value) {
         switch (value) {
-            case "app":
-                return APP;
             case "component":
                 return COMPONENT;
             case "actor":
                 return ACTOR;
+            case "app":
+                return APP;
             case "store":
                 return STORE;
+            case "system":
+                return SYSTEM;
             case "group":
                 return GROUP;
             case "connection":
                 return CONNECTION;
-            case "system":
-                return SYSTEM;
             default:
                 return new CatalogRestriction(Value.UNKNOWN, value);
         }

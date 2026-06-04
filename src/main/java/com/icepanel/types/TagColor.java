@@ -7,19 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class TagColor {
+    public static final TagColor BLACK = new TagColor(Value.BLACK, "black");
+
     public static final TagColor BEAVER = new TagColor(Value.BEAVER, "beaver");
 
     public static final TagColor WHITE = new TagColor(Value.WHITE, "white");
-
-    public static final TagColor BLACK = new TagColor(Value.BLACK, "black");
-
-    public static final TagColor GREEN = new TagColor(Value.GREEN, "green");
 
     public static final TagColor RED = new TagColor(Value.RED, "red");
 
     public static final TagColor PURPLE = new TagColor(Value.PURPLE, "purple");
 
-    public static final TagColor DARK_BLUE = new TagColor(Value.DARK_BLUE, "dark-blue");
+    public static final TagColor GREEN = new TagColor(Value.GREEN, "green");
 
     public static final TagColor ORANGE = new TagColor(Value.ORANGE, "orange");
 
@@ -30,6 +28,8 @@ public final class TagColor {
     public static final TagColor YELLOW = new TagColor(Value.YELLOW, "yellow");
 
     public static final TagColor GREY = new TagColor(Value.GREY, "grey");
+
+    public static final TagColor DARK_BLUE = new TagColor(Value.DARK_BLUE, "dark-blue");
 
     private final Value value;
 
@@ -62,20 +62,18 @@ public final class TagColor {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case BLACK:
+                return visitor.visitBlack();
             case BEAVER:
                 return visitor.visitBeaver();
             case WHITE:
                 return visitor.visitWhite();
-            case BLACK:
-                return visitor.visitBlack();
-            case GREEN:
-                return visitor.visitGreen();
             case RED:
                 return visitor.visitRed();
             case PURPLE:
                 return visitor.visitPurple();
-            case DARK_BLUE:
-                return visitor.visitDarkBlue();
+            case GREEN:
+                return visitor.visitGreen();
             case ORANGE:
                 return visitor.visitOrange();
             case PINK:
@@ -86,6 +84,8 @@ public final class TagColor {
                 return visitor.visitYellow();
             case GREY:
                 return visitor.visitGrey();
+            case DARK_BLUE:
+                return visitor.visitDarkBlue();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -95,20 +95,18 @@ public final class TagColor {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static TagColor valueOf(String value) {
         switch (value) {
+            case "black":
+                return BLACK;
             case "beaver":
                 return BEAVER;
             case "white":
                 return WHITE;
-            case "black":
-                return BLACK;
-            case "green":
-                return GREEN;
             case "red":
                 return RED;
             case "purple":
                 return PURPLE;
-            case "dark-blue":
-                return DARK_BLUE;
+            case "green":
+                return GREEN;
             case "orange":
                 return ORANGE;
             case "pink":
@@ -119,6 +117,8 @@ public final class TagColor {
                 return YELLOW;
             case "grey":
                 return GREY;
+            case "dark-blue":
+                return DARK_BLUE;
             default:
                 return new TagColor(Value.UNKNOWN, value);
         }

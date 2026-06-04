@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TagExport.Builder.class)
 public final class TagExport {
-    private final String color;
+    private final TagColor color;
 
     private final String groupId;
 
@@ -29,7 +29,8 @@ public final class TagExport {
 
     private final Map<String, Object> additionalProperties;
 
-    private TagExport(String color, String groupId, String id, String name, Map<String, Object> additionalProperties) {
+    private TagExport(
+            TagColor color, String groupId, String id, String name, Map<String, Object> additionalProperties) {
         this.color = color;
         this.groupId = groupId;
         this.id = id;
@@ -38,7 +39,7 @@ public final class TagExport {
     }
 
     @JsonProperty("color")
-    public String getColor() {
+    public TagColor getColor() {
         return color;
     }
 
@@ -90,7 +91,7 @@ public final class TagExport {
     }
 
     public interface ColorStage {
-        GroupIdStage color(@NotNull String color);
+        GroupIdStage color(@NotNull TagColor color);
 
         Builder from(TagExport other);
     }
@@ -109,11 +110,15 @@ public final class TagExport {
 
     public interface _FinalStage {
         TagExport build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ColorStage, GroupIdStage, IdStage, NameStage, _FinalStage {
-        private String color;
+        private TagColor color;
 
         private String groupId;
 
@@ -137,7 +142,7 @@ public final class TagExport {
 
         @java.lang.Override
         @JsonSetter("color")
-        public GroupIdStage color(@NotNull String color) {
+        public GroupIdStage color(@NotNull TagColor color) {
             this.color = Objects.requireNonNull(color, "color must not be null");
             return this;
         }
@@ -166,6 +171,18 @@ public final class TagExport {
         @java.lang.Override
         public TagExport build() {
             return new TagExport(color, groupId, id, name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -4293,7 +4293,7 @@ client.teams().listModelObjects(
 </details>
 
 ## Versions
-<details><summary><code>client.versions.list(landscapeId) -> VersionsListResponse</code></summary>
+<details><summary><code>client.versions.list(landscapeId) -> SyncPagingIterable&amp;lt;Version&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4330,6 +4330,30 @@ client.versions().list(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**filter:** `Optional<VersionFilter>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Double>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -4358,6 +4382,9 @@ client.versions().create(
         .body(
             VersionRequired
                 .builder()
+                .modelHandleId(
+                    Nullable.ofNull()
+                )
                 .name("name")
                 .notes("notes")
                 .build()
@@ -4525,7 +4552,7 @@ client.versions().update(
         .landscapeId("landscapeId")
         .versionId("versionId")
         .body(
-            VersionPartial
+            VersionUpdate
                 .builder()
                 .build()
         )
@@ -4561,7 +4588,7 @@ client.versions().update(
 <dl>
 <dd>
 
-**request:** `VersionPartial` 
+**request:** `VersionUpdate` 
     
 </dd>
 </dl>
@@ -6469,6 +6496,20 @@ client.landscapes().logs().listChildren(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a background job that exports a landscape in the specified format.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6553,6 +6594,20 @@ client.landscapes().export().create(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a landscape export job.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6601,6 +6656,254 @@ client.landscapes().export().get(
 <dd>
 
 **landscapeExportId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Landscapes Import
+<details><summary><code>client.landscapes.import_.create(landscapeId, versionId, request) -> ImportCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a background job that imports a landscape from JSON format.
+
+The `JSONSchema` can be accessed at `api.icepanel.io/v1/schemas/LandscapeImportData` for automations or using LLMs for generation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.landscapes().import_().create(
+    LandscapeImportRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .body(
+            LandscapeImportData
+                .builder()
+                .modelConnections(
+                    Optional.of(
+                        Arrays.asList(
+                            ModelConnectionImport
+                                .builder()
+                                .direction(ModelConnectionDirection.OUTGOING)
+                                .id("connection-1")
+                                .name("Connection")
+                                .originId("object-2")
+                                .targetId("object-3")
+                                .build()
+                        )
+                    )
+                )
+                .modelObjects(
+                    Optional.of(
+                        Arrays.asList(
+                            ModelObjectImport
+                                .builder()
+                                .id("object-1")
+                                .name("Domain")
+                                .type(ImportModelObjectType.DOMAIN)
+                                .build(),
+                            ModelObjectImport
+                                .builder()
+                                .id("object-2")
+                                .name("System")
+                                .parentId(
+                                    OptionalNullable.of("object-1")
+                                )
+                                .type(ImportModelObjectType.SYSTEM)
+                                .groupIds(
+                                    Optional.of(
+                                        Arrays.asList("object-3")
+                                    )
+                                )
+                                .build(),
+                            ModelObjectImport
+                                .builder()
+                                .id("object-3")
+                                .name("Group")
+                                .parentId(
+                                    OptionalNullable.of("object-1")
+                                )
+                                .type(ImportModelObjectType.GROUP)
+                                .tagIds(
+                                    Optional.of(
+                                        Arrays.asList("tag-1")
+                                    )
+                                )
+                                .build()
+                        )
+                    )
+                )
+                .tagGroups(
+                    Optional.of(
+                        Arrays.asList(
+                            TagGroupImport
+                                .builder()
+                                .icon(TagGroupIcon.BUG)
+                                .id("tag-group-1")
+                                .name("Tag Group")
+                                .build()
+                        )
+                    )
+                )
+                .tags(
+                    Optional.of(
+                        Arrays.asList(
+                            TagImport
+                                .builder()
+                                .color(TagColor.BEAVER)
+                                .groupId("tag-group-1")
+                                .id("tag-1")
+                                .name("Tag")
+                                .build()
+                        )
+                    )
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prune:** `Optional<Boolean>` — When enabled, entities that are missing from the import will be deleted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `LandscapeImportData` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.landscapes.import_.get(landscapeId, versionId, landscapeImportId) -> ImportGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a landscape import job.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.landscapes().import_().get(
+    LandscapeImportGetRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .landscapeImportId("landscapeImportId")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**landscapeImportId:** `String` 
     
 </dd>
 </dl>
@@ -6764,7 +7067,7 @@ client.landscapes().logs().stats().byEntity(
 </details>
 
 ## Model Connections
-<details><summary><code>client.model.connections.list(landscapeId, versionId) -> ConnectionsListResponse</code></summary>
+<details><summary><code>client.model.connections.list(landscapeId, versionId) -> SyncPagingIterable&amp;lt;ModelConnectionExpanded&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -6823,6 +7126,22 @@ client.model().connections().list(
 <dd>
 
 **expand:** `Optional<ModelConnectionExpandKey>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
     
 </dd>
 </dl>
@@ -7312,7 +7631,88 @@ client.model().connections().generateDescription(
 </details>
 
 ## Model Objects
-<details><summary><code>client.model.objects.list(landscapeId, versionId) -> ObjectsListResponse</code></summary>
+<details><summary><code>client.model.objects.dependenciesList(landscapeId, versionId) -> Map&amp;lt;String, ObjectsDependenciesListResponseValue&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.model().objects().dependenciesList(
+    ModelObjectDependenciesListRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId("versionId")
+        .filter(
+            ModelDependenciesFilter
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter:** `ModelDependenciesFilter` — Object selection and dependency filters.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.model.objects.list(landscapeId, versionId) -> SyncPagingIterable&amp;lt;ModelObjectExpanded&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7374,6 +7774,22 @@ client.model().objects().list(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -7404,6 +7820,9 @@ client.model().objects().create(
             ModelObjectRequired
                 .builder()
                 .name("name")
+                .parentId(
+                    Nullable.ofNull()
+                )
                 .type(ModelObjectType.ACTOR)
                 .build()
         )
@@ -7545,6 +7964,9 @@ client.model().objects().upsert(
             ModelObjectUpsert
                 .builder()
                 .name("name")
+                .parentId(
+                    Nullable.ofNull()
+                )
                 .type(ModelObjectType.ACTOR)
                 .build()
         )
@@ -7744,6 +8166,20 @@ client.model().objects().update(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -7884,7 +8320,7 @@ client.model().objects().export().dependenciesJson(
 <dl>
 <dd>
 
-Export all model objects as CSV
+Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=object-csv instead
 </dd>
 </dl>
 </dd>
@@ -8252,6 +8688,15 @@ client.organizations().technologies().create(
                 .builder()
                 .color(TagColor.BLUE)
                 .name("name")
+                .provider(
+                    Nullable.ofNull()
+                )
+                .restrictions(
+                    Nullable.ofNull()
+                )
+                .type(
+                    Nullable.ofNull()
+                )
                 .build()
         )
         .build()
@@ -9585,3 +10030,4 @@ client.versions().reverts().update(
 </dd>
 </dl>
 </details>
+

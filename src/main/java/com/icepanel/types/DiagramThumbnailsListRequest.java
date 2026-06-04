@@ -99,6 +99,10 @@ public final class DiagramThumbnailsListRequest {
     public interface _FinalStage {
         DiagramThumbnailsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<DiagramFilter> filter);
 
         _FinalStage filter(DiagramFilter filter);
@@ -155,6 +159,18 @@ public final class DiagramThumbnailsListRequest {
         @java.lang.Override
         public DiagramThumbnailsListRequest build() {
             return new DiagramThumbnailsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

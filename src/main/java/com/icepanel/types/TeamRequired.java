@@ -94,6 +94,10 @@ public final class TeamRequired {
     public interface _FinalStage {
         TeamRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage color(Optional<TagColor> color);
 
         _FinalStage color(TagColor color);
@@ -160,6 +164,18 @@ public final class TeamRequired {
         @java.lang.Override
         public TeamRequired build() {
             return new TeamRequired(color, name, userIds, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

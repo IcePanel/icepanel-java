@@ -7,21 +7,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CatalogRestrictionNullable {
-    public static final CatalogRestrictionNullable APP = new CatalogRestrictionNullable(Value.APP, "app");
-
     public static final CatalogRestrictionNullable COMPONENT =
             new CatalogRestrictionNullable(Value.COMPONENT, "component");
 
     public static final CatalogRestrictionNullable ACTOR = new CatalogRestrictionNullable(Value.ACTOR, "actor");
 
+    public static final CatalogRestrictionNullable APP = new CatalogRestrictionNullable(Value.APP, "app");
+
     public static final CatalogRestrictionNullable STORE = new CatalogRestrictionNullable(Value.STORE, "store");
+
+    public static final CatalogRestrictionNullable SYSTEM = new CatalogRestrictionNullable(Value.SYSTEM, "system");
 
     public static final CatalogRestrictionNullable GROUP = new CatalogRestrictionNullable(Value.GROUP, "group");
 
     public static final CatalogRestrictionNullable CONNECTION =
             new CatalogRestrictionNullable(Value.CONNECTION, "connection");
-
-    public static final CatalogRestrictionNullable SYSTEM = new CatalogRestrictionNullable(Value.SYSTEM, "system");
 
     private final Value value;
 
@@ -56,20 +56,20 @@ public final class CatalogRestrictionNullable {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case APP:
-                return visitor.visitApp();
             case COMPONENT:
                 return visitor.visitComponent();
             case ACTOR:
                 return visitor.visitActor();
+            case APP:
+                return visitor.visitApp();
             case STORE:
                 return visitor.visitStore();
+            case SYSTEM:
+                return visitor.visitSystem();
             case GROUP:
                 return visitor.visitGroup();
             case CONNECTION:
                 return visitor.visitConnection();
-            case SYSTEM:
-                return visitor.visitSystem();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,20 +79,20 @@ public final class CatalogRestrictionNullable {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CatalogRestrictionNullable valueOf(String value) {
         switch (value) {
-            case "app":
-                return APP;
             case "component":
                 return COMPONENT;
             case "actor":
                 return ACTOR;
+            case "app":
+                return APP;
             case "store":
                 return STORE;
+            case "system":
+                return SYSTEM;
             case "group":
                 return GROUP;
             case "connection":
                 return CONNECTION;
-            case "system":
-                return SYSTEM;
             default:
                 return new CatalogRestrictionNullable(Value.UNKNOWN, value);
         }

@@ -213,5 +213,15 @@ public final class TagPartial {
         public TagPartial build() {
             return new TagPartial(color, commit, groupId, index, labels, name, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

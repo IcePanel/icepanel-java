@@ -9,50 +9,50 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class TagGroupIcon {
     public static final TagGroupIcon COG = new TagGroupIcon(Value.COG, "cog");
 
-    public static final TagGroupIcon WIFI = new TagGroupIcon(Value.WIFI, "wifi");
+    public static final TagGroupIcon NETWORK_WIRED = new TagGroupIcon(Value.NETWORK_WIRED, "network-wired");
 
     public static final TagGroupIcon FILE = new TagGroupIcon(Value.FILE, "file");
 
     public static final TagGroupIcon ROBOT = new TagGroupIcon(Value.ROBOT, "robot");
 
+    public static final TagGroupIcon WIFI = new TagGroupIcon(Value.WIFI, "wifi");
+
     public static final TagGroupIcon SERVER = new TagGroupIcon(Value.SERVER, "server");
 
     public static final TagGroupIcon SACK_DOLLAR = new TagGroupIcon(Value.SACK_DOLLAR, "sack-dollar");
 
-    public static final TagGroupIcon BUG = new TagGroupIcon(Value.BUG, "bug");
-
     public static final TagGroupIcon GLOBE = new TagGroupIcon(Value.GLOBE, "globe");
 
-    public static final TagGroupIcon NETWORK_WIRED = new TagGroupIcon(Value.NETWORK_WIRED, "network-wired");
-
-    public static final TagGroupIcon TOOLBOX = new TagGroupIcon(Value.TOOLBOX, "toolbox");
+    public static final TagGroupIcon BUG = new TagGroupIcon(Value.BUG, "bug");
 
     public static final TagGroupIcon PLUS = new TagGroupIcon(Value.PLUS, "plus");
+
+    public static final TagGroupIcon TOOLBOX = new TagGroupIcon(Value.TOOLBOX, "toolbox");
 
     public static final TagGroupIcon TIMES = new TagGroupIcon(Value.TIMES, "times");
 
     public static final TagGroupIcon MOBILE = new TagGroupIcon(Value.MOBILE, "mobile");
 
-    public static final TagGroupIcon CALENDAR_CHECK = new TagGroupIcon(Value.CALENDAR_CHECK, "calendar-check");
-
-    public static final TagGroupIcon CALENDAR_TIMES = new TagGroupIcon(Value.CALENDAR_TIMES, "calendar-times");
-
     public static final TagGroupIcon SLEDDING = new TagGroupIcon(Value.SLEDDING, "sledding");
 
     public static final TagGroupIcon LAPTOP_CODE = new TagGroupIcon(Value.LAPTOP_CODE, "laptop-code");
+
+    public static final TagGroupIcon TRASH = new TagGroupIcon(Value.TRASH, "trash");
 
     public static final TagGroupIcon MICROCHIP = new TagGroupIcon(Value.MICROCHIP, "microchip");
 
     public static final TagGroupIcon LIGHTBULB = new TagGroupIcon(Value.LIGHTBULB, "lightbulb");
 
-    public static final TagGroupIcon TRASH = new TagGroupIcon(Value.TRASH, "trash");
-
     public static final TagGroupIcon LOCK = new TagGroupIcon(Value.LOCK, "lock");
+
+    public static final TagGroupIcon CALENDAR_TIMES = new TagGroupIcon(Value.CALENDAR_TIMES, "calendar-times");
 
     public static final TagGroupIcon EXCLAMATION_TRIANGLE =
             new TagGroupIcon(Value.EXCLAMATION_TRIANGLE, "exclamation-triangle");
 
     public static final TagGroupIcon SNOWMAN = new TagGroupIcon(Value.SNOWMAN, "snowman");
+
+    public static final TagGroupIcon CALENDAR_CHECK = new TagGroupIcon(Value.CALENDAR_CHECK, "calendar-check");
 
     public static final TagGroupIcon DATABASE = new TagGroupIcon(Value.DATABASE, "database");
 
@@ -60,13 +60,13 @@ public final class TagGroupIcon {
 
     public static final TagGroupIcon STAR = new TagGroupIcon(Value.STAR, "star");
 
-    public static final TagGroupIcon MINUS = new TagGroupIcon(Value.MINUS, "minus");
-
-    public static final TagGroupIcon POO = new TagGroupIcon(Value.POO, "poo");
-
     public static final TagGroupIcon CLOUD = new TagGroupIcon(Value.CLOUD, "cloud");
 
     public static final TagGroupIcon USERS = new TagGroupIcon(Value.USERS, "users");
+
+    public static final TagGroupIcon MINUS = new TagGroupIcon(Value.MINUS, "minus");
+
+    public static final TagGroupIcon POO = new TagGroupIcon(Value.POO, "poo");
 
     private final Value value;
 
@@ -101,64 +101,64 @@ public final class TagGroupIcon {
         switch (value) {
             case COG:
                 return visitor.visitCog();
-            case WIFI:
-                return visitor.visitWifi();
+            case NETWORK_WIRED:
+                return visitor.visitNetworkWired();
             case FILE:
                 return visitor.visitFile();
             case ROBOT:
                 return visitor.visitRobot();
+            case WIFI:
+                return visitor.visitWifi();
             case SERVER:
                 return visitor.visitServer();
             case SACK_DOLLAR:
                 return visitor.visitSackDollar();
-            case BUG:
-                return visitor.visitBug();
             case GLOBE:
                 return visitor.visitGlobe();
-            case NETWORK_WIRED:
-                return visitor.visitNetworkWired();
-            case TOOLBOX:
-                return visitor.visitToolbox();
+            case BUG:
+                return visitor.visitBug();
             case PLUS:
                 return visitor.visitPlus();
+            case TOOLBOX:
+                return visitor.visitToolbox();
             case TIMES:
                 return visitor.visitTimes();
             case MOBILE:
                 return visitor.visitMobile();
-            case CALENDAR_CHECK:
-                return visitor.visitCalendarCheck();
-            case CALENDAR_TIMES:
-                return visitor.visitCalendarTimes();
             case SLEDDING:
                 return visitor.visitSledding();
             case LAPTOP_CODE:
                 return visitor.visitLaptopCode();
+            case TRASH:
+                return visitor.visitTrash();
             case MICROCHIP:
                 return visitor.visitMicrochip();
             case LIGHTBULB:
                 return visitor.visitLightbulb();
-            case TRASH:
-                return visitor.visitTrash();
             case LOCK:
                 return visitor.visitLock();
+            case CALENDAR_TIMES:
+                return visitor.visitCalendarTimes();
             case EXCLAMATION_TRIANGLE:
                 return visitor.visitExclamationTriangle();
             case SNOWMAN:
                 return visitor.visitSnowman();
+            case CALENDAR_CHECK:
+                return visitor.visitCalendarCheck();
             case DATABASE:
                 return visitor.visitDatabase();
             case ROCKET:
                 return visitor.visitRocket();
             case STAR:
                 return visitor.visitStar();
-            case MINUS:
-                return visitor.visitMinus();
-            case POO:
-                return visitor.visitPoo();
             case CLOUD:
                 return visitor.visitCloud();
             case USERS:
                 return visitor.visitUsers();
+            case MINUS:
+                return visitor.visitMinus();
+            case POO:
+                return visitor.visitPoo();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -170,64 +170,64 @@ public final class TagGroupIcon {
         switch (value) {
             case "cog":
                 return COG;
-            case "wifi":
-                return WIFI;
+            case "network-wired":
+                return NETWORK_WIRED;
             case "file":
                 return FILE;
             case "robot":
                 return ROBOT;
+            case "wifi":
+                return WIFI;
             case "server":
                 return SERVER;
             case "sack-dollar":
                 return SACK_DOLLAR;
-            case "bug":
-                return BUG;
             case "globe":
                 return GLOBE;
-            case "network-wired":
-                return NETWORK_WIRED;
-            case "toolbox":
-                return TOOLBOX;
+            case "bug":
+                return BUG;
             case "plus":
                 return PLUS;
+            case "toolbox":
+                return TOOLBOX;
             case "times":
                 return TIMES;
             case "mobile":
                 return MOBILE;
-            case "calendar-check":
-                return CALENDAR_CHECK;
-            case "calendar-times":
-                return CALENDAR_TIMES;
             case "sledding":
                 return SLEDDING;
             case "laptop-code":
                 return LAPTOP_CODE;
+            case "trash":
+                return TRASH;
             case "microchip":
                 return MICROCHIP;
             case "lightbulb":
                 return LIGHTBULB;
-            case "trash":
-                return TRASH;
             case "lock":
                 return LOCK;
+            case "calendar-times":
+                return CALENDAR_TIMES;
             case "exclamation-triangle":
                 return EXCLAMATION_TRIANGLE;
             case "snowman":
                 return SNOWMAN;
+            case "calendar-check":
+                return CALENDAR_CHECK;
             case "database":
                 return DATABASE;
             case "rocket":
                 return ROCKET;
             case "star":
                 return STAR;
-            case "minus":
-                return MINUS;
-            case "poo":
-                return POO;
             case "cloud":
                 return CLOUD;
             case "users":
                 return USERS;
+            case "minus":
+                return MINUS;
+            case "poo":
+                return POO;
             default:
                 return new TagGroupIcon(Value.UNKNOWN, value);
         }

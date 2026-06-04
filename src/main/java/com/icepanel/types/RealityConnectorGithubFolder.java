@@ -130,6 +130,10 @@ public final class RealityConnectorGithubFolder {
 
     public interface _FinalStage {
         RealityConnectorGithubFolder build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -199,6 +203,18 @@ public final class RealityConnectorGithubFolder {
         public RealityConnectorGithubFolder build() {
             return new RealityConnectorGithubFolder(
                     branchName, ownerId, path, repositoryId, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

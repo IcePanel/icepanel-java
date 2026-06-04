@@ -35,6 +35,8 @@ public final class DiagramExportImageOptions {
 
     private final Optional<List<String>> hideIds;
 
+    private final Optional<Integer> maxWidth;
+
     private final Optional<List<String>> pinIds;
 
     private final Optional<Tab> tab;
@@ -50,6 +52,7 @@ public final class DiagramExportImageOptions {
             Optional<List<String>> focusIds,
             Optional<String> groupId,
             Optional<List<String>> hideIds,
+            Optional<Integer> maxWidth,
             Optional<List<String>> pinIds,
             Optional<Tab> tab,
             Optional<Theme> theme,
@@ -60,6 +63,7 @@ public final class DiagramExportImageOptions {
         this.focusIds = focusIds;
         this.groupId = groupId;
         this.hideIds = hideIds;
+        this.maxWidth = maxWidth;
         this.pinIds = pinIds;
         this.tab = tab;
         this.theme = theme;
@@ -99,6 +103,14 @@ public final class DiagramExportImageOptions {
         return hideIds;
     }
 
+    /**
+     * @return Maximum pixel width for the exported PNG. The image will be scaled down if the diagram exceeds this width. Defaults to no limit (up to 10240px).
+     */
+    @JsonProperty("maxWidth")
+    public Optional<Integer> getMaxWidth() {
+        return maxWidth;
+    }
+
     @JsonProperty("pinIds")
     public Optional<List<String>> getPinIds() {
         return pinIds;
@@ -132,6 +144,7 @@ public final class DiagramExportImageOptions {
                 && focusIds.equals(other.focusIds)
                 && groupId.equals(other.groupId)
                 && hideIds.equals(other.hideIds)
+                && maxWidth.equals(other.maxWidth)
                 && pinIds.equals(other.pinIds)
                 && tab.equals(other.tab)
                 && theme.equals(other.theme);
@@ -146,6 +159,7 @@ public final class DiagramExportImageOptions {
                 this.focusIds,
                 this.groupId,
                 this.hideIds,
+                this.maxWidth,
                 this.pinIds,
                 this.tab,
                 this.theme);
@@ -174,6 +188,8 @@ public final class DiagramExportImageOptions {
 
         private Optional<List<String>> hideIds = Optional.empty();
 
+        private Optional<Integer> maxWidth = Optional.empty();
+
         private Optional<List<String>> pinIds = Optional.empty();
 
         private Optional<Tab> tab = Optional.empty();
@@ -192,6 +208,7 @@ public final class DiagramExportImageOptions {
             focusIds(other.getFocusIds());
             groupId(other.getGroupId());
             hideIds(other.getHideIds());
+            maxWidth(other.getMaxWidth());
             pinIds(other.getPinIds());
             tab(other.getTab());
             theme(other.getTheme());
@@ -267,6 +284,20 @@ public final class DiagramExportImageOptions {
             return this;
         }
 
+        /**
+         * <p>Maximum pixel width for the exported PNG. The image will be scaled down if the diagram exceeds this width. Defaults to no limit (up to 10240px).</p>
+         */
+        @JsonSetter(value = "maxWidth", nulls = Nulls.SKIP)
+        public Builder maxWidth(Optional<Integer> maxWidth) {
+            this.maxWidth = maxWidth;
+            return this;
+        }
+
+        public Builder maxWidth(Integer maxWidth) {
+            this.maxWidth = Optional.ofNullable(maxWidth);
+            return this;
+        }
+
         @JsonSetter(value = "pinIds", nulls = Nulls.SKIP)
         public Builder pinIds(Optional<List<String>> pinIds) {
             this.pinIds = pinIds;
@@ -302,16 +333,36 @@ public final class DiagramExportImageOptions {
 
         public DiagramExportImageOptions build() {
             return new DiagramExportImageOptions(
-                    draftId, flowId, flowPathIds, focusIds, groupId, hideIds, pinIds, tab, theme, additionalProperties);
+                    draftId,
+                    flowId,
+                    flowPathIds,
+                    focusIds,
+                    groupId,
+                    hideIds,
+                    maxWidth,
+                    pinIds,
+                    tab,
+                    theme,
+                    additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 
     public static final class Tab {
-        public static final Tab STATUS = new Tab(Value.STATUS, "status");
-
         public static final Tab TEAMS = new Tab(Value.TEAMS, "teams");
 
         public static final Tab TECHNOLOGY = new Tab(Value.TECHNOLOGY, "technology");
+
+        public static final Tab STATUS = new Tab(Value.STATUS, "status");
 
         public static final Tab TAGS = new Tab(Value.TAGS, "tags");
 
@@ -346,12 +397,12 @@ public final class DiagramExportImageOptions {
 
         public <T> T visit(Visitor<T> visitor) {
             switch (value) {
-                case STATUS:
-                    return visitor.visitStatus();
                 case TEAMS:
                     return visitor.visitTeams();
                 case TECHNOLOGY:
                     return visitor.visitTechnology();
+                case STATUS:
+                    return visitor.visitStatus();
                 case TAGS:
                     return visitor.visitTags();
                 case UNKNOWN:
@@ -363,12 +414,12 @@ public final class DiagramExportImageOptions {
         @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         public static Tab valueOf(String value) {
             switch (value) {
-                case "status":
-                    return STATUS;
                 case "teams":
                     return TEAMS;
                 case "technology":
                     return TECHNOLOGY;
+                case "status":
+                    return STATUS;
                 case "tags":
                     return TAGS;
                 default:

@@ -12,6 +12,7 @@ The IcePanel Java library provides convenient access to the IcePanel APIs from J
 - [Getting Started](#getting-started)
 - [Environments](#environments)
 - [Base Url](#base-url)
+- [Pagination](#pagination)
 - [Exception Handling](#exception-handling)
 - [Advanced](#advanced)
   - [Custom Client](#custom-client)
@@ -29,7 +30,7 @@ Add the dependency in your `build.gradle` file:
 
 ```groovy
 dependencies {
-  implementation 'com.icepanel:sdk'
+  implementation 'com.icepanel:sdk:0.1.5'
 }
 ```
 
@@ -41,7 +42,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.icepanel</groupId>
   <artifactId>sdk</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
 </dependency>
 ```
 
@@ -104,16 +105,56 @@ IcePanelClient client = IcePanelClient
     .build();
 ```
 
+## Pagination
+
+Paginated requests will return an Iterable<T>, which can be used to loop through the underlying items, or stream them. You can also call
+`nextPage` to perform the pagination manually
+
+```java
+import com.icepanel.IcePanelClient;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.types.ModelObjectExpanded;
+import java.util.List;
+
+IcePanelClient client = IcePanelClient
+    .builder()
+    .build();
+
+SyncPagingIterable<SyncPagingIterable<ModelObjectExpanded>> response = client.model().objects().list(...);
+
+// Iterator
+for (item : response){
+    // Do something with item
+}
+
+// Streaming
+response.streamItems().map(item -> ...);
+
+// Manual pagination
+for (
+        List<SyncPagingIterable<ModelObjectExpanded>> items = response.getItems;
+        response.hasNext();
+        items = items.nextPage().getItems()) {
+    // Do something with items
+}
+
+// Access pagination metadata
+response.getResponse().ifPresent(r -> {
+    String cursor = r.getNext();
+    // Use cursor for stateless pagination
+});
+```
+
 ## Exception Handling
 
 When the API returns a non-success status code (4xx or 5xx response), an API exception will be thrown.
 
 ```java
-import com.icepanel.core.IcepanelApiApiException;
+import com.icepanel.core.IcePanelClientApiException;
 
 try{
     client.model().objects().list(...);
-} catch (IcepanelApiApiException e){
+} catch (IcePanelClientApiException e){
     // Do something with the API exception...
 }
 ```
@@ -145,11 +186,19 @@ retry limit (default: 2). Before defaulting to exponential backoff, the SDK will
 the `Retry-After` header (as either in seconds or as an HTTP date), and then the `X-RateLimit-Reset` header
 (as a Unix timestamp in epoch seconds); failing both of those, it will fall back to exponential backoff.
 
-A request is deemed retryable when any of the following HTTP status codes is returned:
+Which status codes are retried depends on the `retry-status-codes` generator configuration:
 
+**`legacy`** (current default): retries on
 - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
+
+**`recommended`**: retries on
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
+- [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
+- [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
 
 Use the `maxRetries` client option to configure this behavior.
 
@@ -218,7 +267,7 @@ The `withRawResponse()` method returns a raw client that wraps all responses wit
 (A normal client's `response` is identical to a raw client's `response.body()`.)
 
 ```java
-ListHttpResponse response = client.model().objects().withRawResponse().list(...);
+IcePanelClientHttpResponse response = client.model().objects().withRawResponse().list(...);
 
 System.out.println(response.body());
 System.out.println(response.headers().get("X-My-Header"));

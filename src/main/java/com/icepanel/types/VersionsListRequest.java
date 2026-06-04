@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.icepanel.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -21,16 +23,45 @@ import org.jetbrains.annotations.NotNull;
 public final class VersionsListRequest {
     private final String landscapeId;
 
+    private final Optional<VersionFilter> filter;
+
+    private final Optional<String> cursor;
+
+    private final Optional<Double> limit;
+
     private final Map<String, Object> additionalProperties;
 
-    private VersionsListRequest(String landscapeId, Map<String, Object> additionalProperties) {
+    private VersionsListRequest(
+            String landscapeId,
+            Optional<VersionFilter> filter,
+            Optional<String> cursor,
+            Optional<Double> limit,
+            Map<String, Object> additionalProperties) {
         this.landscapeId = landscapeId;
+        this.filter = filter;
+        this.cursor = cursor;
+        this.limit = limit;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("landscapeId")
     public String getLandscapeId() {
         return landscapeId;
+    }
+
+    @JsonProperty("filter")
+    public Optional<VersionFilter> getFilter() {
+        return filter;
+    }
+
+    @JsonProperty("cursor")
+    public Optional<String> getCursor() {
+        return cursor;
+    }
+
+    @JsonProperty("limit")
+    public Optional<Double> getLimit() {
+        return limit;
     }
 
     @java.lang.Override
@@ -45,12 +76,15 @@ public final class VersionsListRequest {
     }
 
     private boolean equalTo(VersionsListRequest other) {
-        return landscapeId.equals(other.landscapeId);
+        return landscapeId.equals(other.landscapeId)
+                && filter.equals(other.filter)
+                && cursor.equals(other.cursor)
+                && limit.equals(other.limit);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.landscapeId);
+        return Objects.hash(this.landscapeId, this.filter, this.cursor, this.limit);
     }
 
     @java.lang.Override
@@ -70,11 +104,33 @@ public final class VersionsListRequest {
 
     public interface _FinalStage {
         VersionsListRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage filter(Optional<VersionFilter> filter);
+
+        _FinalStage filter(VersionFilter filter);
+
+        _FinalStage cursor(Optional<String> cursor);
+
+        _FinalStage cursor(String cursor);
+
+        _FinalStage limit(Optional<Double> limit);
+
+        _FinalStage limit(Double limit);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements LandscapeIdStage, _FinalStage {
         private String landscapeId;
+
+        private Optional<Double> limit = Optional.empty();
+
+        private Optional<String> cursor = Optional.empty();
+
+        private Optional<VersionFilter> filter = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -84,6 +140,9 @@ public final class VersionsListRequest {
         @java.lang.Override
         public Builder from(VersionsListRequest other) {
             landscapeId(other.getLandscapeId());
+            filter(other.getFilter());
+            cursor(other.getCursor());
+            limit(other.getLimit());
             return this;
         }
 
@@ -95,8 +154,59 @@ public final class VersionsListRequest {
         }
 
         @java.lang.Override
+        public _FinalStage limit(Double limit) {
+            this.limit = Optional.ofNullable(limit);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "limit", nulls = Nulls.SKIP)
+        public _FinalStage limit(Optional<Double> limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage cursor(String cursor) {
+            this.cursor = Optional.ofNullable(cursor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
+        public _FinalStage cursor(Optional<String> cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage filter(VersionFilter filter) {
+            this.filter = Optional.ofNullable(filter);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "filter", nulls = Nulls.SKIP)
+        public _FinalStage filter(Optional<VersionFilter> filter) {
+            this.filter = filter;
+            return this;
+        }
+
+        @java.lang.Override
         public VersionsListRequest build() {
-            return new VersionsListRequest(landscapeId, additionalProperties);
+            return new VersionsListRequest(landscapeId, filter, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

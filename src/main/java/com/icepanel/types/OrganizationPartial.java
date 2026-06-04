@@ -28,6 +28,8 @@ public final class OrganizationPartial {
 
     private final Optional<Boolean> aiFeaturesEnabled;
 
+    private final Optional<OrganizationAiModel> aiModel;
+
     private final Optional<OrganizationBillingCurrency> billingCurrency;
 
     private final Optional<OrganizationBillingCycle> billingCycle;
@@ -42,6 +44,8 @@ public final class OrganizationPartial {
 
     private final Optional<String> name;
 
+    private final Optional<Boolean> oauthLandscapeWriteEnabled;
+
     private final OptionalNullable<List<String>> shareLinkAuthDomains;
 
     private final Optional<Boolean> shareLinksEnabled;
@@ -51,6 +55,7 @@ public final class OrganizationPartial {
     private OrganizationPartial(
             Optional<OrganizationAiFeatures> aiFeatures,
             Optional<Boolean> aiFeaturesEnabled,
+            Optional<OrganizationAiModel> aiModel,
             Optional<OrganizationBillingCurrency> billingCurrency,
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
@@ -58,11 +63,13 @@ public final class OrganizationPartial {
             Optional<OrganizationLanguage> language,
             Optional<LineShape> lineShapeDefault,
             Optional<String> name,
+            Optional<Boolean> oauthLandscapeWriteEnabled,
             OptionalNullable<List<String>> shareLinkAuthDomains,
             Optional<Boolean> shareLinksEnabled,
             Map<String, Object> additionalProperties) {
         this.aiFeatures = aiFeatures;
         this.aiFeaturesEnabled = aiFeaturesEnabled;
+        this.aiModel = aiModel;
         this.billingCurrency = billingCurrency;
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
@@ -70,6 +77,7 @@ public final class OrganizationPartial {
         this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
+        this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
         this.shareLinksEnabled = shareLinksEnabled;
         this.additionalProperties = additionalProperties;
@@ -86,6 +94,11 @@ public final class OrganizationPartial {
     @JsonProperty("aiFeaturesEnabled")
     public Optional<Boolean> getAiFeaturesEnabled() {
         return aiFeaturesEnabled;
+    }
+
+    @JsonProperty("aiModel")
+    public Optional<OrganizationAiModel> getAiModel() {
+        return aiModel;
     }
 
     @JsonProperty("billingCurrency")
@@ -123,6 +136,14 @@ public final class OrganizationPartial {
         return name;
     }
 
+    /**
+     * @return Whether OAuth connections can make changes to landscape data
+     */
+    @JsonProperty("oauthLandscapeWriteEnabled")
+    public Optional<Boolean> getOauthLandscapeWriteEnabled() {
+        return oauthLandscapeWriteEnabled;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("shareLinkAuthDomains")
     public OptionalNullable<List<String>> getShareLinkAuthDomains() {
@@ -157,6 +178,7 @@ public final class OrganizationPartial {
     private boolean equalTo(OrganizationPartial other) {
         return aiFeatures.equals(other.aiFeatures)
                 && aiFeaturesEnabled.equals(other.aiFeaturesEnabled)
+                && aiModel.equals(other.aiModel)
                 && billingCurrency.equals(other.billingCurrency)
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
@@ -164,6 +186,7 @@ public final class OrganizationPartial {
                 && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
+                && oauthLandscapeWriteEnabled.equals(other.oauthLandscapeWriteEnabled)
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
                 && shareLinksEnabled.equals(other.shareLinksEnabled);
     }
@@ -173,6 +196,7 @@ public final class OrganizationPartial {
         return Objects.hash(
                 this.aiFeatures,
                 this.aiFeaturesEnabled,
+                this.aiModel,
                 this.billingCurrency,
                 this.billingCycle,
                 this.billingEmail,
@@ -180,6 +204,7 @@ public final class OrganizationPartial {
                 this.language,
                 this.lineShapeDefault,
                 this.name,
+                this.oauthLandscapeWriteEnabled,
                 this.shareLinkAuthDomains,
                 this.shareLinksEnabled);
     }
@@ -199,6 +224,8 @@ public final class OrganizationPartial {
 
         private Optional<Boolean> aiFeaturesEnabled = Optional.empty();
 
+        private Optional<OrganizationAiModel> aiModel = Optional.empty();
+
         private Optional<OrganizationBillingCurrency> billingCurrency = Optional.empty();
 
         private Optional<OrganizationBillingCycle> billingCycle = Optional.empty();
@@ -213,6 +240,8 @@ public final class OrganizationPartial {
 
         private Optional<String> name = Optional.empty();
 
+        private Optional<Boolean> oauthLandscapeWriteEnabled = Optional.empty();
+
         private OptionalNullable<List<String>> shareLinkAuthDomains = OptionalNullable.absent();
 
         private Optional<Boolean> shareLinksEnabled = Optional.empty();
@@ -225,6 +254,7 @@ public final class OrganizationPartial {
         public Builder from(OrganizationPartial other) {
             aiFeatures(other.getAiFeatures());
             aiFeaturesEnabled(other.getAiFeaturesEnabled());
+            aiModel(other.getAiModel());
             billingCurrency(other.getBillingCurrency());
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
@@ -232,6 +262,7 @@ public final class OrganizationPartial {
             language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
+            oauthLandscapeWriteEnabled(other.getOauthLandscapeWriteEnabled());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
             shareLinksEnabled(other.getShareLinksEnabled());
             return this;
@@ -259,6 +290,17 @@ public final class OrganizationPartial {
 
         public Builder aiFeaturesEnabled(Boolean aiFeaturesEnabled) {
             this.aiFeaturesEnabled = Optional.ofNullable(aiFeaturesEnabled);
+            return this;
+        }
+
+        @JsonSetter(value = "aiModel", nulls = Nulls.SKIP)
+        public Builder aiModel(Optional<OrganizationAiModel> aiModel) {
+            this.aiModel = aiModel;
+            return this;
+        }
+
+        public Builder aiModel(OrganizationAiModel aiModel) {
+            this.aiModel = Optional.ofNullable(aiModel);
             return this;
         }
 
@@ -339,6 +381,20 @@ public final class OrganizationPartial {
             return this;
         }
 
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         */
+        @JsonSetter(value = "oauthLandscapeWriteEnabled", nulls = Nulls.SKIP)
+        public Builder oauthLandscapeWriteEnabled(Optional<Boolean> oauthLandscapeWriteEnabled) {
+            this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
+            return this;
+        }
+
+        public Builder oauthLandscapeWriteEnabled(Boolean oauthLandscapeWriteEnabled) {
+            this.oauthLandscapeWriteEnabled = Optional.ofNullable(oauthLandscapeWriteEnabled);
+            return this;
+        }
+
         @JsonSetter(value = "shareLinkAuthDomains", nulls = Nulls.SKIP)
         public Builder shareLinkAuthDomains(OptionalNullable<List<String>> shareLinkAuthDomains) {
             this.shareLinkAuthDomains = shareLinkAuthDomains;
@@ -385,6 +441,7 @@ public final class OrganizationPartial {
             return new OrganizationPartial(
                     aiFeatures,
                     aiFeaturesEnabled,
+                    aiModel,
                     billingCurrency,
                     billingCycle,
                     billingEmail,
@@ -392,9 +449,20 @@ public final class OrganizationPartial {
                     language,
                     lineShapeDefault,
                     name,
+                    oauthLandscapeWriteEnabled,
                     shareLinkAuthDomains,
                     shareLinksEnabled,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

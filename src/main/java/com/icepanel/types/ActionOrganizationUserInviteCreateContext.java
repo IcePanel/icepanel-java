@@ -93,5 +93,15 @@ public final class ActionOrganizationUserInviteCreateContext {
         public ActionOrganizationUserInviteCreateContext build() {
             return new ActionOrganizationUserInviteCreateContext(landscapeNames, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }
