@@ -581,6 +581,16 @@ public final class ModelObjectPartial {
                     type,
                     additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -730,6 +740,16 @@ public final class ModelObjectPartial {
 
             public Links build() {
                 return new Links(add, remove, replace, update, additionalProperties);
+            }
+
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }
@@ -924,6 +944,16 @@ public final class ModelObjectPartial {
 
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
+                }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
                 }
             }
         }
@@ -1120,6 +1150,16 @@ public final class ModelObjectPartial {
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
                 }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
+                }
             }
         }
     }
@@ -1315,6 +1355,16 @@ public final class ModelObjectPartial {
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
                 }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
+                }
             }
         }
     }
@@ -1509,6 +1559,16 @@ public final class ModelObjectPartial {
 
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
+                }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
                 }
             }
         }

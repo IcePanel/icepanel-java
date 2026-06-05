@@ -7,104 +7,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ActionType {
-    public static final ActionType LANDSCAPE_UPDATE = new ActionType(Value.LANDSCAPE_UPDATE, "landscape-update");
-
-    public static final ActionType DIAGRAM_EXPORT = new ActionType(Value.DIAGRAM_EXPORT, "diagram-export");
-
-    public static final ActionType DIAGRAM_GROUP_UPDATE =
-            new ActionType(Value.DIAGRAM_GROUP_UPDATE, "diagram-group-update");
-
-    public static final ActionType VERSION_DELETE = new ActionType(Value.VERSION_DELETE, "version-delete");
-
-    public static final ActionType DIAGRAM_CONTENT_CREATE =
-            new ActionType(Value.DIAGRAM_CONTENT_CREATE, "diagram-content-create");
-
-    public static final ActionType TAG_DELETE = new ActionType(Value.TAG_DELETE, "tag-delete");
-
-    public static final ActionType DOMAIN_DELETE = new ActionType(Value.DOMAIN_DELETE, "domain-delete");
-
-    public static final ActionType TAG_GROUP_DELETE = new ActionType(Value.TAG_GROUP_DELETE, "tag-group-delete");
-
-    public static final ActionType LANDSCAPE_DELETE = new ActionType(Value.LANDSCAPE_DELETE, "landscape-delete");
-
-    public static final ActionType API_KEY_DELETE = new ActionType(Value.API_KEY_DELETE, "api-key-delete");
-
-    public static final ActionType ORGANIZATION_UPDATE =
-            new ActionType(Value.ORGANIZATION_UPDATE, "organization-update");
-
-    public static final ActionType COMMENT_CREATE = new ActionType(Value.COMMENT_CREATE, "comment-create");
-
-    public static final ActionType DRAFT_UPDATE = new ActionType(Value.DRAFT_UPDATE, "draft-update");
-
-    public static final ActionType MODEL_OBJECT_DELETE =
-            new ActionType(Value.MODEL_OBJECT_DELETE, "model-object-delete");
-
-    public static final ActionType SHARE_LINK_DELETE = new ActionType(Value.SHARE_LINK_DELETE, "share-link-delete");
-
-    public static final ActionType MODEL_CONNECTION_CREATE =
-            new ActionType(Value.MODEL_CONNECTION_CREATE, "model-connection-create");
-
-    public static final ActionType DRAFT_CREATE = new ActionType(Value.DRAFT_CREATE, "draft-create");
-
-    public static final ActionType LANDSCAPE_CREATE = new ActionType(Value.LANDSCAPE_CREATE, "landscape-create");
-
-    public static final ActionType DIAGRAM_GROUP_DELETE =
-            new ActionType(Value.DIAGRAM_GROUP_DELETE, "diagram-group-delete");
-
-    public static final ActionType LANDSCAPE_COPY = new ActionType(Value.LANDSCAPE_COPY, "landscape-copy");
-
-    public static final ActionType DIAGRAM_CREATE = new ActionType(Value.DIAGRAM_CREATE, "diagram-create");
-
-    public static final ActionType FLOW_DELETE = new ActionType(Value.FLOW_DELETE, "flow-delete");
-
-    public static final ActionType COMMENT_DELETE = new ActionType(Value.COMMENT_DELETE, "comment-delete");
-
-    public static final ActionType LANDSCAPE_DUPLICATE =
-            new ActionType(Value.LANDSCAPE_DUPLICATE, "landscape-duplicate");
-
-    public static final ActionType MODEL_OBJECT_UPDATE =
-            new ActionType(Value.MODEL_OBJECT_UPDATE, "model-object-update");
-
-    public static final ActionType COMMENT_UPDATE = new ActionType(Value.COMMENT_UPDATE, "comment-update");
-
-    public static final ActionType DRAFT_DELETE = new ActionType(Value.DRAFT_DELETE, "draft-delete");
-
-    public static final ActionType ORGANIZATION_USER_INVITE_REVOKE =
-            new ActionType(Value.ORGANIZATION_USER_INVITE_REVOKE, "organization-user-invite-revoke");
-
-    public static final ActionType DIAGRAM_GROUP_CREATE =
-            new ActionType(Value.DIAGRAM_GROUP_CREATE, "diagram-group-create");
-
-    public static final ActionType ORGANIZATION_USER_INVITE_CREATE =
-            new ActionType(Value.ORGANIZATION_USER_INVITE_CREATE, "organization-user-invite-create");
-
-    public static final ActionType DIAGRAM_DELETE = new ActionType(Value.DIAGRAM_DELETE, "diagram-delete");
-
-    public static final ActionType FLOW_CREATE = new ActionType(Value.FLOW_CREATE, "flow-create");
-
-    public static final ActionType SHARE_LINK_UPDATE = new ActionType(Value.SHARE_LINK_UPDATE, "share-link-update");
-
-    public static final ActionType DRAFT_VIEW = new ActionType(Value.DRAFT_VIEW, "draft-view");
-
-    public static final ActionType TAG_GROUP_UPDATE = new ActionType(Value.TAG_GROUP_UPDATE, "tag-group-update");
-
-    public static final ActionType API_KEY_UPDATE = new ActionType(Value.API_KEY_UPDATE, "api-key-update");
-
     public static final ActionType FLOW_UPDATE = new ActionType(Value.FLOW_UPDATE, "flow-update");
-
-    public static final ActionType LANDSCAPE_EXPORT = new ActionType(Value.LANDSCAPE_EXPORT, "landscape-export");
-
-    public static final ActionType COMMENT_REPLY_UPDATE =
-            new ActionType(Value.COMMENT_REPLY_UPDATE, "comment-reply-update");
 
     public static final ActionType SHARE_LINK_CREATE = new ActionType(Value.SHARE_LINK_CREATE, "share-link-create");
 
     public static final ActionType VERSION_REVERT_CREATE =
             new ActionType(Value.VERSION_REVERT_CREATE, "version-revert-create");
 
-    public static final ActionType FLOW_VIEW = new ActionType(Value.FLOW_VIEW, "flow-view");
-
-    public static final ActionType DOMAIN_CREATE = new ActionType(Value.DOMAIN_CREATE, "domain-create");
+    public static final ActionType COMMENT_REPLY_UPDATE =
+            new ActionType(Value.COMMENT_REPLY_UPDATE, "comment-reply-update");
 
     public static final ActionType MODEL_OBJECT_CREATE =
             new ActionType(Value.MODEL_OBJECT_CREATE, "model-object-create");
@@ -112,12 +23,21 @@ public final class ActionType {
     public static final ActionType MODEL_OBJECTS_EXPORT =
             new ActionType(Value.MODEL_OBJECTS_EXPORT, "model-objects-export");
 
+    public static final ActionType FLOW_VIEW = new ActionType(Value.FLOW_VIEW, "flow-view");
+
+    public static final ActionType LANDSCAPE_EXPORT = new ActionType(Value.LANDSCAPE_EXPORT, "landscape-export");
+
     public static final ActionType MODEL_CONNECTIONS_EXPORT =
             new ActionType(Value.MODEL_CONNECTIONS_EXPORT, "model-connections-export");
 
-    public static final ActionType DIAGRAM_UPDATE = new ActionType(Value.DIAGRAM_UPDATE, "diagram-update");
+    public static final ActionType DOMAIN_CREATE = new ActionType(Value.DOMAIN_CREATE, "domain-create");
 
     public static final ActionType TAG_CREATE = new ActionType(Value.TAG_CREATE, "tag-create");
+
+    public static final ActionType COMMENT_REPLY_CREATE =
+            new ActionType(Value.COMMENT_REPLY_CREATE, "comment-reply-create");
+
+    public static final ActionType LANDSCAPE_IMPORT = new ActionType(Value.LANDSCAPE_IMPORT, "landscape-import");
 
     public static final ActionType ORGANIZATION_USER_ADD =
             new ActionType(Value.ORGANIZATION_USER_ADD, "organization-user-add");
@@ -127,21 +47,26 @@ public final class ActionType {
 
     public static final ActionType TEAM_UPDATE = new ActionType(Value.TEAM_UPDATE, "team-update");
 
-    public static final ActionType COMMENT_REPLY_CREATE =
-            new ActionType(Value.COMMENT_REPLY_CREATE, "comment-reply-create");
+    public static final ActionType DIAGRAM_UPDATE = new ActionType(Value.DIAGRAM_UPDATE, "diagram-update");
+
+    public static final ActionType VERSION_CREATE = new ActionType(Value.VERSION_CREATE, "version-create");
 
     public static final ActionType DIAGRAM_CONTENT_VIEW =
             new ActionType(Value.DIAGRAM_CONTENT_VIEW, "diagram-content-view");
 
-    public static final ActionType VERSION_CREATE = new ActionType(Value.VERSION_CREATE, "version-create");
-
-    public static final ActionType COMMENT_REPLY_DELETE =
-            new ActionType(Value.COMMENT_REPLY_DELETE, "comment-reply-delete");
+    public static final ActionType TEAM_DELETE = new ActionType(Value.TEAM_DELETE, "team-delete");
 
     public static final ActionType API_KEY_CREATE = new ActionType(Value.API_KEY_CREATE, "api-key-create");
 
+    public static final ActionType ORGANIZATION_CREATE =
+            new ActionType(Value.ORGANIZATION_CREATE, "organization-create");
+
     public static final ActionType MODEL_CONNECTION_DELETE =
             new ActionType(Value.MODEL_CONNECTION_DELETE, "model-connection-delete");
+
+    public static final ActionType DRAFT_TASK_CREATE = new ActionType(Value.DRAFT_TASK_CREATE, "draft-task-create");
+
+    public static final ActionType TAG_GROUP_CREATE = new ActionType(Value.TAG_GROUP_CREATE, "tag-group-create");
 
     public static final ActionType DIAGRAM_CONTENT_UPDATE =
             new ActionType(Value.DIAGRAM_CONTENT_UPDATE, "diagram-content-update");
@@ -149,34 +74,122 @@ public final class ActionType {
     public static final ActionType MODEL_OBJECT_DEPENDENCIES_EXPORT =
             new ActionType(Value.MODEL_OBJECT_DEPENDENCIES_EXPORT, "model-object-dependencies-export");
 
-    public static final ActionType TEAM_DELETE = new ActionType(Value.TEAM_DELETE, "team-delete");
+    public static final ActionType OAUTH_CONSENT_GRANT =
+            new ActionType(Value.OAUTH_CONSENT_GRANT, "oauth-consent-grant");
 
-    public static final ActionType TAG_GROUP_CREATE = new ActionType(Value.TAG_GROUP_CREATE, "tag-group-create");
-
-    public static final ActionType ORGANIZATION_USER_REMOVE =
-            new ActionType(Value.ORGANIZATION_USER_REMOVE, "organization-user-remove");
+    public static final ActionType DOMAIN_UPDATE = new ActionType(Value.DOMAIN_UPDATE, "domain-update");
 
     public static final ActionType TAG_UPDATE = new ActionType(Value.TAG_UPDATE, "tag-update");
 
     public static final ActionType ORGANIZATION_USER_UPDATE =
             new ActionType(Value.ORGANIZATION_USER_UPDATE, "organization-user-update");
 
-    public static final ActionType DRAFT_TASK_CREATE = new ActionType(Value.DRAFT_TASK_CREATE, "draft-task-create");
+    public static final ActionType OAUTH_CONSENT_DENY = new ActionType(Value.OAUTH_CONSENT_DENY, "oauth-consent-deny");
 
-    public static final ActionType DOMAIN_UPDATE = new ActionType(Value.DOMAIN_UPDATE, "domain-update");
+    public static final ActionType ORGANIZATION_USER_REMOVE =
+            new ActionType(Value.ORGANIZATION_USER_REMOVE, "organization-user-remove");
 
-    public static final ActionType ORGANIZATION_CREATE =
-            new ActionType(Value.ORGANIZATION_CREATE, "organization-create");
-
-    public static final ActionType ORGANIZATION_DELETE =
-            new ActionType(Value.ORGANIZATION_DELETE, "organization-delete");
-
-    public static final ActionType TEAM_CREATE = new ActionType(Value.TEAM_CREATE, "team-create");
+    public static final ActionType COMMENT_REPLY_DELETE =
+            new ActionType(Value.COMMENT_REPLY_DELETE, "comment-reply-delete");
 
     public static final ActionType MODEL_CONNECTION_UPDATE =
             new ActionType(Value.MODEL_CONNECTION_UPDATE, "model-connection-update");
 
+    public static final ActionType TEAM_CREATE = new ActionType(Value.TEAM_CREATE, "team-create");
+
     public static final ActionType DRAFT_MERGE = new ActionType(Value.DRAFT_MERGE, "draft-merge");
+
+    public static final ActionType ORGANIZATION_DELETE =
+            new ActionType(Value.ORGANIZATION_DELETE, "organization-delete");
+
+    public static final ActionType DIAGRAM_EXPORT = new ActionType(Value.DIAGRAM_EXPORT, "diagram-export");
+
+    public static final ActionType USER_LOGIN_FAILED = new ActionType(Value.USER_LOGIN_FAILED, "user-login-failed");
+
+    public static final ActionType LANDSCAPE_UPDATE = new ActionType(Value.LANDSCAPE_UPDATE, "landscape-update");
+
+    public static final ActionType COMMENT_CREATE = new ActionType(Value.COMMENT_CREATE, "comment-create");
+
+    public static final ActionType DIAGRAM_CONTENT_CREATE =
+            new ActionType(Value.DIAGRAM_CONTENT_CREATE, "diagram-content-create");
+
+    public static final ActionType TAG_DELETE = new ActionType(Value.TAG_DELETE, "tag-delete");
+
+    public static final ActionType DIAGRAM_GROUP_UPDATE =
+            new ActionType(Value.DIAGRAM_GROUP_UPDATE, "diagram-group-update");
+
+    public static final ActionType VERSION_DELETE = new ActionType(Value.VERSION_DELETE, "version-delete");
+
+    public static final ActionType DOMAIN_DELETE = new ActionType(Value.DOMAIN_DELETE, "domain-delete");
+
+    public static final ActionType API_KEY_DELETE = new ActionType(Value.API_KEY_DELETE, "api-key-delete");
+
+    public static final ActionType TAG_GROUP_DELETE = new ActionType(Value.TAG_GROUP_DELETE, "tag-group-delete");
+
+    public static final ActionType ORGANIZATION_UPDATE =
+            new ActionType(Value.ORGANIZATION_UPDATE, "organization-update");
+
+    public static final ActionType SHARE_LINK_DELETE = new ActionType(Value.SHARE_LINK_DELETE, "share-link-delete");
+
+    public static final ActionType LANDSCAPE_DELETE = new ActionType(Value.LANDSCAPE_DELETE, "landscape-delete");
+
+    public static final ActionType DRAFT_UPDATE = new ActionType(Value.DRAFT_UPDATE, "draft-update");
+
+    public static final ActionType MODEL_OBJECT_DELETE =
+            new ActionType(Value.MODEL_OBJECT_DELETE, "model-object-delete");
+
+    public static final ActionType MODEL_CONNECTION_CREATE =
+            new ActionType(Value.MODEL_CONNECTION_CREATE, "model-connection-create");
+
+    public static final ActionType DIAGRAM_CREATE = new ActionType(Value.DIAGRAM_CREATE, "diagram-create");
+
+    public static final ActionType DIAGRAM_GROUP_DELETE =
+            new ActionType(Value.DIAGRAM_GROUP_DELETE, "diagram-group-delete");
+
+    public static final ActionType DRAFT_CREATE = new ActionType(Value.DRAFT_CREATE, "draft-create");
+
+    public static final ActionType LANDSCAPE_COPY = new ActionType(Value.LANDSCAPE_COPY, "landscape-copy");
+
+    public static final ActionType FLOW_DELETE = new ActionType(Value.FLOW_DELETE, "flow-delete");
+
+    public static final ActionType COMMENT_UPDATE = new ActionType(Value.COMMENT_UPDATE, "comment-update");
+
+    public static final ActionType LANDSCAPE_CREATE = new ActionType(Value.LANDSCAPE_CREATE, "landscape-create");
+
+    public static final ActionType LANDSCAPE_DUPLICATE =
+            new ActionType(Value.LANDSCAPE_DUPLICATE, "landscape-duplicate");
+
+    public static final ActionType ORGANIZATION_USER_INVITE_REVOKE =
+            new ActionType(Value.ORGANIZATION_USER_INVITE_REVOKE, "organization-user-invite-revoke");
+
+    public static final ActionType COMMENT_DELETE = new ActionType(Value.COMMENT_DELETE, "comment-delete");
+
+    public static final ActionType DIAGRAM_DELETE = new ActionType(Value.DIAGRAM_DELETE, "diagram-delete");
+
+    public static final ActionType DIAGRAM_GROUP_CREATE =
+            new ActionType(Value.DIAGRAM_GROUP_CREATE, "diagram-group-create");
+
+    public static final ActionType DRAFT_DELETE = new ActionType(Value.DRAFT_DELETE, "draft-delete");
+
+    public static final ActionType MODEL_OBJECT_UPDATE =
+            new ActionType(Value.MODEL_OBJECT_UPDATE, "model-object-update");
+
+    public static final ActionType USER_LOGOUT = new ActionType(Value.USER_LOGOUT, "user-logout");
+
+    public static final ActionType DRAFT_VIEW = new ActionType(Value.DRAFT_VIEW, "draft-view");
+
+    public static final ActionType ORGANIZATION_USER_INVITE_CREATE =
+            new ActionType(Value.ORGANIZATION_USER_INVITE_CREATE, "organization-user-invite-create");
+
+    public static final ActionType USER_LOGIN = new ActionType(Value.USER_LOGIN, "user-login");
+
+    public static final ActionType TAG_GROUP_UPDATE = new ActionType(Value.TAG_GROUP_UPDATE, "tag-group-update");
+
+    public static final ActionType API_KEY_UPDATE = new ActionType(Value.API_KEY_UPDATE, "api-key-update");
+
+    public static final ActionType FLOW_CREATE = new ActionType(Value.FLOW_CREATE, "flow-create");
+
+    public static final ActionType SHARE_LINK_UPDATE = new ActionType(Value.SHARE_LINK_UPDATE, "share-link-update");
 
     private final Value value;
 
@@ -209,148 +222,160 @@ public final class ActionType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case LANDSCAPE_UPDATE:
-                return visitor.visitLandscapeUpdate();
-            case DIAGRAM_EXPORT:
-                return visitor.visitDiagramExport();
-            case DIAGRAM_GROUP_UPDATE:
-                return visitor.visitDiagramGroupUpdate();
-            case VERSION_DELETE:
-                return visitor.visitVersionDelete();
-            case DIAGRAM_CONTENT_CREATE:
-                return visitor.visitDiagramContentCreate();
-            case TAG_DELETE:
-                return visitor.visitTagDelete();
-            case DOMAIN_DELETE:
-                return visitor.visitDomainDelete();
-            case TAG_GROUP_DELETE:
-                return visitor.visitTagGroupDelete();
-            case LANDSCAPE_DELETE:
-                return visitor.visitLandscapeDelete();
-            case API_KEY_DELETE:
-                return visitor.visitApiKeyDelete();
-            case ORGANIZATION_UPDATE:
-                return visitor.visitOrganizationUpdate();
-            case COMMENT_CREATE:
-                return visitor.visitCommentCreate();
-            case DRAFT_UPDATE:
-                return visitor.visitDraftUpdate();
-            case MODEL_OBJECT_DELETE:
-                return visitor.visitModelObjectDelete();
-            case SHARE_LINK_DELETE:
-                return visitor.visitShareLinkDelete();
-            case MODEL_CONNECTION_CREATE:
-                return visitor.visitModelConnectionCreate();
-            case DRAFT_CREATE:
-                return visitor.visitDraftCreate();
-            case LANDSCAPE_CREATE:
-                return visitor.visitLandscapeCreate();
-            case DIAGRAM_GROUP_DELETE:
-                return visitor.visitDiagramGroupDelete();
-            case LANDSCAPE_COPY:
-                return visitor.visitLandscapeCopy();
-            case DIAGRAM_CREATE:
-                return visitor.visitDiagramCreate();
-            case FLOW_DELETE:
-                return visitor.visitFlowDelete();
-            case COMMENT_DELETE:
-                return visitor.visitCommentDelete();
-            case LANDSCAPE_DUPLICATE:
-                return visitor.visitLandscapeDuplicate();
-            case MODEL_OBJECT_UPDATE:
-                return visitor.visitModelObjectUpdate();
-            case COMMENT_UPDATE:
-                return visitor.visitCommentUpdate();
-            case DRAFT_DELETE:
-                return visitor.visitDraftDelete();
-            case ORGANIZATION_USER_INVITE_REVOKE:
-                return visitor.visitOrganizationUserInviteRevoke();
-            case DIAGRAM_GROUP_CREATE:
-                return visitor.visitDiagramGroupCreate();
-            case ORGANIZATION_USER_INVITE_CREATE:
-                return visitor.visitOrganizationUserInviteCreate();
-            case DIAGRAM_DELETE:
-                return visitor.visitDiagramDelete();
-            case FLOW_CREATE:
-                return visitor.visitFlowCreate();
-            case SHARE_LINK_UPDATE:
-                return visitor.visitShareLinkUpdate();
-            case DRAFT_VIEW:
-                return visitor.visitDraftView();
-            case TAG_GROUP_UPDATE:
-                return visitor.visitTagGroupUpdate();
-            case API_KEY_UPDATE:
-                return visitor.visitApiKeyUpdate();
             case FLOW_UPDATE:
                 return visitor.visitFlowUpdate();
-            case LANDSCAPE_EXPORT:
-                return visitor.visitLandscapeExport();
-            case COMMENT_REPLY_UPDATE:
-                return visitor.visitCommentReplyUpdate();
             case SHARE_LINK_CREATE:
                 return visitor.visitShareLinkCreate();
             case VERSION_REVERT_CREATE:
                 return visitor.visitVersionRevertCreate();
-            case FLOW_VIEW:
-                return visitor.visitFlowView();
-            case DOMAIN_CREATE:
-                return visitor.visitDomainCreate();
+            case COMMENT_REPLY_UPDATE:
+                return visitor.visitCommentReplyUpdate();
             case MODEL_OBJECT_CREATE:
                 return visitor.visitModelObjectCreate();
             case MODEL_OBJECTS_EXPORT:
                 return visitor.visitModelObjectsExport();
+            case FLOW_VIEW:
+                return visitor.visitFlowView();
+            case LANDSCAPE_EXPORT:
+                return visitor.visitLandscapeExport();
             case MODEL_CONNECTIONS_EXPORT:
                 return visitor.visitModelConnectionsExport();
-            case DIAGRAM_UPDATE:
-                return visitor.visitDiagramUpdate();
+            case DOMAIN_CREATE:
+                return visitor.visitDomainCreate();
             case TAG_CREATE:
                 return visitor.visitTagCreate();
+            case COMMENT_REPLY_CREATE:
+                return visitor.visitCommentReplyCreate();
+            case LANDSCAPE_IMPORT:
+                return visitor.visitLandscapeImport();
             case ORGANIZATION_USER_ADD:
                 return visitor.visitOrganizationUserAdd();
             case DIAGRAM_CONTENT_DELETE:
                 return visitor.visitDiagramContentDelete();
             case TEAM_UPDATE:
                 return visitor.visitTeamUpdate();
-            case COMMENT_REPLY_CREATE:
-                return visitor.visitCommentReplyCreate();
-            case DIAGRAM_CONTENT_VIEW:
-                return visitor.visitDiagramContentView();
+            case DIAGRAM_UPDATE:
+                return visitor.visitDiagramUpdate();
             case VERSION_CREATE:
                 return visitor.visitVersionCreate();
-            case COMMENT_REPLY_DELETE:
-                return visitor.visitCommentReplyDelete();
+            case DIAGRAM_CONTENT_VIEW:
+                return visitor.visitDiagramContentView();
+            case TEAM_DELETE:
+                return visitor.visitTeamDelete();
             case API_KEY_CREATE:
                 return visitor.visitApiKeyCreate();
+            case ORGANIZATION_CREATE:
+                return visitor.visitOrganizationCreate();
             case MODEL_CONNECTION_DELETE:
                 return visitor.visitModelConnectionDelete();
+            case DRAFT_TASK_CREATE:
+                return visitor.visitDraftTaskCreate();
+            case TAG_GROUP_CREATE:
+                return visitor.visitTagGroupCreate();
             case DIAGRAM_CONTENT_UPDATE:
                 return visitor.visitDiagramContentUpdate();
             case MODEL_OBJECT_DEPENDENCIES_EXPORT:
                 return visitor.visitModelObjectDependenciesExport();
-            case TEAM_DELETE:
-                return visitor.visitTeamDelete();
-            case TAG_GROUP_CREATE:
-                return visitor.visitTagGroupCreate();
-            case ORGANIZATION_USER_REMOVE:
-                return visitor.visitOrganizationUserRemove();
+            case OAUTH_CONSENT_GRANT:
+                return visitor.visitOauthConsentGrant();
+            case DOMAIN_UPDATE:
+                return visitor.visitDomainUpdate();
             case TAG_UPDATE:
                 return visitor.visitTagUpdate();
             case ORGANIZATION_USER_UPDATE:
                 return visitor.visitOrganizationUserUpdate();
-            case DRAFT_TASK_CREATE:
-                return visitor.visitDraftTaskCreate();
-            case DOMAIN_UPDATE:
-                return visitor.visitDomainUpdate();
-            case ORGANIZATION_CREATE:
-                return visitor.visitOrganizationCreate();
-            case ORGANIZATION_DELETE:
-                return visitor.visitOrganizationDelete();
-            case TEAM_CREATE:
-                return visitor.visitTeamCreate();
+            case OAUTH_CONSENT_DENY:
+                return visitor.visitOauthConsentDeny();
+            case ORGANIZATION_USER_REMOVE:
+                return visitor.visitOrganizationUserRemove();
+            case COMMENT_REPLY_DELETE:
+                return visitor.visitCommentReplyDelete();
             case MODEL_CONNECTION_UPDATE:
                 return visitor.visitModelConnectionUpdate();
+            case TEAM_CREATE:
+                return visitor.visitTeamCreate();
             case DRAFT_MERGE:
                 return visitor.visitDraftMerge();
+            case ORGANIZATION_DELETE:
+                return visitor.visitOrganizationDelete();
+            case DIAGRAM_EXPORT:
+                return visitor.visitDiagramExport();
+            case USER_LOGIN_FAILED:
+                return visitor.visitUserLoginFailed();
+            case LANDSCAPE_UPDATE:
+                return visitor.visitLandscapeUpdate();
+            case COMMENT_CREATE:
+                return visitor.visitCommentCreate();
+            case DIAGRAM_CONTENT_CREATE:
+                return visitor.visitDiagramContentCreate();
+            case TAG_DELETE:
+                return visitor.visitTagDelete();
+            case DIAGRAM_GROUP_UPDATE:
+                return visitor.visitDiagramGroupUpdate();
+            case VERSION_DELETE:
+                return visitor.visitVersionDelete();
+            case DOMAIN_DELETE:
+                return visitor.visitDomainDelete();
+            case API_KEY_DELETE:
+                return visitor.visitApiKeyDelete();
+            case TAG_GROUP_DELETE:
+                return visitor.visitTagGroupDelete();
+            case ORGANIZATION_UPDATE:
+                return visitor.visitOrganizationUpdate();
+            case SHARE_LINK_DELETE:
+                return visitor.visitShareLinkDelete();
+            case LANDSCAPE_DELETE:
+                return visitor.visitLandscapeDelete();
+            case DRAFT_UPDATE:
+                return visitor.visitDraftUpdate();
+            case MODEL_OBJECT_DELETE:
+                return visitor.visitModelObjectDelete();
+            case MODEL_CONNECTION_CREATE:
+                return visitor.visitModelConnectionCreate();
+            case DIAGRAM_CREATE:
+                return visitor.visitDiagramCreate();
+            case DIAGRAM_GROUP_DELETE:
+                return visitor.visitDiagramGroupDelete();
+            case DRAFT_CREATE:
+                return visitor.visitDraftCreate();
+            case LANDSCAPE_COPY:
+                return visitor.visitLandscapeCopy();
+            case FLOW_DELETE:
+                return visitor.visitFlowDelete();
+            case COMMENT_UPDATE:
+                return visitor.visitCommentUpdate();
+            case LANDSCAPE_CREATE:
+                return visitor.visitLandscapeCreate();
+            case LANDSCAPE_DUPLICATE:
+                return visitor.visitLandscapeDuplicate();
+            case ORGANIZATION_USER_INVITE_REVOKE:
+                return visitor.visitOrganizationUserInviteRevoke();
+            case COMMENT_DELETE:
+                return visitor.visitCommentDelete();
+            case DIAGRAM_DELETE:
+                return visitor.visitDiagramDelete();
+            case DIAGRAM_GROUP_CREATE:
+                return visitor.visitDiagramGroupCreate();
+            case DRAFT_DELETE:
+                return visitor.visitDraftDelete();
+            case MODEL_OBJECT_UPDATE:
+                return visitor.visitModelObjectUpdate();
+            case USER_LOGOUT:
+                return visitor.visitUserLogout();
+            case DRAFT_VIEW:
+                return visitor.visitDraftView();
+            case ORGANIZATION_USER_INVITE_CREATE:
+                return visitor.visitOrganizationUserInviteCreate();
+            case USER_LOGIN:
+                return visitor.visitUserLogin();
+            case TAG_GROUP_UPDATE:
+                return visitor.visitTagGroupUpdate();
+            case API_KEY_UPDATE:
+                return visitor.visitApiKeyUpdate();
+            case FLOW_CREATE:
+                return visitor.visitFlowCreate();
+            case SHARE_LINK_UPDATE:
+                return visitor.visitShareLinkUpdate();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -360,148 +385,160 @@ public final class ActionType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ActionType valueOf(String value) {
         switch (value) {
-            case "landscape-update":
-                return LANDSCAPE_UPDATE;
-            case "diagram-export":
-                return DIAGRAM_EXPORT;
-            case "diagram-group-update":
-                return DIAGRAM_GROUP_UPDATE;
-            case "version-delete":
-                return VERSION_DELETE;
-            case "diagram-content-create":
-                return DIAGRAM_CONTENT_CREATE;
-            case "tag-delete":
-                return TAG_DELETE;
-            case "domain-delete":
-                return DOMAIN_DELETE;
-            case "tag-group-delete":
-                return TAG_GROUP_DELETE;
-            case "landscape-delete":
-                return LANDSCAPE_DELETE;
-            case "api-key-delete":
-                return API_KEY_DELETE;
-            case "organization-update":
-                return ORGANIZATION_UPDATE;
-            case "comment-create":
-                return COMMENT_CREATE;
-            case "draft-update":
-                return DRAFT_UPDATE;
-            case "model-object-delete":
-                return MODEL_OBJECT_DELETE;
-            case "share-link-delete":
-                return SHARE_LINK_DELETE;
-            case "model-connection-create":
-                return MODEL_CONNECTION_CREATE;
-            case "draft-create":
-                return DRAFT_CREATE;
-            case "landscape-create":
-                return LANDSCAPE_CREATE;
-            case "diagram-group-delete":
-                return DIAGRAM_GROUP_DELETE;
-            case "landscape-copy":
-                return LANDSCAPE_COPY;
-            case "diagram-create":
-                return DIAGRAM_CREATE;
-            case "flow-delete":
-                return FLOW_DELETE;
-            case "comment-delete":
-                return COMMENT_DELETE;
-            case "landscape-duplicate":
-                return LANDSCAPE_DUPLICATE;
-            case "model-object-update":
-                return MODEL_OBJECT_UPDATE;
-            case "comment-update":
-                return COMMENT_UPDATE;
-            case "draft-delete":
-                return DRAFT_DELETE;
-            case "organization-user-invite-revoke":
-                return ORGANIZATION_USER_INVITE_REVOKE;
-            case "diagram-group-create":
-                return DIAGRAM_GROUP_CREATE;
-            case "organization-user-invite-create":
-                return ORGANIZATION_USER_INVITE_CREATE;
-            case "diagram-delete":
-                return DIAGRAM_DELETE;
-            case "flow-create":
-                return FLOW_CREATE;
-            case "share-link-update":
-                return SHARE_LINK_UPDATE;
-            case "draft-view":
-                return DRAFT_VIEW;
-            case "tag-group-update":
-                return TAG_GROUP_UPDATE;
-            case "api-key-update":
-                return API_KEY_UPDATE;
             case "flow-update":
                 return FLOW_UPDATE;
-            case "landscape-export":
-                return LANDSCAPE_EXPORT;
-            case "comment-reply-update":
-                return COMMENT_REPLY_UPDATE;
             case "share-link-create":
                 return SHARE_LINK_CREATE;
             case "version-revert-create":
                 return VERSION_REVERT_CREATE;
-            case "flow-view":
-                return FLOW_VIEW;
-            case "domain-create":
-                return DOMAIN_CREATE;
+            case "comment-reply-update":
+                return COMMENT_REPLY_UPDATE;
             case "model-object-create":
                 return MODEL_OBJECT_CREATE;
             case "model-objects-export":
                 return MODEL_OBJECTS_EXPORT;
+            case "flow-view":
+                return FLOW_VIEW;
+            case "landscape-export":
+                return LANDSCAPE_EXPORT;
             case "model-connections-export":
                 return MODEL_CONNECTIONS_EXPORT;
-            case "diagram-update":
-                return DIAGRAM_UPDATE;
+            case "domain-create":
+                return DOMAIN_CREATE;
             case "tag-create":
                 return TAG_CREATE;
+            case "comment-reply-create":
+                return COMMENT_REPLY_CREATE;
+            case "landscape-import":
+                return LANDSCAPE_IMPORT;
             case "organization-user-add":
                 return ORGANIZATION_USER_ADD;
             case "diagram-content-delete":
                 return DIAGRAM_CONTENT_DELETE;
             case "team-update":
                 return TEAM_UPDATE;
-            case "comment-reply-create":
-                return COMMENT_REPLY_CREATE;
-            case "diagram-content-view":
-                return DIAGRAM_CONTENT_VIEW;
+            case "diagram-update":
+                return DIAGRAM_UPDATE;
             case "version-create":
                 return VERSION_CREATE;
-            case "comment-reply-delete":
-                return COMMENT_REPLY_DELETE;
+            case "diagram-content-view":
+                return DIAGRAM_CONTENT_VIEW;
+            case "team-delete":
+                return TEAM_DELETE;
             case "api-key-create":
                 return API_KEY_CREATE;
+            case "organization-create":
+                return ORGANIZATION_CREATE;
             case "model-connection-delete":
                 return MODEL_CONNECTION_DELETE;
+            case "draft-task-create":
+                return DRAFT_TASK_CREATE;
+            case "tag-group-create":
+                return TAG_GROUP_CREATE;
             case "diagram-content-update":
                 return DIAGRAM_CONTENT_UPDATE;
             case "model-object-dependencies-export":
                 return MODEL_OBJECT_DEPENDENCIES_EXPORT;
-            case "team-delete":
-                return TEAM_DELETE;
-            case "tag-group-create":
-                return TAG_GROUP_CREATE;
-            case "organization-user-remove":
-                return ORGANIZATION_USER_REMOVE;
+            case "oauth-consent-grant":
+                return OAUTH_CONSENT_GRANT;
+            case "domain-update":
+                return DOMAIN_UPDATE;
             case "tag-update":
                 return TAG_UPDATE;
             case "organization-user-update":
                 return ORGANIZATION_USER_UPDATE;
-            case "draft-task-create":
-                return DRAFT_TASK_CREATE;
-            case "domain-update":
-                return DOMAIN_UPDATE;
-            case "organization-create":
-                return ORGANIZATION_CREATE;
-            case "organization-delete":
-                return ORGANIZATION_DELETE;
-            case "team-create":
-                return TEAM_CREATE;
+            case "oauth-consent-deny":
+                return OAUTH_CONSENT_DENY;
+            case "organization-user-remove":
+                return ORGANIZATION_USER_REMOVE;
+            case "comment-reply-delete":
+                return COMMENT_REPLY_DELETE;
             case "model-connection-update":
                 return MODEL_CONNECTION_UPDATE;
+            case "team-create":
+                return TEAM_CREATE;
             case "draft-merge":
                 return DRAFT_MERGE;
+            case "organization-delete":
+                return ORGANIZATION_DELETE;
+            case "diagram-export":
+                return DIAGRAM_EXPORT;
+            case "user-login-failed":
+                return USER_LOGIN_FAILED;
+            case "landscape-update":
+                return LANDSCAPE_UPDATE;
+            case "comment-create":
+                return COMMENT_CREATE;
+            case "diagram-content-create":
+                return DIAGRAM_CONTENT_CREATE;
+            case "tag-delete":
+                return TAG_DELETE;
+            case "diagram-group-update":
+                return DIAGRAM_GROUP_UPDATE;
+            case "version-delete":
+                return VERSION_DELETE;
+            case "domain-delete":
+                return DOMAIN_DELETE;
+            case "api-key-delete":
+                return API_KEY_DELETE;
+            case "tag-group-delete":
+                return TAG_GROUP_DELETE;
+            case "organization-update":
+                return ORGANIZATION_UPDATE;
+            case "share-link-delete":
+                return SHARE_LINK_DELETE;
+            case "landscape-delete":
+                return LANDSCAPE_DELETE;
+            case "draft-update":
+                return DRAFT_UPDATE;
+            case "model-object-delete":
+                return MODEL_OBJECT_DELETE;
+            case "model-connection-create":
+                return MODEL_CONNECTION_CREATE;
+            case "diagram-create":
+                return DIAGRAM_CREATE;
+            case "diagram-group-delete":
+                return DIAGRAM_GROUP_DELETE;
+            case "draft-create":
+                return DRAFT_CREATE;
+            case "landscape-copy":
+                return LANDSCAPE_COPY;
+            case "flow-delete":
+                return FLOW_DELETE;
+            case "comment-update":
+                return COMMENT_UPDATE;
+            case "landscape-create":
+                return LANDSCAPE_CREATE;
+            case "landscape-duplicate":
+                return LANDSCAPE_DUPLICATE;
+            case "organization-user-invite-revoke":
+                return ORGANIZATION_USER_INVITE_REVOKE;
+            case "comment-delete":
+                return COMMENT_DELETE;
+            case "diagram-delete":
+                return DIAGRAM_DELETE;
+            case "diagram-group-create":
+                return DIAGRAM_GROUP_CREATE;
+            case "draft-delete":
+                return DRAFT_DELETE;
+            case "model-object-update":
+                return MODEL_OBJECT_UPDATE;
+            case "user-logout":
+                return USER_LOGOUT;
+            case "draft-view":
+                return DRAFT_VIEW;
+            case "organization-user-invite-create":
+                return ORGANIZATION_USER_INVITE_CREATE;
+            case "user-login":
+                return USER_LOGIN;
+            case "tag-group-update":
+                return TAG_GROUP_UPDATE;
+            case "api-key-update":
+                return API_KEY_UPDATE;
+            case "flow-create":
+                return FLOW_CREATE;
+            case "share-link-update":
+                return SHARE_LINK_UPDATE;
             default:
                 return new ActionType(Value.UNKNOWN, value);
         }
@@ -513,6 +550,10 @@ public final class ActionType {
         API_KEY_DELETE,
 
         API_KEY_UPDATE,
+
+        OAUTH_CONSENT_DENY,
+
+        OAUTH_CONSENT_GRANT,
 
         ORGANIZATION_CREATE,
 
@@ -535,6 +576,12 @@ public final class ActionType {
         TEAM_DELETE,
 
         TEAM_UPDATE,
+
+        USER_LOGIN,
+
+        USER_LOGIN_FAILED,
+
+        USER_LOGOUT,
 
         COMMENT_CREATE,
 
@@ -606,6 +653,8 @@ public final class ActionType {
 
         LANDSCAPE_EXPORT,
 
+        LANDSCAPE_IMPORT,
+
         LANDSCAPE_UPDATE,
 
         MODEL_CONNECTION_CREATE,
@@ -660,6 +709,10 @@ public final class ActionType {
 
         T visitApiKeyUpdate();
 
+        T visitOauthConsentDeny();
+
+        T visitOauthConsentGrant();
+
         T visitOrganizationCreate();
 
         T visitOrganizationDelete();
@@ -681,6 +734,12 @@ public final class ActionType {
         T visitTeamDelete();
 
         T visitTeamUpdate();
+
+        T visitUserLogin();
+
+        T visitUserLoginFailed();
+
+        T visitUserLogout();
 
         T visitCommentCreate();
 
@@ -751,6 +810,8 @@ public final class ActionType {
         T visitLandscapeDuplicate();
 
         T visitLandscapeExport();
+
+        T visitLandscapeImport();
 
         T visitLandscapeUpdate();
 

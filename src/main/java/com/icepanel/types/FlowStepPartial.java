@@ -589,26 +589,36 @@ public final class FlowStepPartial {
                     viaId,
                     additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     public static final class Type {
         public static final Type ALTERNATE_PATH = new Type(Value.ALTERNATE_PATH, "alternate-path");
 
-        public static final Type PARALLEL_PATH = new Type(Value.PARALLEL_PATH, "parallel-path");
-
         public static final Type OUTGOING = new Type(Value.OUTGOING, "outgoing");
-
-        public static final Type SUBFLOW = new Type(Value.SUBFLOW, "subflow");
-
-        public static final Type INFORMATION = new Type(Value.INFORMATION, "information");
 
         public static final Type SELF_ACTION = new Type(Value.SELF_ACTION, "self-action");
 
         public static final Type REPLY = new Type(Value.REPLY, "reply");
 
-        public static final Type INTRODUCTION = new Type(Value.INTRODUCTION, "introduction");
+        public static final Type SUBFLOW = new Type(Value.SUBFLOW, "subflow");
+
+        public static final Type INFORMATION = new Type(Value.INFORMATION, "information");
+
+        public static final Type PARALLEL_PATH = new Type(Value.PARALLEL_PATH, "parallel-path");
 
         public static final Type CONCLUSION = new Type(Value.CONCLUSION, "conclusion");
+
+        public static final Type INTRODUCTION = new Type(Value.INTRODUCTION, "introduction");
 
         private final Value value;
 
@@ -643,22 +653,22 @@ public final class FlowStepPartial {
             switch (value) {
                 case ALTERNATE_PATH:
                     return visitor.visitAlternatePath();
-                case PARALLEL_PATH:
-                    return visitor.visitParallelPath();
                 case OUTGOING:
                     return visitor.visitOutgoing();
-                case SUBFLOW:
-                    return visitor.visitSubflow();
-                case INFORMATION:
-                    return visitor.visitInformation();
                 case SELF_ACTION:
                     return visitor.visitSelfAction();
                 case REPLY:
                     return visitor.visitReply();
-                case INTRODUCTION:
-                    return visitor.visitIntroduction();
+                case SUBFLOW:
+                    return visitor.visitSubflow();
+                case INFORMATION:
+                    return visitor.visitInformation();
+                case PARALLEL_PATH:
+                    return visitor.visitParallelPath();
                 case CONCLUSION:
                     return visitor.visitConclusion();
+                case INTRODUCTION:
+                    return visitor.visitIntroduction();
                 case UNKNOWN:
                 default:
                     return visitor.visitUnknown(string);
@@ -670,22 +680,22 @@ public final class FlowStepPartial {
             switch (value) {
                 case "alternate-path":
                     return ALTERNATE_PATH;
-                case "parallel-path":
-                    return PARALLEL_PATH;
                 case "outgoing":
                     return OUTGOING;
-                case "subflow":
-                    return SUBFLOW;
-                case "information":
-                    return INFORMATION;
                 case "self-action":
                     return SELF_ACTION;
                 case "reply":
                     return REPLY;
-                case "introduction":
-                    return INTRODUCTION;
+                case "subflow":
+                    return SUBFLOW;
+                case "information":
+                    return INFORMATION;
+                case "parallel-path":
+                    return PARALLEL_PATH;
                 case "conclusion":
                     return CONCLUSION;
+                case "introduction":
+                    return INTRODUCTION;
                 default:
                     return new Type(Value.UNKNOWN, value);
             }

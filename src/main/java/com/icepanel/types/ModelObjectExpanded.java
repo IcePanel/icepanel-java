@@ -106,6 +106,8 @@ public final class ModelObjectExpanded implements IModelObject {
 
     private final Optional<DomainExport> domain;
 
+    private final Optional<Map<String, FlowExport>> flowsExpanded;
+
     private final Optional<Map<String, TagExport>> tags;
 
     private final Optional<Map<String, TechnologyExport>> technologies;
@@ -152,6 +154,7 @@ public final class ModelObjectExpanded implements IModelObject {
             double version,
             String versionId,
             Optional<DomainExport> domain,
+            Optional<Map<String, FlowExport>> flowsExpanded,
             Optional<Map<String, TagExport>> tags,
             Optional<Map<String, TechnologyExport>> technologies,
             Map<String, Object> additionalProperties) {
@@ -194,6 +197,7 @@ public final class ModelObjectExpanded implements IModelObject {
         this.version = version;
         this.versionId = versionId;
         this.domain = domain;
+        this.flowsExpanded = flowsExpanded;
         this.tags = tags;
         this.technologies = technologies;
         this.additionalProperties = additionalProperties;
@@ -435,6 +439,14 @@ public final class ModelObjectExpanded implements IModelObject {
         return domain;
     }
 
+    /**
+     * @return Expanded flow exports keyed by flow ID.
+     */
+    @JsonProperty("flowsExpanded")
+    public Optional<Map<String, FlowExport>> getFlowsExpanded() {
+        return flowsExpanded;
+    }
+
     @JsonProperty("tags")
     public Optional<Map<String, TagExport>> getTags() {
         return tags;
@@ -508,6 +520,7 @@ public final class ModelObjectExpanded implements IModelObject {
                 && version == other.version
                 && versionId.equals(other.versionId)
                 && domain.equals(other.domain)
+                && flowsExpanded.equals(other.flowsExpanded)
                 && tags.equals(other.tags)
                 && technologies.equals(other.technologies);
     }
@@ -554,6 +567,7 @@ public final class ModelObjectExpanded implements IModelObject {
                 this.version,
                 this.versionId,
                 this.domain,
+                this.flowsExpanded,
                 this.tags,
                 this.technologies);
     }
@@ -650,6 +664,10 @@ public final class ModelObjectExpanded implements IModelObject {
 
     public interface _FinalStage {
         ModelObjectExpanded build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
          * <p>Short summary of the object shown as the display description</p>
@@ -791,6 +809,13 @@ public final class ModelObjectExpanded implements IModelObject {
 
         _FinalStage domain(DomainExport domain);
 
+        /**
+         * <p>Expanded flow exports keyed by flow ID.</p>
+         */
+        _FinalStage flowsExpanded(Optional<Map<String, FlowExport>> flowsExpanded);
+
+        _FinalStage flowsExpanded(Map<String, FlowExport> flowsExpanded);
+
         _FinalStage tags(Optional<Map<String, TagExport>> tags);
 
         _FinalStage tags(Map<String, TagExport> tags);
@@ -863,6 +888,8 @@ public final class ModelObjectExpanded implements IModelObject {
         private Optional<Map<String, TechnologyExport>> technologies = Optional.empty();
 
         private Optional<Map<String, TagExport>> tags = Optional.empty();
+
+        private Optional<Map<String, FlowExport>> flowsExpanded = Optional.empty();
 
         private Optional<DomainExport> domain = Optional.empty();
 
@@ -950,6 +977,7 @@ public final class ModelObjectExpanded implements IModelObject {
             version(other.getVersion());
             versionId(other.getVersionId());
             domain(other.getDomain());
+            flowsExpanded(other.getFlowsExpanded());
             tags(other.getTags());
             technologies(other.getTechnologies());
             return this;
@@ -1116,6 +1144,26 @@ public final class ModelObjectExpanded implements IModelObject {
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public _FinalStage tags(Optional<Map<String, TagExport>> tags) {
             this.tags = tags;
+            return this;
+        }
+
+        /**
+         * <p>Expanded flow exports keyed by flow ID.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage flowsExpanded(Map<String, FlowExport> flowsExpanded) {
+            this.flowsExpanded = Optional.ofNullable(flowsExpanded);
+            return this;
+        }
+
+        /**
+         * <p>Expanded flow exports keyed by flow ID.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "flowsExpanded", nulls = Nulls.SKIP)
+        public _FinalStage flowsExpanded(Optional<Map<String, FlowExport>> flowsExpanded) {
+            this.flowsExpanded = flowsExpanded;
             return this;
         }
 
@@ -1696,9 +1744,22 @@ public final class ModelObjectExpanded implements IModelObject {
                     version,
                     versionId,
                     domain,
+                    flowsExpanded,
                     tags,
                     technologies,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

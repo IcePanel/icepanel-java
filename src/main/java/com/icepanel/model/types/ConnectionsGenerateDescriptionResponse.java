@@ -21,14 +21,10 @@ import org.jetbrains.annotations.NotNull;
 public final class ConnectionsGenerateDescriptionResponse {
     private final String description;
 
-    private final String message;
-
     private final Map<String, Object> additionalProperties;
 
-    private ConnectionsGenerateDescriptionResponse(
-            String description, String message, Map<String, Object> additionalProperties) {
+    private ConnectionsGenerateDescriptionResponse(String description, Map<String, Object> additionalProperties) {
         this.description = description;
-        this.message = message;
         this.additionalProperties = additionalProperties;
     }
 
@@ -38,14 +34,6 @@ public final class ConnectionsGenerateDescriptionResponse {
     @JsonProperty("description")
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * @return Success message from the AI API
-     */
-    @JsonProperty("message")
-    public String getMessage() {
-        return message;
     }
 
     @java.lang.Override
@@ -61,12 +49,12 @@ public final class ConnectionsGenerateDescriptionResponse {
     }
 
     private boolean equalTo(ConnectionsGenerateDescriptionResponse other) {
-        return description.equals(other.description) && message.equals(other.message);
+        return description.equals(other.description);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.description, this.message);
+        return Objects.hash(this.description);
     }
 
     @java.lang.Override
@@ -82,27 +70,22 @@ public final class ConnectionsGenerateDescriptionResponse {
         /**
          * <p>AI-generated description of the model connection</p>
          */
-        MessageStage description(@NotNull String description);
+        _FinalStage description(@NotNull String description);
 
         Builder from(ConnectionsGenerateDescriptionResponse other);
     }
 
-    public interface MessageStage {
-        /**
-         * <p>Success message from the AI API</p>
-         */
-        _FinalStage message(@NotNull String message);
-    }
-
     public interface _FinalStage {
         ConnectionsGenerateDescriptionResponse build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements DescriptionStage, MessageStage, _FinalStage {
+    public static final class Builder implements DescriptionStage, _FinalStage {
         private String description;
-
-        private String message;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -112,7 +95,6 @@ public final class ConnectionsGenerateDescriptionResponse {
         @java.lang.Override
         public Builder from(ConnectionsGenerateDescriptionResponse other) {
             description(other.getDescription());
-            message(other.getMessage());
             return this;
         }
 
@@ -123,26 +105,26 @@ public final class ConnectionsGenerateDescriptionResponse {
          */
         @java.lang.Override
         @JsonSetter("description")
-        public MessageStage description(@NotNull String description) {
+        public _FinalStage description(@NotNull String description) {
             this.description = Objects.requireNonNull(description, "description must not be null");
-            return this;
-        }
-
-        /**
-         * <p>Success message from the AI API</p>
-         * <p>Success message from the AI API</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("message")
-        public _FinalStage message(@NotNull String message) {
-            this.message = Objects.requireNonNull(message, "message must not be null");
             return this;
         }
 
         @java.lang.Override
         public ConnectionsGenerateDescriptionResponse build() {
-            return new ConnectionsGenerateDescriptionResponse(description, message, additionalProperties);
+            return new ConnectionsGenerateDescriptionResponse(description, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -106,6 +106,10 @@ public final class ActionDiagramGroupUpdateContext {
     public interface _FinalStage {
         ActionDiagramGroupUpdateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage domainHandleId(Optional<String> domainHandleId);
 
         _FinalStage domainHandleId(String domainHandleId);
@@ -193,6 +197,18 @@ public final class ActionDiagramGroupUpdateContext {
         public ActionDiagramGroupUpdateContext build() {
             return new ActionDiagramGroupUpdateContext(
                     domainHandleId, domainName, modelFamily, name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -7,6 +7,7 @@ import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
 import com.icepanel.landscapes.ExportClient;
+import com.icepanel.landscapes.ImportClient;
 import com.icepanel.landscapes.LogsClient;
 import com.icepanel.types.LandscapeCopyRequest;
 import com.icepanel.types.LandscapeDeleteRequest;
@@ -30,11 +31,14 @@ public class LandscapesClient {
 
     protected final Supplier<ExportClient> exportClient;
 
+    protected final Supplier<ImportClient> importClient;
+
     public LandscapesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.rawClient = new RawLandscapesClient(clientOptions);
         this.logsClient = Suppliers.memoize(() -> new LogsClient(clientOptions));
         this.exportClient = Suppliers.memoize(() -> new ExportClient(clientOptions));
+        this.importClient = Suppliers.memoize(() -> new ImportClient(clientOptions));
     }
 
     /**
@@ -104,5 +108,9 @@ public class LandscapesClient {
 
     public ExportClient export() {
         return this.exportClient.get();
+    }
+
+    public ImportClient import_() {
+        return this.importClient.get();
     }
 }

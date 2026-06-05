@@ -28,16 +28,20 @@ public final class ActionLogChildrenListRequest {
 
     private final Optional<ActionLogFilter> filter;
 
+    private final Optional<String> cursor;
+
     private final Map<String, Object> additionalProperties;
 
     private ActionLogChildrenListRequest(
             String landscapeId,
             String actionLogId,
             Optional<ActionLogFilter> filter,
+            Optional<String> cursor,
             Map<String, Object> additionalProperties) {
         this.landscapeId = landscapeId;
         this.actionLogId = actionLogId;
         this.filter = filter;
+        this.cursor = cursor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -56,6 +60,11 @@ public final class ActionLogChildrenListRequest {
         return filter;
     }
 
+    @JsonProperty("cursor")
+    public Optional<String> getCursor() {
+        return cursor;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -70,12 +79,13 @@ public final class ActionLogChildrenListRequest {
     private boolean equalTo(ActionLogChildrenListRequest other) {
         return landscapeId.equals(other.landscapeId)
                 && actionLogId.equals(other.actionLogId)
-                && filter.equals(other.filter);
+                && filter.equals(other.filter)
+                && cursor.equals(other.cursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.landscapeId, this.actionLogId, this.filter);
+        return Objects.hash(this.landscapeId, this.actionLogId, this.filter, this.cursor);
     }
 
     @java.lang.Override
@@ -100,9 +110,17 @@ public final class ActionLogChildrenListRequest {
     public interface _FinalStage {
         ActionLogChildrenListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<ActionLogFilter> filter);
 
         _FinalStage filter(ActionLogFilter filter);
+
+        _FinalStage cursor(Optional<String> cursor);
+
+        _FinalStage cursor(String cursor);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -110,6 +128,8 @@ public final class ActionLogChildrenListRequest {
         private String landscapeId;
 
         private String actionLogId;
+
+        private Optional<String> cursor = Optional.empty();
 
         private Optional<ActionLogFilter> filter = Optional.empty();
 
@@ -123,6 +143,7 @@ public final class ActionLogChildrenListRequest {
             landscapeId(other.getLandscapeId());
             actionLogId(other.getActionLogId());
             filter(other.getFilter());
+            cursor(other.getCursor());
             return this;
         }
 
@@ -141,6 +162,19 @@ public final class ActionLogChildrenListRequest {
         }
 
         @java.lang.Override
+        public _FinalStage cursor(String cursor) {
+            this.cursor = Optional.ofNullable(cursor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
+        public _FinalStage cursor(Optional<String> cursor) {
+            this.cursor = cursor;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage filter(ActionLogFilter filter) {
             this.filter = Optional.ofNullable(filter);
             return this;
@@ -155,7 +189,19 @@ public final class ActionLogChildrenListRequest {
 
         @java.lang.Override
         public ActionLogChildrenListRequest build() {
-            return new ActionLogChildrenListRequest(landscapeId, actionLogId, filter, additionalProperties);
+            return new ActionLogChildrenListRequest(landscapeId, actionLogId, filter, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

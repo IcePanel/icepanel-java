@@ -84,6 +84,10 @@ public final class DraftTaskFlowDelete {
 
     public interface _FinalStage {
         DraftTaskFlowDelete build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -121,6 +125,18 @@ public final class DraftTaskFlowDelete {
         @java.lang.Override
         public DraftTaskFlowDelete build() {
             return new DraftTaskFlowDelete(entityId, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

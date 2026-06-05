@@ -437,6 +437,10 @@ public final class DiagramContent {
     public interface _FinalStage {
         DiagramContent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage comments(Map<String, DiagramComment> comments);
 
         _FinalStage putAllComments(Map<String, DiagramComment> comments);
@@ -943,6 +947,18 @@ public final class DiagramContent {
                     viewedBy,
                     viewedById,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

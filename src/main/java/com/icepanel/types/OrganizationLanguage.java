@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OrganizationLanguage {
-    public static final OrganizationLanguage FR_FR = new OrganizationLanguage(Value.FR_FR, "fr-FR");
-
-    public static final OrganizationLanguage ES419 = new OrganizationLanguage(Value.ES419, "es-419");
-
     public static final OrganizationLanguage ES_ES = new OrganizationLanguage(Value.ES_ES, "es-ES");
+
+    public static final OrganizationLanguage FR_FR = new OrganizationLanguage(Value.FR_FR, "fr-FR");
 
     public static final OrganizationLanguage EN_US = new OrganizationLanguage(Value.EN_US, "en-US");
 
     public static final OrganizationLanguage EN_GB = new OrganizationLanguage(Value.EN_GB, "en-GB");
+
+    public static final OrganizationLanguage ES419 = new OrganizationLanguage(Value.ES419, "es-419");
 
     private final Value value;
 
@@ -49,16 +49,16 @@ public final class OrganizationLanguage {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FR_FR:
-                return visitor.visitFrFr();
-            case ES419:
-                return visitor.visitEs419();
             case ES_ES:
                 return visitor.visitEsEs();
+            case FR_FR:
+                return visitor.visitFrFr();
             case EN_US:
                 return visitor.visitEnUs();
             case EN_GB:
                 return visitor.visitEnGb();
+            case ES419:
+                return visitor.visitEs419();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -68,16 +68,16 @@ public final class OrganizationLanguage {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrganizationLanguage valueOf(String value) {
         switch (value) {
-            case "fr-FR":
-                return FR_FR;
-            case "es-419":
-                return ES419;
             case "es-ES":
                 return ES_ES;
+            case "fr-FR":
+                return FR_FR;
             case "en-US":
                 return EN_US;
             case "en-GB":
                 return EN_GB;
+            case "es-419":
+                return ES419;
             default:
                 return new OrganizationLanguage(Value.UNKNOWN, value);
         }

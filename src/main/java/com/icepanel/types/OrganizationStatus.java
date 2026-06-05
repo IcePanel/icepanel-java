@@ -15,14 +15,14 @@ public final class OrganizationStatus {
 
     public static final OrganizationStatus PAUSED = new OrganizationStatus(Value.PAUSED, "paused");
 
+    public static final OrganizationStatus TRIALING = new OrganizationStatus(Value.TRIALING, "trialing");
+
     public static final OrganizationStatus INCOMPLETE_EXPIRED =
             new OrganizationStatus(Value.INCOMPLETE_EXPIRED, "incomplete_expired");
 
     public static final OrganizationStatus ACTIVE = new OrganizationStatus(Value.ACTIVE, "active");
 
     public static final OrganizationStatus UNPAID = new OrganizationStatus(Value.UNPAID, "unpaid");
-
-    public static final OrganizationStatus TRIALING = new OrganizationStatus(Value.TRIALING, "trialing");
 
     private final Value value;
 
@@ -64,14 +64,14 @@ public final class OrganizationStatus {
                 return visitor.visitIncomplete();
             case PAUSED:
                 return visitor.visitPaused();
+            case TRIALING:
+                return visitor.visitTrialing();
             case INCOMPLETE_EXPIRED:
                 return visitor.visitIncompleteExpired();
             case ACTIVE:
                 return visitor.visitActive();
             case UNPAID:
                 return visitor.visitUnpaid();
-            case TRIALING:
-                return visitor.visitTrialing();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -89,14 +89,14 @@ public final class OrganizationStatus {
                 return INCOMPLETE;
             case "paused":
                 return PAUSED;
+            case "trialing":
+                return TRIALING;
             case "incomplete_expired":
                 return INCOMPLETE_EXPIRED;
             case "active":
                 return ACTIVE;
             case "unpaid":
                 return UNPAID;
-            case "trialing":
-                return TRIALING;
             default:
                 return new OrganizationStatus(Value.UNKNOWN, value);
         }

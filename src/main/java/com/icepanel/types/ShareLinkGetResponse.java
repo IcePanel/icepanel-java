@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ShareLinkGetResponse.Builder.class)
 public final class ShareLinkGetResponse {
+    private final String defaultUrl;
+
     private final ShareLink shareLink;
 
     private final ShareLinkStats stats;
@@ -28,11 +30,24 @@ public final class ShareLinkGetResponse {
     private final Map<String, Object> additionalProperties;
 
     private ShareLinkGetResponse(
-            ShareLink shareLink, ShareLinkStats stats, String url, Map<String, Object> additionalProperties) {
+            String defaultUrl,
+            ShareLink shareLink,
+            ShareLinkStats stats,
+            String url,
+            Map<String, Object> additionalProperties) {
+        this.defaultUrl = defaultUrl;
         this.shareLink = shareLink;
         this.stats = stats;
         this.url = url;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Share link url with default options encoded in the path
+     */
+    @JsonProperty("defaultUrl")
+    public String getDefaultUrl() {
+        return defaultUrl;
     }
 
     @JsonProperty("shareLink")
@@ -45,6 +60,9 @@ public final class ShareLinkGetResponse {
         return stats;
     }
 
+    /**
+     * @return Share link url prefix, you need to append the options short id onto a trailing path segment
+     */
     @JsonProperty("url")
     public String getUrl() {
         return url;
@@ -62,12 +80,15 @@ public final class ShareLinkGetResponse {
     }
 
     private boolean equalTo(ShareLinkGetResponse other) {
-        return shareLink.equals(other.shareLink) && stats.equals(other.stats) && url.equals(other.url);
+        return defaultUrl.equals(other.defaultUrl)
+                && shareLink.equals(other.shareLink)
+                && stats.equals(other.stats)
+                && url.equals(other.url);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.shareLink, this.stats, this.url);
+        return Objects.hash(this.defaultUrl, this.shareLink, this.stats, this.url);
     }
 
     @java.lang.Override
@@ -75,14 +96,21 @@ public final class ShareLinkGetResponse {
         return ObjectMappers.stringify(this);
     }
 
-    public static ShareLinkStage builder() {
+    public static DefaultUrlStage builder() {
         return new Builder();
+    }
+
+    public interface DefaultUrlStage {
+        /**
+         * <p>Share link url with default options encoded in the path</p>
+         */
+        ShareLinkStage defaultUrl(@NotNull String defaultUrl);
+
+        Builder from(ShareLinkGetResponse other);
     }
 
     public interface ShareLinkStage {
         StatsStage shareLink(@NotNull ShareLink shareLink);
-
-        Builder from(ShareLinkGetResponse other);
     }
 
     public interface StatsStage {
@@ -90,15 +118,24 @@ public final class ShareLinkGetResponse {
     }
 
     public interface UrlStage {
+        /**
+         * <p>Share link url prefix, you need to append the options short id onto a trailing path segment</p>
+         */
         _FinalStage url(@NotNull String url);
     }
 
     public interface _FinalStage {
         ShareLinkGetResponse build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements ShareLinkStage, StatsStage, UrlStage, _FinalStage {
+    public static final class Builder implements DefaultUrlStage, ShareLinkStage, StatsStage, UrlStage, _FinalStage {
+        private String defaultUrl;
+
         private ShareLink shareLink;
 
         private ShareLinkStats stats;
@@ -112,9 +149,22 @@ public final class ShareLinkGetResponse {
 
         @java.lang.Override
         public Builder from(ShareLinkGetResponse other) {
+            defaultUrl(other.getDefaultUrl());
             shareLink(other.getShareLink());
             stats(other.getStats());
             url(other.getUrl());
+            return this;
+        }
+
+        /**
+         * <p>Share link url with default options encoded in the path</p>
+         * <p>Share link url with default options encoded in the path</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("defaultUrl")
+        public ShareLinkStage defaultUrl(@NotNull String defaultUrl) {
+            this.defaultUrl = Objects.requireNonNull(defaultUrl, "defaultUrl must not be null");
             return this;
         }
 
@@ -132,6 +182,11 @@ public final class ShareLinkGetResponse {
             return this;
         }
 
+        /**
+         * <p>Share link url prefix, you need to append the options short id onto a trailing path segment</p>
+         * <p>Share link url prefix, you need to append the options short id onto a trailing path segment</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("url")
         public _FinalStage url(@NotNull String url) {
@@ -141,7 +196,19 @@ public final class ShareLinkGetResponse {
 
         @java.lang.Override
         public ShareLinkGetResponse build() {
-            return new ShareLinkGetResponse(shareLink, stats, url, additionalProperties);
+            return new ShareLinkGetResponse(defaultUrl, shareLink, stats, url, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

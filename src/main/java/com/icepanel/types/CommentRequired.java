@@ -106,6 +106,10 @@ public final class CommentRequired {
     public interface _FinalStage {
         CommentRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage commit(Optional<Double> commit);
 
         _FinalStage commit(Double commit);
@@ -192,6 +196,18 @@ public final class CommentRequired {
         @java.lang.Override
         public CommentRequired build() {
             return new CommentRequired(body, commit, mentionedUserIds, handleId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

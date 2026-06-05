@@ -28,19 +28,31 @@ public class AsyncExportClient {
         return this.rawClient;
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public CompletableFuture<ExportCreateResponse> create(LandscapeExportRequest request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public CompletableFuture<ExportCreateResponse> create(
             LandscapeExportRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public CompletableFuture<ExportGetResponse> get(LandscapeExportFindRequest request) {
         return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public CompletableFuture<ExportGetResponse> get(LandscapeExportFindRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }

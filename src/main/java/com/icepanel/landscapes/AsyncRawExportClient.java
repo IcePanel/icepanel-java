@@ -12,6 +12,7 @@ import com.icepanel.core.MediaTypes;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.errors.BadRequestError;
 import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
@@ -42,10 +43,16 @@ public class AsyncRawExportClient {
         this.clientOptions = clientOptions;
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public CompletableFuture<IcePanelClientHttpResponse<ExportCreateResponse>> create(LandscapeExportRequest request) {
         return create(request, null);
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public CompletableFuture<IcePanelClientHttpResponse<ExportCreateResponse>> create(
             LandscapeExportRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -97,6 +104,11 @@ public class AsyncRawExportClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
@@ -144,10 +156,16 @@ public class AsyncRawExportClient {
         return future;
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public CompletableFuture<IcePanelClientHttpResponse<ExportGetResponse>> get(LandscapeExportFindRequest request) {
         return get(request, null);
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public CompletableFuture<IcePanelClientHttpResponse<ExportGetResponse>> get(
             LandscapeExportFindRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -187,9 +205,19 @@ public class AsyncRawExportClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
                                         response));
                                 return;
                             case 404:

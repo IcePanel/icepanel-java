@@ -71,6 +71,10 @@ public final class ExportGetResponse {
 
     public interface _FinalStage {
         ExportGetResponse build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -98,6 +102,18 @@ public final class ExportGetResponse {
         @java.lang.Override
         public ExportGetResponse build() {
             return new ExportGetResponse(diagramExportImage, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

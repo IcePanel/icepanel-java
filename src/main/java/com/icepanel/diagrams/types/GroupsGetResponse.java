@@ -71,6 +71,10 @@ public final class GroupsGetResponse {
 
     public interface _FinalStage {
         GroupsGetResponse build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -98,6 +102,18 @@ public final class GroupsGetResponse {
         @java.lang.Override
         public GroupsGetResponse build() {
             return new GroupsGetResponse(diagramGroup, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

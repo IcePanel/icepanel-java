@@ -11,6 +11,9 @@ import com.icepanel.core.IcePanelClientHttpResponse;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.errors.BadRequestError;
+import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
 import com.icepanel.errors.UnauthorizedError;
@@ -21,7 +24,11 @@ import com.icepanel.landscapes.types.ActionLogsListRequest;
 import com.icepanel.landscapes.types.LogsGetResponse;
 import com.icepanel.landscapes.types.LogsListChildrenResponse;
 import com.icepanel.landscapes.types.LogsListResponse;
+import com.icepanel.types.ActionLog;
+import com.icepanel.types.Error;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -39,14 +46,14 @@ public class RawLogsClient {
     /**
      * List action logs
      */
-    public IcePanelClientHttpResponse<LogsListResponse> list(ActionLogsListRequest request) {
+    public IcePanelClientHttpResponse<SyncPagingIterable<ActionLog>> list(ActionLogsListRequest request) {
         return list(request, null);
     }
 
     /**
      * List action logs
      */
-    public IcePanelClientHttpResponse<LogsListResponse> list(
+    public IcePanelClientHttpResponse<SyncPagingIterable<ActionLog>> list(
             ActionLogsListRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -56,6 +63,10 @@ public class RawLogsClient {
         if (request.getFilter().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
+        }
+        if (request.getCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "cursor", request.getCursor().get(), false);
         }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
@@ -76,14 +87,31 @@ public class RawLogsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
+                LogsListResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListResponse.class);
+                Optional<String> startingAfter = parsedResponse.getNextCursor();
+                ActionLogsListRequest nextRequest = ActionLogsListRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<ActionLog> result = parsedResponse.getActionLogs();
                 return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListResponse.class), response);
+                        new SyncPagingIterable<ActionLog>(startingAfter.isPresent(), result, parsedResponse, () -> list(
+                                        nextRequest, requestOptions)
+                                .body()),
+                        response);
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -147,9 +175,15 @@ public class RawLogsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -174,14 +208,15 @@ public class RawLogsClient {
     /**
      * List actions that happened as a result of a different action
      */
-    public IcePanelClientHttpResponse<LogsListChildrenResponse> listChildren(ActionLogChildrenListRequest request) {
+    public IcePanelClientHttpResponse<SyncPagingIterable<ActionLog>> listChildren(
+            ActionLogChildrenListRequest request) {
         return listChildren(request, null);
     }
 
     /**
      * List actions that happened as a result of a different action
      */
-    public IcePanelClientHttpResponse<LogsListChildrenResponse> listChildren(
+    public IcePanelClientHttpResponse<SyncPagingIterable<ActionLog>> listChildren(
             ActionLogChildrenListRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -193,6 +228,10 @@ public class RawLogsClient {
         if (request.getFilter().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
+        }
+        if (request.getCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "cursor", request.getCursor().get(), false);
         }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
@@ -213,15 +252,32 @@ public class RawLogsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
+                LogsListChildrenResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListChildrenResponse.class);
+                Optional<String> startingAfter = parsedResponse.getNextCursor();
+                ActionLogChildrenListRequest nextRequest = ActionLogChildrenListRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<ActionLog> result = parsedResponse.getActionLogs();
                 return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListChildrenResponse.class),
+                        new SyncPagingIterable<ActionLog>(
+                                startingAfter.isPresent(), result, parsedResponse, () -> listChildren(
+                                                nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

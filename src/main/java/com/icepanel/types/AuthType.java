@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class AuthType {
+    public static final AuthType API_KEY = new AuthType(Value.API_KEY, "api-key");
+
     public static final AuthType SERVICE = new AuthType(Value.SERVICE, "service");
 
     public static final AuthType USER = new AuthType(Value.USER, "user");
-
-    public static final AuthType API_KEY = new AuthType(Value.API_KEY, "api-key");
 
     public static final AuthType NOTIFICATION_KEY = new AuthType(Value.NOTIFICATION_KEY, "notification-key");
 
@@ -46,12 +46,12 @@ public final class AuthType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case API_KEY:
+                return visitor.visitApiKey();
             case SERVICE:
                 return visitor.visitService();
             case USER:
                 return visitor.visitUser();
-            case API_KEY:
-                return visitor.visitApiKey();
             case NOTIFICATION_KEY:
                 return visitor.visitNotificationKey();
             case UNKNOWN:
@@ -63,12 +63,12 @@ public final class AuthType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AuthType valueOf(String value) {
         switch (value) {
+            case "api-key":
+                return API_KEY;
             case "service":
                 return SERVICE;
             case "user":
                 return USER;
-            case "api-key":
-                return API_KEY;
             case "notification-key":
                 return NOTIFICATION_KEY;
             default:

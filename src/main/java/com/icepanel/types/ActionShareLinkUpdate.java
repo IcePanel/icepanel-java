@@ -118,6 +118,10 @@ public final class ActionShareLinkUpdate {
 
     public interface _FinalStage {
         ActionShareLinkUpdate build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -175,6 +179,18 @@ public final class ActionShareLinkUpdate {
         @java.lang.Override
         public ActionShareLinkUpdate build() {
             return new ActionShareLinkUpdate(context, id, props, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 
@@ -255,6 +271,10 @@ public final class ActionShareLinkUpdate {
         public interface _FinalStage {
             Props build();
 
+            _FinalStage additionalProperty(String key, Object value);
+
+            _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
             _FinalStage password(Optional<String> password);
 
             _FinalStage password(String password);
@@ -321,6 +341,18 @@ public final class ActionShareLinkUpdate {
             @java.lang.Override
             public Props build() {
                 return new Props(password, protected_, resetShortId, additionalProperties);
+            }
+
+            @java.lang.Override
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            @java.lang.Override
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }

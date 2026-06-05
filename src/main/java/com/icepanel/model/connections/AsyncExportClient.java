@@ -25,10 +25,16 @@ public class AsyncExportClient {
         return this.rawClient;
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public CompletableFuture<String> csv(ModelConnectionsExportCsvRequest request) {
         return this.rawClient.csv(request).thenApply(response -> response.body());
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public CompletableFuture<String> csv(ModelConnectionsExportCsvRequest request, RequestOptions requestOptions) {
         return this.rawClient.csv(request, requestOptions).thenApply(response -> response.body());
     }

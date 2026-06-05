@@ -51,7 +51,7 @@ public final class CatalogTechnologyPartial {
 
     private final OptionalNullable<List<CatalogRestriction>> restrictions;
 
-    private final Optional<CatalogTechnologyStatus> status;
+    private final OptionalNullable<CatalogTechnologyStatusNullable> status;
 
     private final OptionalNullable<CatalogTechnologyTypeNullable> type;
 
@@ -75,7 +75,7 @@ public final class CatalogTechnologyPartial {
             Optional<String> rejectionMessage,
             Optional<CatalogTechnologyReviewRejectionReason> rejectionReason,
             OptionalNullable<List<CatalogRestriction>> restrictions,
-            Optional<CatalogTechnologyStatus> status,
+            OptionalNullable<CatalogTechnologyStatusNullable> status,
             OptionalNullable<CatalogTechnologyTypeNullable> type,
             Optional<String> updatesUrl,
             Optional<String> websiteUrl,
@@ -215,10 +215,14 @@ public final class CatalogTechnologyPartial {
     }
 
     /**
-     * @return Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.
+     * @return Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("status")
-    public Optional<CatalogTechnologyStatus> getStatus() {
+    public OptionalNullable<CatalogTechnologyStatusNullable> getStatus() {
+        if (status == null) {
+            return OptionalNullable.absent();
+        }
         return status;
     }
 
@@ -272,6 +276,12 @@ public final class CatalogTechnologyPartial {
     @JsonProperty("restrictions")
     private OptionalNullable<List<CatalogRestriction>> _getRestrictions() {
         return restrictions;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private OptionalNullable<CatalogTechnologyStatusNullable> _getStatus() {
+        return status;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -370,7 +380,7 @@ public final class CatalogTechnologyPartial {
 
         private OptionalNullable<List<CatalogRestriction>> restrictions = OptionalNullable.absent();
 
-        private Optional<CatalogTechnologyStatus> status = Optional.empty();
+        private OptionalNullable<CatalogTechnologyStatusNullable> status = OptionalNullable.absent();
 
         private OptionalNullable<CatalogTechnologyTypeNullable> type = OptionalNullable.absent();
 
@@ -661,16 +671,36 @@ public final class CatalogTechnologyPartial {
         }
 
         /**
-         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.</p>
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
          */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
-        public Builder status(Optional<CatalogTechnologyStatus> status) {
+        public Builder status(OptionalNullable<CatalogTechnologyStatusNullable> status) {
             this.status = status;
             return this;
         }
 
-        public Builder status(CatalogTechnologyStatus status) {
-            this.status = Optional.ofNullable(status);
+        public Builder status(CatalogTechnologyStatusNullable status) {
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        public Builder status(Optional<CatalogTechnologyStatusNullable> status) {
+            if (status.isPresent()) {
+                this.status = OptionalNullable.of(status.get());
+            } else {
+                this.status = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        public Builder status(Nullable<CatalogTechnologyStatusNullable> status) {
+            if (status.isNull()) {
+                this.status = OptionalNullable.ofNull();
+            } else if (status.isEmpty()) {
+                this.status = OptionalNullable.absent();
+            } else {
+                this.status = OptionalNullable.of(status.get());
+            }
             return this;
         }
 
@@ -756,6 +786,16 @@ public final class CatalogTechnologyPartial {
                     updatesUrl,
                     websiteUrl,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

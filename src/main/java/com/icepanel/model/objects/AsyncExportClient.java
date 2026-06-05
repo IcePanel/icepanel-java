@@ -44,14 +44,14 @@ public class AsyncExportClient {
     }
 
     /**
-     * Export all model objects as CSV
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=object-csv instead
      */
     public CompletableFuture<String> csv(ModelObjectsExportCsvRequest request) {
         return this.rawClient.csv(request).thenApply(response -> response.body());
     }
 
     /**
-     * Export all model objects as CSV
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=object-csv instead
      */
     public CompletableFuture<String> csv(ModelObjectsExportCsvRequest request, RequestOptions requestOptions) {
         return this.rawClient.csv(request, requestOptions).thenApply(response -> response.body());

@@ -82,6 +82,10 @@ public final class DiagramsUpsertResponse {
     public interface _FinalStage {
         DiagramsUpsertResponse build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage diagramContent(Optional<DiagramContent> diagramContent);
 
         _FinalStage diagramContent(DiagramContent diagramContent);
@@ -128,6 +132,18 @@ public final class DiagramsUpsertResponse {
         @java.lang.Override
         public DiagramsUpsertResponse build() {
             return new DiagramsUpsertResponse(diagram, diagramContent, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

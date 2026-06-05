@@ -83,6 +83,10 @@ public final class CommentReplyRequired {
     public interface _FinalStage {
         CommentReplyRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage mentionedUserIds(Optional<List<String>> mentionedUserIds);
 
         _FinalStage mentionedUserIds(List<String> mentionedUserIds);
@@ -129,6 +133,18 @@ public final class CommentReplyRequired {
         @java.lang.Override
         public CommentReplyRequired build() {
             return new CommentReplyRequired(content, mentionedUserIds, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

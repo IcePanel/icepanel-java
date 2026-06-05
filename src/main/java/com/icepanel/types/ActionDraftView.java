@@ -97,6 +97,10 @@ public final class ActionDraftView {
 
     public interface _FinalStage {
         ActionDraftView build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -144,6 +148,18 @@ public final class ActionDraftView {
         @java.lang.Override
         public ActionDraftView build() {
             return new ActionDraftView(context, id, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

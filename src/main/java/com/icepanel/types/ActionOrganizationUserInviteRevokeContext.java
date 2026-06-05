@@ -100,6 +100,10 @@ public final class ActionOrganizationUserInviteRevokeContext {
     public interface _FinalStage {
         ActionOrganizationUserInviteRevokeContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage landscapeNames(Optional<Map<String, String>> landscapeNames);
 
         _FinalStage landscapeNames(Map<String, String> landscapeNames);
@@ -157,6 +161,18 @@ public final class ActionOrganizationUserInviteRevokeContext {
         public ActionOrganizationUserInviteRevokeContext build() {
             return new ActionOrganizationUserInviteRevokeContext(
                     email, landscapeNames, permission, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

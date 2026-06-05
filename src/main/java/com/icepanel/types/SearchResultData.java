@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.icepanel.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = SearchResultData.Deserializer.class)
@@ -97,21 +98,124 @@ public final class SearchResultData {
         @java.lang.Override
         public SearchResultData deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ModelObject.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commit")
+                    && ((Map<?, ?>) value).containsKey("external")
+                    && ((Map<?, ?>) value).containsKey("groupIds")
+                    && ((Map<?, ?>) value).containsKey("labels")
+                    && ((Map<?, ?>) value).containsKey("links")
+                    && ((Map<?, ?>) value).containsKey("name")
+                    && ((Map<?, ?>) value).containsKey("status")
+                    && ((Map<?, ?>) value).containsKey("tagIds")
+                    && ((Map<?, ?>) value).containsKey("teamIds")
+                    && ((Map<?, ?>) value).containsKey("teamOnlyEditing")
+                    && ((Map<?, ?>) value).containsKey("technologyIds")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("domainId")
+                    && ((Map<?, ?>) value).containsKey("handleId")
+                    && ((Map<?, ?>) value).containsKey("childDiagramIds")
+                    && ((Map<?, ?>) value).containsKey("childIds")
+                    && ((Map<?, ?>) value).containsKey("createdAt")
+                    && ((Map<?, ?>) value).containsKey("createdBy")
+                    && ((Map<?, ?>) value).containsKey("createdById")
+                    && ((Map<?, ?>) value).containsKey("diagrams")
+                    && ((Map<?, ?>) value).containsKey("flows")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("landscapeId")
+                    && ((Map<?, ?>) value).containsKey("linked")
+                    && ((Map<?, ?>) value).containsKey("parentIds")
+                    && ((Map<?, ?>) value).containsKey("updatedAt")
+                    && ((Map<?, ?>) value).containsKey("updatedBy")
+                    && ((Map<?, ?>) value).containsKey("updatedById")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("versionId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ModelObject.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ModelConnection.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commit")
+                    && ((Map<?, ?>) value).containsKey("labels")
+                    && ((Map<?, ?>) value).containsKey("links")
+                    && ((Map<?, ?>) value).containsKey("name")
+                    && ((Map<?, ?>) value).containsKey("originId")
+                    && ((Map<?, ?>) value).containsKey("status")
+                    && ((Map<?, ?>) value).containsKey("tagIds")
+                    && ((Map<?, ?>) value).containsKey("targetId")
+                    && ((Map<?, ?>) value).containsKey("technologyIds")
+                    && ((Map<?, ?>) value).containsKey("handleId")
+                    && ((Map<?, ?>) value).containsKey("createdAt")
+                    && ((Map<?, ?>) value).containsKey("createdBy")
+                    && ((Map<?, ?>) value).containsKey("createdById")
+                    && ((Map<?, ?>) value).containsKey("diagrams")
+                    && ((Map<?, ?>) value).containsKey("flows")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("landscapeId")
+                    && ((Map<?, ?>) value).containsKey("linked")
+                    && ((Map<?, ?>) value).containsKey("updatedAt")
+                    && ((Map<?, ?>) value).containsKey("updatedBy")
+                    && ((Map<?, ?>) value).containsKey("updatedById")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("versionId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ModelConnection.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, Diagram.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commit")
+                    && ((Map<?, ?>) value).containsKey("index")
+                    && ((Map<?, ?>) value).containsKey("labels")
+                    && ((Map<?, ?>) value).containsKey("modelId")
+                    && ((Map<?, ?>) value).containsKey("name")
+                    && ((Map<?, ?>) value).containsKey("pinned")
+                    && ((Map<?, ?>) value).containsKey("status")
+                    && ((Map<?, ?>) value).containsKey("handleId")
+                    && ((Map<?, ?>) value).containsKey("type")
+                    && ((Map<?, ?>) value).containsKey("commentCount")
+                    && ((Map<?, ?>) value).containsKey("connectionCount")
+                    && ((Map<?, ?>) value).containsKey("createdAt")
+                    && ((Map<?, ?>) value).containsKey("createdBy")
+                    && ((Map<?, ?>) value).containsKey("createdById")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("landscapeId")
+                    && ((Map<?, ?>) value).containsKey("objectCount")
+                    && ((Map<?, ?>) value).containsKey("updatedAt")
+                    && ((Map<?, ?>) value).containsKey("updatedBy")
+                    && ((Map<?, ?>) value).containsKey("updatedById")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("versionId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, Diagram.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, Flow.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("commit")
+                    && ((Map<?, ?>) value).containsKey("index")
+                    && ((Map<?, ?>) value).containsKey("labels")
+                    && ((Map<?, ?>) value).containsKey("name")
+                    && ((Map<?, ?>) value).containsKey("pinned")
+                    && ((Map<?, ?>) value).containsKey("showAllSteps")
+                    && ((Map<?, ?>) value).containsKey("showConnectionNames")
+                    && ((Map<?, ?>) value).containsKey("steps")
+                    && ((Map<?, ?>) value).containsKey("diagramId")
+                    && ((Map<?, ?>) value).containsKey("handleId")
+                    && ((Map<?, ?>) value).containsKey("createdAt")
+                    && ((Map<?, ?>) value).containsKey("createdBy")
+                    && ((Map<?, ?>) value).containsKey("createdById")
+                    && ((Map<?, ?>) value).containsKey("id")
+                    && ((Map<?, ?>) value).containsKey("landscapeId")
+                    && ((Map<?, ?>) value).containsKey("updatedAt")
+                    && ((Map<?, ?>) value).containsKey("updatedBy")
+                    && ((Map<?, ?>) value).containsKey("updatedById")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("versionId")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, Flow.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

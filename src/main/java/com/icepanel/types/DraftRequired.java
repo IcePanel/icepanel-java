@@ -147,6 +147,10 @@ public final class DraftRequired {
     public interface _FinalStage {
         DraftRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage changeSummary(Optional<DraftChangeSummary> changeSummary);
 
         _FinalStage changeSummary(DraftChangeSummary changeSummary);
@@ -284,6 +288,18 @@ public final class DraftRequired {
         public DraftRequired build() {
             return new DraftRequired(
                     changeSummary, commit, handleId, labels, name, status, summaryDirtiedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

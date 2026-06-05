@@ -17,17 +17,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = VersionsListResponse.Builder.class)
 public final class VersionsListResponse {
+    private final Optional<String> nextCursor;
+
     private final List<Version> versions;
 
     private final Map<String, Object> additionalProperties;
 
-    private VersionsListResponse(List<Version> versions, Map<String, Object> additionalProperties) {
+    private VersionsListResponse(
+            Optional<String> nextCursor, List<Version> versions, Map<String, Object> additionalProperties) {
+        this.nextCursor = nextCursor;
         this.versions = versions;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("nextCursor")
+    public Optional<String> getNextCursor() {
+        return nextCursor;
     }
 
     @JsonProperty("versions")
@@ -47,12 +57,12 @@ public final class VersionsListResponse {
     }
 
     private boolean equalTo(VersionsListResponse other) {
-        return versions.equals(other.versions);
+        return nextCursor.equals(other.nextCursor) && versions.equals(other.versions);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.versions);
+        return Objects.hash(this.nextCursor, this.versions);
     }
 
     @java.lang.Override
@@ -66,6 +76,8 @@ public final class VersionsListResponse {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<String> nextCursor = Optional.empty();
+
         private List<Version> versions = new ArrayList<>();
 
         @JsonAnySetter
@@ -74,7 +86,19 @@ public final class VersionsListResponse {
         private Builder() {}
 
         public Builder from(VersionsListResponse other) {
+            nextCursor(other.getNextCursor());
             versions(other.getVersions());
+            return this;
+        }
+
+        @JsonSetter(value = "nextCursor", nulls = Nulls.SKIP)
+        public Builder nextCursor(Optional<String> nextCursor) {
+            this.nextCursor = nextCursor;
+            return this;
+        }
+
+        public Builder nextCursor(String nextCursor) {
+            this.nextCursor = Optional.ofNullable(nextCursor);
             return this;
         }
 
@@ -100,7 +124,17 @@ public final class VersionsListResponse {
         }
 
         public VersionsListResponse build() {
-            return new VersionsListResponse(versions, additionalProperties);
+            return new VersionsListResponse(nextCursor, versions, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

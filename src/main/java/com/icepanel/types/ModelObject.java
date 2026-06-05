@@ -618,6 +618,10 @@ public final class ModelObject implements IModelObject {
     public interface _FinalStage {
         ModelObject build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Short summary of the object shown as the display description</p>
          */
@@ -1603,6 +1607,18 @@ public final class ModelObject implements IModelObject {
                     version,
                     versionId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

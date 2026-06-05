@@ -99,6 +99,10 @@ public final class DomainsListRequest {
     public interface _FinalStage {
         DomainsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<DomainFilter> filter);
 
         _FinalStage filter(DomainFilter filter);
@@ -155,6 +159,18 @@ public final class DomainsListRequest {
         @java.lang.Override
         public DomainsListRequest build() {
             return new DomainsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

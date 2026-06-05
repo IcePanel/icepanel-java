@@ -12,9 +12,13 @@ import com.icepanel.core.MediaTypes;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.errors.BadRequestError;
 import com.icepanel.errors.ConflictError;
+import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
+import com.icepanel.errors.ServiceUnavailableError;
 import com.icepanel.errors.TooManyRequestsError;
 import com.icepanel.errors.UnauthorizedError;
 import com.icepanel.errors.UnprocessableEntityError;
@@ -33,7 +37,10 @@ import com.icepanel.model.types.ModelConnectionUpdateRequest;
 import com.icepanel.model.types.ModelConnectionUpsertRequest;
 import com.icepanel.model.types.ModelConnectionsListRequest;
 import com.icepanel.types.Error;
+import com.icepanel.types.ModelConnectionExpanded;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -49,11 +56,12 @@ public class RawConnectionsClient {
         this.clientOptions = clientOptions;
     }
 
-    public IcePanelClientHttpResponse<ConnectionsListResponse> list(ModelConnectionsListRequest request) {
+    public IcePanelClientHttpResponse<SyncPagingIterable<ModelConnectionExpanded>> list(
+            ModelConnectionsListRequest request) {
         return list(request, null);
     }
 
-    public IcePanelClientHttpResponse<ConnectionsListResponse> list(
+    public IcePanelClientHttpResponse<SyncPagingIterable<ModelConnectionExpanded>> list(
             ModelConnectionsListRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -66,6 +74,14 @@ public class RawConnectionsClient {
         if (request.getFilter().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
+        }
+        if (request.getCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "cursor", request.getCursor().get(), false);
+        }
+        if (request.getLimit().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "limit", request.getLimit().get(), false);
         }
         if (request.getExpand().isPresent()) {
             QueryStringMapper.addQueryParameter(
@@ -90,15 +106,32 @@ public class RawConnectionsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
+                ConnectionsListResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ConnectionsListResponse.class);
+                Optional<String> startingAfter = parsedResponse.getNextCursor();
+                ModelConnectionsListRequest nextRequest = ModelConnectionsListRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<ModelConnectionExpanded> result = parsedResponse.getModelConnections();
                 return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ConnectionsListResponse.class),
+                        new SyncPagingIterable<ModelConnectionExpanded>(
+                                startingAfter.isPresent(), result, parsedResponse, () -> list(
+                                                nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -167,9 +200,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -181,6 +220,9 @@ public class RawConnectionsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -237,9 +279,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -320,9 +368,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -337,6 +391,9 @@ public class RawConnectionsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -389,9 +446,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -400,6 +463,9 @@ public class RawConnectionsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -464,9 +530,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -481,6 +553,9 @@ public class RawConnectionsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -550,9 +625,15 @@ public class RawConnectionsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -561,6 +642,9 @@ public class RawConnectionsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {

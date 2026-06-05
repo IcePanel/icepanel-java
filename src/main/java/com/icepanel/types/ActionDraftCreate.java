@@ -130,6 +130,10 @@ public final class ActionDraftCreate {
     public interface _FinalStage {
         ActionDraftCreate build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage ids(Optional<List<String>> ids);
 
         _FinalStage ids(List<String> ids);
@@ -206,6 +210,18 @@ public final class ActionDraftCreate {
         @java.lang.Override
         public ActionDraftCreate build() {
             return new ActionDraftCreate(context, id, ids, props, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

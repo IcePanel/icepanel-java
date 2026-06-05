@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class PermissionType {
     public static final PermissionType BILLING = new PermissionType(Value.BILLING, "billing");
 
-    public static final PermissionType WRITE = new PermissionType(Value.WRITE, "write");
-
     public static final PermissionType ADMIN = new PermissionType(Value.ADMIN, "admin");
+
+    public static final PermissionType WRITE = new PermissionType(Value.WRITE, "write");
 
     public static final PermissionType READ = new PermissionType(Value.READ, "read");
 
@@ -49,10 +49,10 @@ public final class PermissionType {
         switch (value) {
             case BILLING:
                 return visitor.visitBilling();
-            case WRITE:
-                return visitor.visitWrite();
             case ADMIN:
                 return visitor.visitAdmin();
+            case WRITE:
+                return visitor.visitWrite();
             case READ:
                 return visitor.visitRead();
             case UNKNOWN:
@@ -66,10 +66,10 @@ public final class PermissionType {
         switch (value) {
             case "billing":
                 return BILLING;
-            case "write":
-                return WRITE;
             case "admin":
                 return ADMIN;
+            case "write":
+                return WRITE;
             case "read":
                 return READ;
             default:

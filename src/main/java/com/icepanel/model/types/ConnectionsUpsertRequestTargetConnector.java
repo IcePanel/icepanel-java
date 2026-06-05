@@ -7,26 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ConnectionsUpsertRequestTargetConnector {
-    public static final ConnectionsUpsertRequestTargetConnector LEFT_MIDDLE =
-            new ConnectionsUpsertRequestTargetConnector(Value.LEFT_MIDDLE, "left-middle");
+    public static final ConnectionsUpsertRequestTargetConnector TOP_LEFT =
+            new ConnectionsUpsertRequestTargetConnector(Value.TOP_LEFT, "top-left");
 
     public static final ConnectionsUpsertRequestTargetConnector RIGHT_TOP =
             new ConnectionsUpsertRequestTargetConnector(Value.RIGHT_TOP, "right-top");
 
-    public static final ConnectionsUpsertRequestTargetConnector TOP_LEFT =
-            new ConnectionsUpsertRequestTargetConnector(Value.TOP_LEFT, "top-left");
-
-    public static final ConnectionsUpsertRequestTargetConnector BOTTOM_CENTER =
-            new ConnectionsUpsertRequestTargetConnector(Value.BOTTOM_CENTER, "bottom-center");
-
-    public static final ConnectionsUpsertRequestTargetConnector BOTTOM_LEFT =
-            new ConnectionsUpsertRequestTargetConnector(Value.BOTTOM_LEFT, "bottom-left");
-
     public static final ConnectionsUpsertRequestTargetConnector RIGHT_MIDDLE =
             new ConnectionsUpsertRequestTargetConnector(Value.RIGHT_MIDDLE, "right-middle");
-
-    public static final ConnectionsUpsertRequestTargetConnector TOP_CENTER =
-            new ConnectionsUpsertRequestTargetConnector(Value.TOP_CENTER, "top-center");
 
     public static final ConnectionsUpsertRequestTargetConnector LEFT_BOTTOM =
             new ConnectionsUpsertRequestTargetConnector(Value.LEFT_BOTTOM, "left-bottom");
@@ -34,14 +22,26 @@ public final class ConnectionsUpsertRequestTargetConnector {
     public static final ConnectionsUpsertRequestTargetConnector BOTTOM_RIGHT =
             new ConnectionsUpsertRequestTargetConnector(Value.BOTTOM_RIGHT, "bottom-right");
 
-    public static final ConnectionsUpsertRequestTargetConnector RIGHT_BOTTOM =
-            new ConnectionsUpsertRequestTargetConnector(Value.RIGHT_BOTTOM, "right-bottom");
+    public static final ConnectionsUpsertRequestTargetConnector BOTTOM_CENTER =
+            new ConnectionsUpsertRequestTargetConnector(Value.BOTTOM_CENTER, "bottom-center");
+
+    public static final ConnectionsUpsertRequestTargetConnector BOTTOM_LEFT =
+            new ConnectionsUpsertRequestTargetConnector(Value.BOTTOM_LEFT, "bottom-left");
 
     public static final ConnectionsUpsertRequestTargetConnector TOP_RIGHT =
             new ConnectionsUpsertRequestTargetConnector(Value.TOP_RIGHT, "top-right");
 
     public static final ConnectionsUpsertRequestTargetConnector LEFT_TOP =
             new ConnectionsUpsertRequestTargetConnector(Value.LEFT_TOP, "left-top");
+
+    public static final ConnectionsUpsertRequestTargetConnector RIGHT_BOTTOM =
+            new ConnectionsUpsertRequestTargetConnector(Value.RIGHT_BOTTOM, "right-bottom");
+
+    public static final ConnectionsUpsertRequestTargetConnector LEFT_MIDDLE =
+            new ConnectionsUpsertRequestTargetConnector(Value.LEFT_MIDDLE, "left-middle");
+
+    public static final ConnectionsUpsertRequestTargetConnector TOP_CENTER =
+            new ConnectionsUpsertRequestTargetConnector(Value.TOP_CENTER, "top-center");
 
     private final Value value;
 
@@ -76,30 +76,30 @@ public final class ConnectionsUpsertRequestTargetConnector {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case LEFT_MIDDLE:
-                return visitor.visitLeftMiddle();
-            case RIGHT_TOP:
-                return visitor.visitRightTop();
             case TOP_LEFT:
                 return visitor.visitTopLeft();
-            case BOTTOM_CENTER:
-                return visitor.visitBottomCenter();
-            case BOTTOM_LEFT:
-                return visitor.visitBottomLeft();
+            case RIGHT_TOP:
+                return visitor.visitRightTop();
             case RIGHT_MIDDLE:
                 return visitor.visitRightMiddle();
-            case TOP_CENTER:
-                return visitor.visitTopCenter();
             case LEFT_BOTTOM:
                 return visitor.visitLeftBottom();
             case BOTTOM_RIGHT:
                 return visitor.visitBottomRight();
-            case RIGHT_BOTTOM:
-                return visitor.visitRightBottom();
+            case BOTTOM_CENTER:
+                return visitor.visitBottomCenter();
+            case BOTTOM_LEFT:
+                return visitor.visitBottomLeft();
             case TOP_RIGHT:
                 return visitor.visitTopRight();
             case LEFT_TOP:
                 return visitor.visitLeftTop();
+            case RIGHT_BOTTOM:
+                return visitor.visitRightBottom();
+            case LEFT_MIDDLE:
+                return visitor.visitLeftMiddle();
+            case TOP_CENTER:
+                return visitor.visitTopCenter();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -109,30 +109,30 @@ public final class ConnectionsUpsertRequestTargetConnector {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ConnectionsUpsertRequestTargetConnector valueOf(String value) {
         switch (value) {
-            case "left-middle":
-                return LEFT_MIDDLE;
-            case "right-top":
-                return RIGHT_TOP;
             case "top-left":
                 return TOP_LEFT;
-            case "bottom-center":
-                return BOTTOM_CENTER;
-            case "bottom-left":
-                return BOTTOM_LEFT;
+            case "right-top":
+                return RIGHT_TOP;
             case "right-middle":
                 return RIGHT_MIDDLE;
-            case "top-center":
-                return TOP_CENTER;
             case "left-bottom":
                 return LEFT_BOTTOM;
             case "bottom-right":
                 return BOTTOM_RIGHT;
-            case "right-bottom":
-                return RIGHT_BOTTOM;
+            case "bottom-center":
+                return BOTTOM_CENTER;
+            case "bottom-left":
+                return BOTTOM_LEFT;
             case "top-right":
                 return TOP_RIGHT;
             case "left-top":
                 return LEFT_TOP;
+            case "right-bottom":
+                return RIGHT_BOTTOM;
+            case "left-middle":
+                return LEFT_MIDDLE;
+            case "top-center":
+                return TOP_CENTER;
             default:
                 return new ConnectionsUpsertRequestTargetConnector(Value.UNKNOWN, value);
         }

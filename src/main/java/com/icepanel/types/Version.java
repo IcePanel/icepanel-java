@@ -41,8 +41,6 @@ public final class Version {
 
     private final String createdById;
 
-    private final List<String> diagramHandleIds;
-
     private final String id;
 
     private final String landscapeId;
@@ -65,7 +63,6 @@ public final class Version {
             OffsetDateTime createdAt,
             AuthType createdBy,
             String createdById,
-            List<String> diagramHandleIds,
             String id,
             String landscapeId,
             List<String> tags,
@@ -80,7 +77,6 @@ public final class Version {
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.createdById = createdById;
-        this.diagramHandleIds = diagramHandleIds;
         this.id = id;
         this.landscapeId = landscapeId;
         this.tags = tags;
@@ -127,11 +123,6 @@ public final class Version {
     @JsonProperty("createdById")
     public String getCreatedById() {
         return createdById;
-    }
-
-    @JsonProperty("diagramHandleIds")
-    public List<String> getDiagramHandleIds() {
-        return diagramHandleIds;
     }
 
     @JsonProperty("id")
@@ -189,7 +180,6 @@ public final class Version {
                 && createdAt.equals(other.createdAt)
                 && createdBy.equals(other.createdBy)
                 && createdById.equals(other.createdById)
-                && diagramHandleIds.equals(other.diagramHandleIds)
                 && id.equals(other.id)
                 && landscapeId.equals(other.landscapeId)
                 && tags.equals(other.tags)
@@ -208,7 +198,6 @@ public final class Version {
                 this.createdAt,
                 this.createdBy,
                 this.createdById,
-                this.diagramHandleIds,
                 this.id,
                 this.landscapeId,
                 this.tags,
@@ -271,6 +260,10 @@ public final class Version {
     public interface _FinalStage {
         Version build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage modelHandleId(OptionalNullable<String> modelHandleId);
 
         _FinalStage modelHandleId(String modelHandleId);
@@ -282,12 +275,6 @@ public final class Version {
         _FinalStage completedAt(Optional<OffsetDateTime> completedAt);
 
         _FinalStage completedAt(OffsetDateTime completedAt);
-
-        _FinalStage diagramHandleIds(List<String> diagramHandleIds);
-
-        _FinalStage addDiagramHandleIds(String diagramHandleIds);
-
-        _FinalStage addAllDiagramHandleIds(List<String> diagramHandleIds);
 
         _FinalStage tags(List<String> tags);
 
@@ -331,8 +318,6 @@ public final class Version {
 
         private List<String> tags = new ArrayList<>();
 
-        private List<String> diagramHandleIds = new ArrayList<>();
-
         private Optional<OffsetDateTime> completedAt = Optional.empty();
 
         private OptionalNullable<String> modelHandleId = OptionalNullable.absent();
@@ -351,7 +336,6 @@ public final class Version {
             createdAt(other.getCreatedAt());
             createdBy(other.getCreatedBy());
             createdById(other.getCreatedById());
-            diagramHandleIds(other.getDiagramHandleIds());
             id(other.getId());
             landscapeId(other.getLandscapeId());
             tags(other.getTags());
@@ -456,30 +440,6 @@ public final class Version {
         }
 
         @java.lang.Override
-        public _FinalStage addAllDiagramHandleIds(List<String> diagramHandleIds) {
-            if (diagramHandleIds != null) {
-                this.diagramHandleIds.addAll(diagramHandleIds);
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage addDiagramHandleIds(String diagramHandleIds) {
-            this.diagramHandleIds.add(diagramHandleIds);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "diagramHandleIds", nulls = Nulls.SKIP)
-        public _FinalStage diagramHandleIds(List<String> diagramHandleIds) {
-            this.diagramHandleIds.clear();
-            if (diagramHandleIds != null) {
-                this.diagramHandleIds.addAll(diagramHandleIds);
-            }
-            return this;
-        }
-
-        @java.lang.Override
         public _FinalStage completedAt(OffsetDateTime completedAt) {
             this.completedAt = Optional.ofNullable(completedAt);
             return this;
@@ -537,7 +497,6 @@ public final class Version {
                     createdAt,
                     createdBy,
                     createdById,
-                    diagramHandleIds,
                     id,
                     landscapeId,
                     tags,
@@ -545,6 +504,18 @@ public final class Version {
                     updatedBy,
                     updatedById,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

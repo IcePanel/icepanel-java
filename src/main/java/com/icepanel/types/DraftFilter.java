@@ -121,6 +121,16 @@ public final class DraftFilter {
         public DraftFilter build() {
             return new DraftFilter(name, status, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonDeserialize(using = Status.Deserializer.class)

@@ -116,6 +116,10 @@ public final class ActionLandscapeCopy {
 
     public interface _FinalStage {
         ActionLandscapeCopy build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -174,6 +178,18 @@ public final class ActionLandscapeCopy {
         public ActionLandscapeCopy build() {
             return new ActionLandscapeCopy(context, id, props, type, additionalProperties);
         }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -230,6 +246,10 @@ public final class ActionLandscapeCopy {
 
         public interface _FinalStage {
             Props build();
+
+            _FinalStage additionalProperty(String key, Object value);
+
+            _FinalStage additionalProperties(Map<String, Object> additionalProperties);
         }
 
         @JsonIgnoreProperties(ignoreUnknown = true)
@@ -258,6 +278,18 @@ public final class ActionLandscapeCopy {
             @java.lang.Override
             public Props build() {
                 return new Props(targetLandscapeId, additionalProperties);
+            }
+
+            @java.lang.Override
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            @java.lang.Override
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }

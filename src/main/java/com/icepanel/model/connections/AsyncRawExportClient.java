@@ -10,11 +10,14 @@ import com.icepanel.core.IcePanelClientException;
 import com.icepanel.core.IcePanelClientHttpResponse;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.errors.BadRequestError;
+import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
 import com.icepanel.errors.UnauthorizedError;
 import com.icepanel.errors.UnprocessableEntityError;
 import com.icepanel.model.connections.types.ModelConnectionsExportCsvRequest;
+import com.icepanel.types.Error;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
@@ -34,10 +37,16 @@ public class AsyncRawExportClient {
         this.clientOptions = clientOptions;
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public CompletableFuture<IcePanelClientHttpResponse<String>> csv(ModelConnectionsExportCsvRequest request) {
         return csv(request, null);
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public CompletableFuture<IcePanelClientHttpResponse<String>> csv(
             ModelConnectionsExportCsvRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -75,9 +84,19 @@ public class AsyncRawExportClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                                        response));
+                                return;
+                            case 403:
+                                future.completeExceptionally(new ForbiddenError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
                                         response));
                                 return;
                             case 404:

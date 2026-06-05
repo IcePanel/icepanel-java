@@ -11,6 +11,8 @@ import com.icepanel.core.IcePanelClientHttpResponse;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.errors.BadRequestError;
 import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
@@ -21,8 +23,12 @@ import com.icepanel.organizations.types.LogsListResponse;
 import com.icepanel.organizations.types.OrganizationLogFindRequest;
 import com.icepanel.organizations.types.OrganizationLogsListRequest;
 import com.icepanel.types.Error;
+import com.icepanel.types.OrganizationLog;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -43,14 +49,15 @@ public class AsyncRawLogsClient {
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public CompletableFuture<IcePanelClientHttpResponse<LogsListResponse>> list(OrganizationLogsListRequest request) {
+    public CompletableFuture<IcePanelClientHttpResponse<SyncPagingIterable<OrganizationLog>>> list(
+            OrganizationLogsListRequest request) {
         return list(request, null);
     }
 
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public CompletableFuture<IcePanelClientHttpResponse<LogsListResponse>> list(
+    public CompletableFuture<IcePanelClientHttpResponse<SyncPagingIterable<OrganizationLog>>> list(
             OrganizationLogsListRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -60,6 +67,10 @@ public class AsyncRawLogsClient {
         if (request.getFilter().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
+        }
+        if (request.getCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "cursor", request.getCursor().get(), false);
         }
         if (requestOptions != null) {
             requestOptions.getQueryParameters().forEach((_key, _value) -> {
@@ -76,20 +87,43 @@ public class AsyncRawLogsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<IcePanelClientHttpResponse<LogsListResponse>> future = new CompletableFuture<>();
+        CompletableFuture<IcePanelClientHttpResponse<SyncPagingIterable<OrganizationLog>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
+                        LogsListResponse parsedResponse =
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getNextCursor();
+                        OrganizationLogsListRequest nextRequest = OrganizationLogsListRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<OrganizationLog> result = parsedResponse.getOrganizationLogs();
                         future.complete(new IcePanelClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LogsListResponse.class),
+                                new SyncPagingIterable<OrganizationLog>(
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                            try {
+                                                return list(nextRequest, requestOptions)
+                                                        .get()
+                                                        .body();
+                                            } catch (InterruptedException | ExecutionException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }),
                                 response));
                         return;
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
@@ -184,6 +218,11 @@ public class AsyncRawLogsClient {
                     }
                     try {
                         switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new BadRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class),
+                                        response));
+                                return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),

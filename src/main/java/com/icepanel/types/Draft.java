@@ -49,6 +49,8 @@ public final class Draft {
 
     private final Optional<String> deletedById;
 
+    private final Optional<String> headVersionId;
+
     private final String id;
 
     private final String landscapeId;
@@ -95,6 +97,7 @@ public final class Draft {
             Optional<OffsetDateTime> deletedAt,
             Optional<AuthType> deletedBy,
             Optional<String> deletedById,
+            Optional<String> headVersionId,
             String id,
             String landscapeId,
             Optional<String> latestEntityId,
@@ -124,6 +127,7 @@ public final class Draft {
         this.deletedAt = deletedAt;
         this.deletedBy = deletedBy;
         this.deletedById = deletedById;
+        this.headVersionId = headVersionId;
         this.id = id;
         this.landscapeId = landscapeId;
         this.latestEntityId = latestEntityId;
@@ -205,6 +209,11 @@ public final class Draft {
     @JsonProperty("deletedById")
     public Optional<String> getDeletedById() {
         return deletedById;
+    }
+
+    @JsonProperty("headVersionId")
+    public Optional<String> getHeadVersionId() {
+        return headVersionId;
     }
 
     @JsonProperty("id")
@@ -307,6 +316,7 @@ public final class Draft {
                 && deletedAt.equals(other.deletedAt)
                 && deletedBy.equals(other.deletedBy)
                 && deletedById.equals(other.deletedById)
+                && headVersionId.equals(other.headVersionId)
                 && id.equals(other.id)
                 && landscapeId.equals(other.landscapeId)
                 && latestEntityId.equals(other.latestEntityId)
@@ -340,6 +350,7 @@ public final class Draft {
                 this.deletedAt,
                 this.deletedBy,
                 this.deletedById,
+                this.headVersionId,
                 this.id,
                 this.landscapeId,
                 this.latestEntityId,
@@ -431,6 +442,10 @@ public final class Draft {
     public interface _FinalStage {
         Draft build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage changeSummary(Optional<DraftChangeSummary> changeSummary);
 
         _FinalStage changeSummary(DraftChangeSummary changeSummary);
@@ -456,6 +471,10 @@ public final class Draft {
         _FinalStage deletedById(Optional<String> deletedById);
 
         _FinalStage deletedById(String deletedById);
+
+        _FinalStage headVersionId(Optional<String> headVersionId);
+
+        _FinalStage headVersionId(String headVersionId);
 
         _FinalStage latestEntityId(Optional<String> latestEntityId);
 
@@ -548,6 +567,8 @@ public final class Draft {
 
         private Optional<String> latestEntityId = Optional.empty();
 
+        private Optional<String> headVersionId = Optional.empty();
+
         private Optional<String> deletedById = Optional.empty();
 
         private Optional<AuthType> deletedBy = Optional.empty();
@@ -580,6 +601,7 @@ public final class Draft {
             deletedAt(other.getDeletedAt());
             deletedBy(other.getDeletedBy());
             deletedById(other.getDeletedById());
+            headVersionId(other.getHeadVersionId());
             id(other.getId());
             landscapeId(other.getLandscapeId());
             latestEntityId(other.getLatestEntityId());
@@ -795,6 +817,19 @@ public final class Draft {
         }
 
         @java.lang.Override
+        public _FinalStage headVersionId(String headVersionId) {
+            this.headVersionId = Optional.ofNullable(headVersionId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "headVersionId", nulls = Nulls.SKIP)
+        public _FinalStage headVersionId(Optional<String> headVersionId) {
+            this.headVersionId = headVersionId;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage deletedById(String deletedById) {
             this.deletedById = Optional.ofNullable(deletedById);
             return this;
@@ -899,6 +934,7 @@ public final class Draft {
                     deletedAt,
                     deletedBy,
                     deletedById,
+                    headVersionId,
                     id,
                     landscapeId,
                     latestEntityId,
@@ -915,6 +951,18 @@ public final class Draft {
                     viewedBy,
                     viewedById,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

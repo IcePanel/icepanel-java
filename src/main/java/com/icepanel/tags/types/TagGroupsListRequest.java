@@ -100,6 +100,10 @@ public final class TagGroupsListRequest {
     public interface _FinalStage {
         TagGroupsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<TagGroupFilter> filter);
 
         _FinalStage filter(TagGroupFilter filter);
@@ -156,6 +160,18 @@ public final class TagGroupsListRequest {
         @java.lang.Override
         public TagGroupsListRequest build() {
             return new TagGroupsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

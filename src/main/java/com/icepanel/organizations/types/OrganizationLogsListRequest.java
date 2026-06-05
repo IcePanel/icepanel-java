@@ -26,12 +26,18 @@ public final class OrganizationLogsListRequest {
 
     private final Optional<OrganizationLogFilter> filter;
 
+    private final Optional<String> cursor;
+
     private final Map<String, Object> additionalProperties;
 
     private OrganizationLogsListRequest(
-            String organizationId, Optional<OrganizationLogFilter> filter, Map<String, Object> additionalProperties) {
+            String organizationId,
+            Optional<OrganizationLogFilter> filter,
+            Optional<String> cursor,
+            Map<String, Object> additionalProperties) {
         this.organizationId = organizationId;
         this.filter = filter;
+        this.cursor = cursor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -43,6 +49,11 @@ public final class OrganizationLogsListRequest {
     @JsonProperty("filter")
     public Optional<OrganizationLogFilter> getFilter() {
         return filter;
+    }
+
+    @JsonProperty("cursor")
+    public Optional<String> getCursor() {
+        return cursor;
     }
 
     @java.lang.Override
@@ -57,12 +68,14 @@ public final class OrganizationLogsListRequest {
     }
 
     private boolean equalTo(OrganizationLogsListRequest other) {
-        return organizationId.equals(other.organizationId) && filter.equals(other.filter);
+        return organizationId.equals(other.organizationId)
+                && filter.equals(other.filter)
+                && cursor.equals(other.cursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.organizationId, this.filter);
+        return Objects.hash(this.organizationId, this.filter, this.cursor);
     }
 
     @java.lang.Override
@@ -83,14 +96,24 @@ public final class OrganizationLogsListRequest {
     public interface _FinalStage {
         OrganizationLogsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<OrganizationLogFilter> filter);
 
         _FinalStage filter(OrganizationLogFilter filter);
+
+        _FinalStage cursor(Optional<String> cursor);
+
+        _FinalStage cursor(String cursor);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements OrganizationIdStage, _FinalStage {
         private String organizationId;
+
+        private Optional<String> cursor = Optional.empty();
 
         private Optional<OrganizationLogFilter> filter = Optional.empty();
 
@@ -103,6 +126,7 @@ public final class OrganizationLogsListRequest {
         public Builder from(OrganizationLogsListRequest other) {
             organizationId(other.getOrganizationId());
             filter(other.getFilter());
+            cursor(other.getCursor());
             return this;
         }
 
@@ -110,6 +134,19 @@ public final class OrganizationLogsListRequest {
         @JsonSetter("organizationId")
         public _FinalStage organizationId(@NotNull String organizationId) {
             this.organizationId = Objects.requireNonNull(organizationId, "organizationId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage cursor(String cursor) {
+            this.cursor = Optional.ofNullable(cursor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
+        public _FinalStage cursor(Optional<String> cursor) {
+            this.cursor = cursor;
             return this;
         }
 
@@ -128,7 +165,19 @@ public final class OrganizationLogsListRequest {
 
         @java.lang.Override
         public OrganizationLogsListRequest build() {
-            return new OrganizationLogsListRequest(organizationId, filter, additionalProperties);
+            return new OrganizationLogsListRequest(organizationId, filter, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

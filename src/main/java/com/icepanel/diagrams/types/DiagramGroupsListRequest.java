@@ -100,6 +100,10 @@ public final class DiagramGroupsListRequest {
     public interface _FinalStage {
         DiagramGroupsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<DiagramGroupFilter> filter);
 
         _FinalStage filter(DiagramGroupFilter filter);
@@ -156,6 +160,18 @@ public final class DiagramGroupsListRequest {
         @java.lang.Override
         public DiagramGroupsListRequest build() {
             return new DiagramGroupsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }
