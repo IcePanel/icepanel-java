@@ -85,6 +85,10 @@ public final class OrganizationLogStatsDateByType {
     public interface _FinalStage {
         OrganizationLogStatsDateByType build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage actions(Map<String, OrganizationLogStatsItemByType> actions);
 
         _FinalStage putAllActions(Map<String, OrganizationLogStatsItemByType> actions);
@@ -144,6 +148,18 @@ public final class OrganizationLogStatsDateByType {
         @java.lang.Override
         public OrganizationLogStatsDateByType build() {
             return new OrganizationLogStatsDateByType(actions, date, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

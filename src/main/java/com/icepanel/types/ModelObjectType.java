@@ -7,19 +7,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ModelObjectType {
-    public static final ModelObjectType APP = new ModelObjectType(Value.APP, "app");
-
     public static final ModelObjectType COMPONENT = new ModelObjectType(Value.COMPONENT, "component");
 
     public static final ModelObjectType ACTOR = new ModelObjectType(Value.ACTOR, "actor");
 
-    public static final ModelObjectType ROOT = new ModelObjectType(Value.ROOT, "root");
+    public static final ModelObjectType APP = new ModelObjectType(Value.APP, "app");
 
     public static final ModelObjectType STORE = new ModelObjectType(Value.STORE, "store");
 
-    public static final ModelObjectType GROUP = new ModelObjectType(Value.GROUP, "group");
+    public static final ModelObjectType ROOT = new ModelObjectType(Value.ROOT, "root");
 
     public static final ModelObjectType SYSTEM = new ModelObjectType(Value.SYSTEM, "system");
+
+    public static final ModelObjectType GROUP = new ModelObjectType(Value.GROUP, "group");
 
     private final Value value;
 
@@ -53,20 +53,20 @@ public final class ModelObjectType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case APP:
-                return visitor.visitApp();
             case COMPONENT:
                 return visitor.visitComponent();
             case ACTOR:
                 return visitor.visitActor();
-            case ROOT:
-                return visitor.visitRoot();
+            case APP:
+                return visitor.visitApp();
             case STORE:
                 return visitor.visitStore();
-            case GROUP:
-                return visitor.visitGroup();
+            case ROOT:
+                return visitor.visitRoot();
             case SYSTEM:
                 return visitor.visitSystem();
+            case GROUP:
+                return visitor.visitGroup();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -76,20 +76,20 @@ public final class ModelObjectType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ModelObjectType valueOf(String value) {
         switch (value) {
-            case "app":
-                return APP;
             case "component":
                 return COMPONENT;
             case "actor":
                 return ACTOR;
-            case "root":
-                return ROOT;
+            case "app":
+                return APP;
             case "store":
                 return STORE;
-            case "group":
-                return GROUP;
+            case "root":
+                return ROOT;
             case "system":
                 return SYSTEM;
+            case "group":
+                return GROUP;
             default:
                 return new ModelObjectType(Value.UNKNOWN, value);
         }

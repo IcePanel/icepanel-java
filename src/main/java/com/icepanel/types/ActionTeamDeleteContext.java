@@ -82,6 +82,10 @@ public final class ActionTeamDeleteContext {
     public interface _FinalStage {
         ActionTeamDeleteContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage userNames(Optional<Map<String, String>> userNames);
 
         _FinalStage userNames(Map<String, String> userNames);
@@ -128,6 +132,18 @@ public final class ActionTeamDeleteContext {
         @java.lang.Override
         public ActionTeamDeleteContext build() {
             return new ActionTeamDeleteContext(name, userNames, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

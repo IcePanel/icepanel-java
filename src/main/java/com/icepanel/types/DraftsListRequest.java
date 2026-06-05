@@ -99,6 +99,10 @@ public final class DraftsListRequest {
     public interface _FinalStage {
         DraftsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<DraftFilter> filter);
 
         _FinalStage filter(DraftFilter filter);
@@ -155,6 +159,18 @@ public final class DraftsListRequest {
         @java.lang.Override
         public DraftsListRequest build() {
             return new DraftsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

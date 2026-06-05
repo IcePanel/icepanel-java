@@ -29,6 +29,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CatalogTechnologyFilter.Builder.class)
 public final class CatalogTechnologyFilter {
+    private final Optional<Name> name;
+
     private final Optional<Provider> provider;
 
     private final Optional<Restrictions> restrictions;
@@ -40,16 +42,23 @@ public final class CatalogTechnologyFilter {
     private final Map<String, Object> additionalProperties;
 
     private CatalogTechnologyFilter(
+            Optional<Name> name,
             Optional<Provider> provider,
             Optional<Restrictions> restrictions,
             Optional<Status> status,
             Optional<Type> type,
             Map<String, Object> additionalProperties) {
+        this.name = name;
         this.provider = provider;
         this.restrictions = restrictions;
         this.status = status;
         this.type = type;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("name")
+    public Optional<Name> getName() {
+        return name;
     }
 
     @JsonProperty("provider")
@@ -84,7 +93,8 @@ public final class CatalogTechnologyFilter {
     }
 
     private boolean equalTo(CatalogTechnologyFilter other) {
-        return provider.equals(other.provider)
+        return name.equals(other.name)
+                && provider.equals(other.provider)
                 && restrictions.equals(other.restrictions)
                 && status.equals(other.status)
                 && type.equals(other.type);
@@ -92,7 +102,7 @@ public final class CatalogTechnologyFilter {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.provider, this.restrictions, this.status, this.type);
+        return Objects.hash(this.name, this.provider, this.restrictions, this.status, this.type);
     }
 
     @java.lang.Override
@@ -106,6 +116,8 @@ public final class CatalogTechnologyFilter {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<Name> name = Optional.empty();
+
         private Optional<Provider> provider = Optional.empty();
 
         private Optional<Restrictions> restrictions = Optional.empty();
@@ -120,10 +132,22 @@ public final class CatalogTechnologyFilter {
         private Builder() {}
 
         public Builder from(CatalogTechnologyFilter other) {
+            name(other.getName());
             provider(other.getProvider());
             restrictions(other.getRestrictions());
             status(other.getStatus());
             type(other.getType());
+            return this;
+        }
+
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public Builder name(Optional<Name> name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder name(Name name) {
+            this.name = Optional.ofNullable(name);
             return this;
         }
 
@@ -172,7 +196,17 @@ public final class CatalogTechnologyFilter {
         }
 
         public CatalogTechnologyFilter build() {
-            return new CatalogTechnologyFilter(provider, restrictions, status, type, additionalProperties);
+            return new CatalogTechnologyFilter(name, provider, restrictions, status, type, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 
@@ -252,6 +286,87 @@ public final class CatalogTechnologyFilter {
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(
                             value, new TypeReference<List<OptionalNullable<CatalogProviderNullable>>>() {}));
+                } catch (RuntimeException e) {
+                }
+                throw new JsonParseException(p, "Failed to deserialize");
+            }
+        }
+    }
+
+    @JsonDeserialize(using = Name.Deserializer.class)
+    public static final class Name {
+        private final Object value;
+
+        private final int type;
+
+        private Name(Object value, int type) {
+            this.value = value;
+            this.type = type;
+        }
+
+        @JsonValue
+        public Object get() {
+            return this.value;
+        }
+
+        @SuppressWarnings("unchecked")
+        public <T> T visit(Visitor<T> visitor) {
+            if (this.type == 0) {
+                return visitor.visit((String) this.value);
+            } else if (this.type == 1) {
+                return visitor.visit((List<String>) this.value);
+            }
+            throw new IllegalStateException("Failed to visit value. This should never happen.");
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof Name && equalTo((Name) other);
+        }
+
+        private boolean equalTo(Name other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return this.value.toString();
+        }
+
+        public static Name of(String value) {
+            return new Name(value, 0);
+        }
+
+        public static Name of(List<String> value) {
+            return new Name(value, 1);
+        }
+
+        public interface Visitor<T> {
+            T visit(String value);
+
+            T visit(List<String> value);
+        }
+
+        static final class Deserializer extends StdDeserializer<Name> {
+            Deserializer() {
+                super(Name.class);
+            }
+
+            @java.lang.Override
+            public Name deserialize(JsonParser p, DeserializationContext context) throws IOException {
+                Object value = p.readValueAs(Object.class);
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, String.class));
+                } catch (RuntimeException e) {
+                }
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, new TypeReference<List<String>>() {}));
                 } catch (RuntimeException e) {
                 }
                 throw new JsonParseException(p, "Failed to deserialize");

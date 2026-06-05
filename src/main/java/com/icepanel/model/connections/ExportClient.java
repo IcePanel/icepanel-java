@@ -24,10 +24,16 @@ public class ExportClient {
         return this.rawClient;
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public String csv(ModelConnectionsExportCsvRequest request) {
         return this.rawClient.csv(request).body();
     }
 
+    /**
+     * Use the /landscapes/{landscapeId}/versions/{versionId}/export endpoint with type=connection-csv instead
+     */
     public String csv(ModelConnectionsExportCsvRequest request, RequestOptions requestOptions) {
         return this.rawClient.csv(request, requestOptions).body();
     }

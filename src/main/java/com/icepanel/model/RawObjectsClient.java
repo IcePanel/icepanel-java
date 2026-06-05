@@ -4,6 +4,7 @@
 package com.icepanel.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.IcePanelClientApiException;
 import com.icepanel.core.IcePanelClientException;
@@ -12,26 +13,35 @@ import com.icepanel.core.MediaTypes;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.errors.BadRequestError;
 import com.icepanel.errors.ConflictError;
 import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
+import com.icepanel.errors.ServiceUnavailableError;
 import com.icepanel.errors.UnauthorizedError;
 import com.icepanel.errors.UnprocessableEntityError;
 import com.icepanel.model.types.ModelObjectCreateRequest;
 import com.icepanel.model.types.ModelObjectDeleteRequest;
+import com.icepanel.model.types.ModelObjectDependenciesListRequest;
 import com.icepanel.model.types.ModelObjectFindRequest;
 import com.icepanel.model.types.ModelObjectUpdateRequest;
 import com.icepanel.model.types.ModelObjectUpsertRequest;
 import com.icepanel.model.types.ModelObjectsListRequest;
 import com.icepanel.model.types.ObjectsCreateResponse;
 import com.icepanel.model.types.ObjectsDeleteResponse;
+import com.icepanel.model.types.ObjectsDependenciesListResponseValue;
 import com.icepanel.model.types.ObjectsGetResponse;
 import com.icepanel.model.types.ObjectsListResponse;
 import com.icepanel.model.types.ObjectsUpdateResponse;
 import com.icepanel.model.types.ObjectsUpsertResponse;
 import com.icepanel.types.Error;
+import com.icepanel.types.ModelObjectExpanded;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -47,11 +57,90 @@ public class RawObjectsClient {
         this.clientOptions = clientOptions;
     }
 
-    public IcePanelClientHttpResponse<ObjectsListResponse> list(ModelObjectsListRequest request) {
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public IcePanelClientHttpResponse<Map<String, ObjectsDependenciesListResponseValue>> dependenciesList(
+            ModelObjectDependenciesListRequest request) {
+        return dependenciesList(request, null);
+    }
+
+    /**
+     * Returns the incoming and outgoing dependencies for each requested object. Objects can be specified by ID or by label key-value pairs (or both): label pairs use OR semantics so an object matching any pair is included. Results are filtered by tags and/or technologies when provided: within each filter array the semantics are OR (any match passes), and between the two filter dimensions the semantics are AND (an object must satisfy both when both are specified).
+     */
+    public IcePanelClientHttpResponse<Map<String, ObjectsDependenciesListResponseValue>> dependenciesList(
+            ModelObjectDependenciesListRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("landscapes")
+                .addPathSegment(request.getLandscapeId())
+                .addPathSegments("versions")
+                .addPathSegment(request.getVersionId())
+                .addPathSegments("model")
+                .addPathSegments("dependencies");
+        QueryStringMapper.addQueryParameter(httpUrl, "filter", request.getFilter(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new IcePanelClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString,
+                                new TypeReference<Map<String, ObjectsDependenciesListResponseValue>>() {}),
+                        response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
+                    case 404:
+                        throw new NotFoundError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 422:
+                        throw new UnprocessableEntityError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 500:
+                        throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new IcePanelClientApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new IcePanelClientException("Network error executing HTTP request", e);
+        }
+    }
+
+    public IcePanelClientHttpResponse<SyncPagingIterable<ModelObjectExpanded>> list(ModelObjectsListRequest request) {
         return list(request, null);
     }
 
-    public IcePanelClientHttpResponse<ObjectsListResponse> list(
+    public IcePanelClientHttpResponse<SyncPagingIterable<ModelObjectExpanded>> list(
             ModelObjectsListRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -64,6 +153,14 @@ public class RawObjectsClient {
         if (request.getFilter().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "filter", request.getFilter().get(), false);
+        }
+        if (request.getCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "cursor", request.getCursor().get(), false);
+        }
+        if (request.getLimit().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "limit", request.getLimit().get(), false);
         }
         if (request.getExpand().isPresent()) {
             QueryStringMapper.addQueryParameter(
@@ -88,14 +185,32 @@ public class RawObjectsClient {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
+                ObjectsListResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ObjectsListResponse.class);
+                Optional<String> startingAfter = parsedResponse.getNextCursor();
+                ModelObjectsListRequest nextRequest = ModelObjectsListRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<ModelObjectExpanded> result = parsedResponse.getModelObjects();
                 return new IcePanelClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ObjectsListResponse.class), response);
+                        new SyncPagingIterable<ModelObjectExpanded>(
+                                startingAfter.isPresent(), result, parsedResponse, () -> list(
+                                                nextRequest, requestOptions)
+                                        .body()),
+                        response);
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -163,6 +278,9 @@ public class RawObjectsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -177,6 +295,9 @@ public class RawObjectsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -232,9 +353,15 @@ public class RawObjectsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -302,9 +429,15 @@ public class RawObjectsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -316,6 +449,9 @@ public class RawObjectsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -367,9 +503,15 @@ public class RawObjectsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -378,6 +520,9 @@ public class RawObjectsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {
@@ -437,6 +582,9 @@ public class RawObjectsClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -454,6 +602,9 @@ public class RawObjectsClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                     case 500:
                         throw new InternalServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 503:
+                        throw new ServiceUnavailableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
                 }
             } catch (JsonProcessingException ignored) {

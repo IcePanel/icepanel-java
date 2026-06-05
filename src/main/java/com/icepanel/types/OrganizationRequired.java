@@ -29,6 +29,8 @@ public final class OrganizationRequired {
 
     private final Optional<Boolean> aiFeaturesEnabled;
 
+    private final Optional<OrganizationAiModel> aiModel;
+
     private final Optional<OrganizationBillingCurrency> billingCurrency;
 
     private final Optional<OrganizationBillingCycle> billingCycle;
@@ -43,6 +45,8 @@ public final class OrganizationRequired {
 
     private final String name;
 
+    private final Optional<Boolean> oauthLandscapeWriteEnabled;
+
     private final OptionalNullable<List<String>> shareLinkAuthDomains;
 
     private final Optional<Boolean> shareLinksEnabled;
@@ -52,6 +56,7 @@ public final class OrganizationRequired {
     private OrganizationRequired(
             Optional<OrganizationAiFeatures> aiFeatures,
             Optional<Boolean> aiFeaturesEnabled,
+            Optional<OrganizationAiModel> aiModel,
             Optional<OrganizationBillingCurrency> billingCurrency,
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
@@ -59,11 +64,13 @@ public final class OrganizationRequired {
             Optional<OrganizationLanguage> language,
             Optional<LineShape> lineShapeDefault,
             String name,
+            Optional<Boolean> oauthLandscapeWriteEnabled,
             OptionalNullable<List<String>> shareLinkAuthDomains,
             Optional<Boolean> shareLinksEnabled,
             Map<String, Object> additionalProperties) {
         this.aiFeatures = aiFeatures;
         this.aiFeaturesEnabled = aiFeaturesEnabled;
+        this.aiModel = aiModel;
         this.billingCurrency = billingCurrency;
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
@@ -71,6 +78,7 @@ public final class OrganizationRequired {
         this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
+        this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
         this.shareLinksEnabled = shareLinksEnabled;
         this.additionalProperties = additionalProperties;
@@ -87,6 +95,11 @@ public final class OrganizationRequired {
     @JsonProperty("aiFeaturesEnabled")
     public Optional<Boolean> getAiFeaturesEnabled() {
         return aiFeaturesEnabled;
+    }
+
+    @JsonProperty("aiModel")
+    public Optional<OrganizationAiModel> getAiModel() {
+        return aiModel;
     }
 
     @JsonProperty("billingCurrency")
@@ -124,6 +137,14 @@ public final class OrganizationRequired {
         return name;
     }
 
+    /**
+     * @return Whether OAuth connections can make changes to landscape data
+     */
+    @JsonProperty("oauthLandscapeWriteEnabled")
+    public Optional<Boolean> getOauthLandscapeWriteEnabled() {
+        return oauthLandscapeWriteEnabled;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("shareLinkAuthDomains")
     public OptionalNullable<List<String>> getShareLinkAuthDomains() {
@@ -158,6 +179,7 @@ public final class OrganizationRequired {
     private boolean equalTo(OrganizationRequired other) {
         return aiFeatures.equals(other.aiFeatures)
                 && aiFeaturesEnabled.equals(other.aiFeaturesEnabled)
+                && aiModel.equals(other.aiModel)
                 && billingCurrency.equals(other.billingCurrency)
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
@@ -165,6 +187,7 @@ public final class OrganizationRequired {
                 && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
+                && oauthLandscapeWriteEnabled.equals(other.oauthLandscapeWriteEnabled)
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
                 && shareLinksEnabled.equals(other.shareLinksEnabled);
     }
@@ -174,6 +197,7 @@ public final class OrganizationRequired {
         return Objects.hash(
                 this.aiFeatures,
                 this.aiFeaturesEnabled,
+                this.aiModel,
                 this.billingCurrency,
                 this.billingCycle,
                 this.billingEmail,
@@ -181,6 +205,7 @@ public final class OrganizationRequired {
                 this.language,
                 this.lineShapeDefault,
                 this.name,
+                this.oauthLandscapeWriteEnabled,
                 this.shareLinkAuthDomains,
                 this.shareLinksEnabled);
     }
@@ -203,6 +228,10 @@ public final class OrganizationRequired {
     public interface _FinalStage {
         OrganizationRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage aiFeatures(Optional<OrganizationAiFeatures> aiFeatures);
 
         _FinalStage aiFeatures(OrganizationAiFeatures aiFeatures);
@@ -213,6 +242,10 @@ public final class OrganizationRequired {
         _FinalStage aiFeaturesEnabled(Optional<Boolean> aiFeaturesEnabled);
 
         _FinalStage aiFeaturesEnabled(Boolean aiFeaturesEnabled);
+
+        _FinalStage aiModel(Optional<OrganizationAiModel> aiModel);
+
+        _FinalStage aiModel(OrganizationAiModel aiModel);
 
         _FinalStage billingCurrency(Optional<OrganizationBillingCurrency> billingCurrency);
 
@@ -238,6 +271,13 @@ public final class OrganizationRequired {
 
         _FinalStage lineShapeDefault(LineShape lineShapeDefault);
 
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         */
+        _FinalStage oauthLandscapeWriteEnabled(Optional<Boolean> oauthLandscapeWriteEnabled);
+
+        _FinalStage oauthLandscapeWriteEnabled(Boolean oauthLandscapeWriteEnabled);
+
         _FinalStage shareLinkAuthDomains(OptionalNullable<List<String>> shareLinkAuthDomains);
 
         _FinalStage shareLinkAuthDomains(List<String> shareLinkAuthDomains);
@@ -259,6 +299,8 @@ public final class OrganizationRequired {
 
         private OptionalNullable<List<String>> shareLinkAuthDomains = OptionalNullable.absent();
 
+        private Optional<Boolean> oauthLandscapeWriteEnabled = Optional.empty();
+
         private Optional<LineShape> lineShapeDefault = Optional.empty();
 
         private Optional<OrganizationLanguage> language = Optional.empty();
@@ -270,6 +312,8 @@ public final class OrganizationRequired {
         private Optional<OrganizationBillingCycle> billingCycle = Optional.empty();
 
         private Optional<OrganizationBillingCurrency> billingCurrency = Optional.empty();
+
+        private Optional<OrganizationAiModel> aiModel = Optional.empty();
 
         private Optional<Boolean> aiFeaturesEnabled = Optional.empty();
 
@@ -284,6 +328,7 @@ public final class OrganizationRequired {
         public Builder from(OrganizationRequired other) {
             aiFeatures(other.getAiFeatures());
             aiFeaturesEnabled(other.getAiFeaturesEnabled());
+            aiModel(other.getAiModel());
             billingCurrency(other.getBillingCurrency());
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
@@ -291,6 +336,7 @@ public final class OrganizationRequired {
             language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
+            oauthLandscapeWriteEnabled(other.getOauthLandscapeWriteEnabled());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
             shareLinksEnabled(other.getShareLinksEnabled());
             return this;
@@ -348,6 +394,26 @@ public final class OrganizationRequired {
         @JsonSetter(value = "shareLinkAuthDomains", nulls = Nulls.SKIP)
         public _FinalStage shareLinkAuthDomains(OptionalNullable<List<String>> shareLinkAuthDomains) {
             this.shareLinkAuthDomains = shareLinkAuthDomains;
+            return this;
+        }
+
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage oauthLandscapeWriteEnabled(Boolean oauthLandscapeWriteEnabled) {
+            this.oauthLandscapeWriteEnabled = Optional.ofNullable(oauthLandscapeWriteEnabled);
+            return this;
+        }
+
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "oauthLandscapeWriteEnabled", nulls = Nulls.SKIP)
+        public _FinalStage oauthLandscapeWriteEnabled(Optional<Boolean> oauthLandscapeWriteEnabled) {
+            this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
             return this;
         }
 
@@ -429,6 +495,19 @@ public final class OrganizationRequired {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage aiModel(OrganizationAiModel aiModel) {
+            this.aiModel = Optional.ofNullable(aiModel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "aiModel", nulls = Nulls.SKIP)
+        public _FinalStage aiModel(Optional<OrganizationAiModel> aiModel) {
+            this.aiModel = aiModel;
+            return this;
+        }
+
         /**
          * <p>Whether to enable all AI features for the organization</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -467,6 +546,7 @@ public final class OrganizationRequired {
             return new OrganizationRequired(
                     aiFeatures,
                     aiFeaturesEnabled,
+                    aiModel,
                     billingCurrency,
                     billingCycle,
                     billingEmail,
@@ -474,9 +554,22 @@ public final class OrganizationRequired {
                     language,
                     lineShapeDefault,
                     name,
+                    oauthLandscapeWriteEnabled,
                     shareLinkAuthDomains,
                     shareLinksEnabled,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

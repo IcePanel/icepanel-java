@@ -115,6 +115,9 @@ public final class OrganizationLogFilter {
         return endAtDate;
     }
 
+    /**
+     * @return use cursor instead
+     */
     @JsonProperty("endAtId")
     public Optional<String> getEndAtId() {
         return endAtId;
@@ -125,6 +128,9 @@ public final class OrganizationLogFilter {
         return endBeforeDate;
     }
 
+    /**
+     * @return use cursor instead
+     */
     @JsonProperty("endBeforeId")
     public Optional<String> getEndBeforeId() {
         return endBeforeId;
@@ -166,6 +172,9 @@ public final class OrganizationLogFilter {
         return startAfterDate;
     }
 
+    /**
+     * @return use cursor instead
+     */
     @JsonProperty("startAfterId")
     public Optional<String> getStartAfterId() {
         return startAfterId;
@@ -176,6 +185,9 @@ public final class OrganizationLogFilter {
         return startAtDate;
     }
 
+    /**
+     * @return use cursor instead
+     */
     @JsonProperty("startAtId")
     public Optional<String> getStartAtId() {
         return startAtId;
@@ -331,6 +343,9 @@ public final class OrganizationLogFilter {
             return this;
         }
 
+        /**
+         * <p>use cursor instead</p>
+         */
         @JsonSetter(value = "endAtId", nulls = Nulls.SKIP)
         public Builder endAtId(Optional<String> endAtId) {
             this.endAtId = endAtId;
@@ -353,6 +368,9 @@ public final class OrganizationLogFilter {
             return this;
         }
 
+        /**
+         * <p>use cursor instead</p>
+         */
         @JsonSetter(value = "endBeforeId", nulls = Nulls.SKIP)
         public Builder endBeforeId(Optional<String> endBeforeId) {
             this.endBeforeId = endBeforeId;
@@ -436,6 +454,9 @@ public final class OrganizationLogFilter {
             return this;
         }
 
+        /**
+         * <p>use cursor instead</p>
+         */
         @JsonSetter(value = "startAfterId", nulls = Nulls.SKIP)
         public Builder startAfterId(Optional<String> startAfterId) {
             this.startAfterId = startAfterId;
@@ -458,6 +479,9 @@ public final class OrganizationLogFilter {
             return this;
         }
 
+        /**
+         * <p>use cursor instead</p>
+         */
         @JsonSetter(value = "startAtId", nulls = Nulls.SKIP)
         public Builder startAtId(Optional<String> startAtId) {
             this.startAtId = startAtId;
@@ -487,6 +511,16 @@ public final class OrganizationLogFilter {
                     startAtDate,
                     startAtId,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 

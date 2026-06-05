@@ -110,6 +110,10 @@ public final class OrganizationUserInfo implements IOrganizationUserInfo {
     public interface _FinalStage {
         OrganizationUserInfo build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage jobRole(Optional<String> jobRole);
 
         _FinalStage jobRole(String jobRole);
@@ -186,6 +190,18 @@ public final class OrganizationUserInfo implements IOrganizationUserInfo {
         @java.lang.Override
         public OrganizationUserInfo build() {
             return new OrganizationUserInfo(email, jobRole, lastActiveAt, name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

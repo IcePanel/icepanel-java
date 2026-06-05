@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class DiagramObjectType {
-    public static final DiagramObjectType APP = new DiagramObjectType(Value.APP, "app");
-
     public static final DiagramObjectType COMPONENT = new DiagramObjectType(Value.COMPONENT, "component");
 
     public static final DiagramObjectType ACTOR = new DiagramObjectType(Value.ACTOR, "actor");
 
+    public static final DiagramObjectType APP = new DiagramObjectType(Value.APP, "app");
+
     public static final DiagramObjectType STORE = new DiagramObjectType(Value.STORE, "store");
 
-    public static final DiagramObjectType GROUP = new DiagramObjectType(Value.GROUP, "group");
-
     public static final DiagramObjectType SYSTEM = new DiagramObjectType(Value.SYSTEM, "system");
+
+    public static final DiagramObjectType GROUP = new DiagramObjectType(Value.GROUP, "group");
 
     private final Value value;
 
@@ -51,18 +51,18 @@ public final class DiagramObjectType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case APP:
-                return visitor.visitApp();
             case COMPONENT:
                 return visitor.visitComponent();
             case ACTOR:
                 return visitor.visitActor();
+            case APP:
+                return visitor.visitApp();
             case STORE:
                 return visitor.visitStore();
-            case GROUP:
-                return visitor.visitGroup();
             case SYSTEM:
                 return visitor.visitSystem();
+            case GROUP:
+                return visitor.visitGroup();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -72,18 +72,18 @@ public final class DiagramObjectType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DiagramObjectType valueOf(String value) {
         switch (value) {
-            case "app":
-                return APP;
             case "component":
                 return COMPONENT;
             case "actor":
                 return ACTOR;
+            case "app":
+                return APP;
             case "store":
                 return STORE;
-            case "group":
-                return GROUP;
             case "system":
                 return SYSTEM;
+            case "group":
+                return GROUP;
             default:
                 return new DiagramObjectType(Value.UNKNOWN, value);
         }

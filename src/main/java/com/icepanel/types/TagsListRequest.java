@@ -99,6 +99,10 @@ public final class TagsListRequest {
     public interface _FinalStage {
         TagsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<TagFilter> filter);
 
         _FinalStage filter(TagFilter filter);
@@ -155,6 +159,18 @@ public final class TagsListRequest {
         @java.lang.Override
         public TagsListRequest build() {
             return new TagsListRequest(landscapeId, versionId, filter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

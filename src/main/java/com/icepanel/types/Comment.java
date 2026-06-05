@@ -341,6 +341,10 @@ public final class Comment {
     public interface _FinalStage {
         Comment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage mentionedUserIds(List<String> mentionedUserIds);
 
         _FinalStage addMentionedUserIds(String mentionedUserIds);
@@ -679,6 +683,18 @@ public final class Comment {
                     version,
                     versionId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

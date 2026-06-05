@@ -6,11 +6,12 @@ package com.icepanel.organizations;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.organizations.logs.StatsClient;
 import com.icepanel.organizations.types.LogsGetResponse;
-import com.icepanel.organizations.types.LogsListResponse;
 import com.icepanel.organizations.types.OrganizationLogFindRequest;
 import com.icepanel.organizations.types.OrganizationLogsListRequest;
+import com.icepanel.types.OrganizationLog;
 import java.util.function.Supplier;
 
 public class LogsClient {
@@ -36,14 +37,15 @@ public class LogsClient {
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public LogsListResponse list(OrganizationLogsListRequest request) {
+    public SyncPagingIterable<OrganizationLog> list(OrganizationLogsListRequest request) {
         return this.rawClient.list(request).body();
     }
 
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public LogsListResponse list(OrganizationLogsListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<OrganizationLog> list(
+            OrganizationLogsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 

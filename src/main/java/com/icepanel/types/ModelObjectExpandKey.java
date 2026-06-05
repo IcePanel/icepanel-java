@@ -14,6 +14,8 @@ public final class ModelObjectExpandKey {
 
     public static final ModelObjectExpandKey DOMAIN = new ModelObjectExpandKey(Value.DOMAIN, "domain");
 
+    public static final ModelObjectExpandKey FLOWS = new ModelObjectExpandKey(Value.FLOWS, "flows");
+
     private final Value value;
 
     private final String string;
@@ -52,6 +54,8 @@ public final class ModelObjectExpandKey {
                 return visitor.visitTags();
             case DOMAIN:
                 return visitor.visitDomain();
+            case FLOWS:
+                return visitor.visitFlows();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -67,6 +71,8 @@ public final class ModelObjectExpandKey {
                 return TAGS;
             case "domain":
                 return DOMAIN;
+            case "flows":
+                return FLOWS;
             default:
                 return new ModelObjectExpandKey(Value.UNKNOWN, value);
         }
@@ -75,9 +81,11 @@ public final class ModelObjectExpandKey {
     public enum Value {
         DOMAIN,
 
-        TECHNOLOGIES,
+        FLOWS,
 
         TAGS,
+
+        TECHNOLOGIES,
 
         UNKNOWN
     }
@@ -85,9 +93,11 @@ public final class ModelObjectExpandKey {
     public interface Visitor<T> {
         T visitDomain();
 
-        T visitTechnologies();
+        T visitFlows();
 
         T visitTags();
+
+        T visitTechnologies();
 
         T visitUnknown(String unknownType);
     }

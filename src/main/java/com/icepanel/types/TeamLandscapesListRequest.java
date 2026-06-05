@@ -82,6 +82,10 @@ public final class TeamLandscapesListRequest {
 
     public interface _FinalStage {
         TeamLandscapesListRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -119,6 +123,18 @@ public final class TeamLandscapesListRequest {
         @java.lang.Override
         public TeamLandscapesListRequest build() {
             return new TeamLandscapesListRequest(organizationId, teamId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

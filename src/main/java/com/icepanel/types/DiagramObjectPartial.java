@@ -261,5 +261,15 @@ public final class DiagramObjectPartial {
         public DiagramObjectPartial build() {
             return new DiagramObjectPartial(height, id, modelId, shape, type, width, x, y, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

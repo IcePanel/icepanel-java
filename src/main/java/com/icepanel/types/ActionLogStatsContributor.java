@@ -128,6 +128,10 @@ public final class ActionLogStatsContributor {
     public interface _FinalStage {
         ActionLogStatsContributor build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
@@ -204,6 +208,18 @@ public final class ActionLogStatsContributor {
         @java.lang.Override
         public ActionLogStatsContributor build() {
             return new ActionLogStatsContributor(contributedAt, count, id, name, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

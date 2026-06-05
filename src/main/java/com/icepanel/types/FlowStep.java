@@ -5,12 +5,10 @@ package com.icepanel.types;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.icepanel.core.Nullable;
@@ -44,7 +42,7 @@ public final class FlowStep {
 
     private final OptionalNullable<String> targetId;
 
-    private final OptionalNullable<Type> type;
+    private final OptionalNullable<FlowStepType> type;
 
     private final OptionalNullable<String> viaId;
 
@@ -60,7 +58,7 @@ public final class FlowStep {
             OptionalNullable<String> parentId,
             OptionalNullable<Map<String, FlowStepPath>> paths,
             OptionalNullable<String> targetId,
-            OptionalNullable<Type> type,
+            OptionalNullable<FlowStepType> type,
             OptionalNullable<String> viaId,
             Map<String, Object> additionalProperties) {
         this.description = description;
@@ -153,7 +151,7 @@ public final class FlowStep {
      */
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
-    public OptionalNullable<Type> getType() {
+    public OptionalNullable<FlowStepType> getType() {
         if (type == null) {
             return OptionalNullable.absent();
         }
@@ -201,7 +199,7 @@ public final class FlowStep {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("type")
-    private OptionalNullable<Type> _getType() {
+    private OptionalNullable<FlowStepType> _getType() {
         return type;
     }
 
@@ -281,6 +279,10 @@ public final class FlowStep {
     public interface _FinalStage {
         FlowStep build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Long description for the flow step</p>
          */
@@ -331,13 +333,13 @@ public final class FlowStep {
         /**
          * <p>Type of flow step - deprecated values: reply</p>
          */
-        _FinalStage type(OptionalNullable<Type> type);
+        _FinalStage type(OptionalNullable<FlowStepType> type);
 
-        _FinalStage type(Type type);
+        _FinalStage type(FlowStepType type);
 
-        _FinalStage type(Optional<Type> type);
+        _FinalStage type(Optional<FlowStepType> type);
 
-        _FinalStage type(Nullable<Type> type);
+        _FinalStage type(Nullable<FlowStepType> type);
 
         _FinalStage viaId(OptionalNullable<String> viaId);
 
@@ -358,7 +360,7 @@ public final class FlowStep {
 
         private OptionalNullable<String> viaId = OptionalNullable.absent();
 
-        private OptionalNullable<Type> type = OptionalNullable.absent();
+        private OptionalNullable<FlowStepType> type = OptionalNullable.absent();
 
         private OptionalNullable<String> targetId = OptionalNullable.absent();
 
@@ -459,7 +461,7 @@ public final class FlowStep {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage type(Nullable<Type> type) {
+        public _FinalStage type(Nullable<FlowStepType> type) {
             if (type.isNull()) {
                 this.type = OptionalNullable.ofNull();
             } else if (type.isEmpty()) {
@@ -475,7 +477,7 @@ public final class FlowStep {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage type(Optional<Type> type) {
+        public _FinalStage type(Optional<FlowStepType> type) {
             if (type.isPresent()) {
                 this.type = OptionalNullable.of(type.get());
             } else {
@@ -489,7 +491,7 @@ public final class FlowStep {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage type(Type type) {
+        public _FinalStage type(FlowStepType type) {
             this.type = OptionalNullable.of(type);
             return this;
         }
@@ -499,7 +501,7 @@ public final class FlowStep {
          */
         @java.lang.Override
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public _FinalStage type(OptionalNullable<Type> type) {
+        public _FinalStage type(OptionalNullable<FlowStepType> type) {
             this.type = type;
             return this;
         }
@@ -715,150 +717,17 @@ public final class FlowStep {
                     viaId,
                     additionalProperties);
         }
-    }
 
-    public static final class Type {
-        public static final Type ALTERNATE_PATH = new Type(Value.ALTERNATE_PATH, "alternate-path");
-
-        public static final Type PARALLEL_PATH = new Type(Value.PARALLEL_PATH, "parallel-path");
-
-        public static final Type OUTGOING = new Type(Value.OUTGOING, "outgoing");
-
-        public static final Type SUBFLOW = new Type(Value.SUBFLOW, "subflow");
-
-        public static final Type INFORMATION = new Type(Value.INFORMATION, "information");
-
-        public static final Type SELF_ACTION = new Type(Value.SELF_ACTION, "self-action");
-
-        public static final Type REPLY = new Type(Value.REPLY, "reply");
-
-        public static final Type INTRODUCTION = new Type(Value.INTRODUCTION, "introduction");
-
-        public static final Type CONCLUSION = new Type(Value.CONCLUSION, "conclusion");
-
-        private final Value value;
-
-        private final String string;
-
-        Type(Value value, String string) {
-            this.value = value;
-            this.string = string;
-        }
-
-        public Value getEnumValue() {
-            return value;
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
         }
 
         @java.lang.Override
-        @JsonValue
-        public String toString() {
-            return this.string;
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            return (this == other) || (other instanceof Type && this.string.equals(((Type) other).string));
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return this.string.hashCode();
-        }
-
-        public <T> T visit(Visitor<T> visitor) {
-            switch (value) {
-                case ALTERNATE_PATH:
-                    return visitor.visitAlternatePath();
-                case PARALLEL_PATH:
-                    return visitor.visitParallelPath();
-                case OUTGOING:
-                    return visitor.visitOutgoing();
-                case SUBFLOW:
-                    return visitor.visitSubflow();
-                case INFORMATION:
-                    return visitor.visitInformation();
-                case SELF_ACTION:
-                    return visitor.visitSelfAction();
-                case REPLY:
-                    return visitor.visitReply();
-                case INTRODUCTION:
-                    return visitor.visitIntroduction();
-                case CONCLUSION:
-                    return visitor.visitConclusion();
-                case UNKNOWN:
-                default:
-                    return visitor.visitUnknown(string);
-            }
-        }
-
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-        public static Type valueOf(String value) {
-            switch (value) {
-                case "alternate-path":
-                    return ALTERNATE_PATH;
-                case "parallel-path":
-                    return PARALLEL_PATH;
-                case "outgoing":
-                    return OUTGOING;
-                case "subflow":
-                    return SUBFLOW;
-                case "information":
-                    return INFORMATION;
-                case "self-action":
-                    return SELF_ACTION;
-                case "reply":
-                    return REPLY;
-                case "introduction":
-                    return INTRODUCTION;
-                case "conclusion":
-                    return CONCLUSION;
-                default:
-                    return new Type(Value.UNKNOWN, value);
-            }
-        }
-
-        public enum Value {
-            ALTERNATE_PATH,
-
-            SUBFLOW,
-
-            OUTGOING,
-
-            PARALLEL_PATH,
-
-            REPLY,
-
-            SELF_ACTION,
-
-            INTRODUCTION,
-
-            INFORMATION,
-
-            CONCLUSION,
-
-            UNKNOWN
-        }
-
-        public interface Visitor<T> {
-            T visitAlternatePath();
-
-            T visitSubflow();
-
-            T visitOutgoing();
-
-            T visitParallelPath();
-
-            T visitReply();
-
-            T visitSelfAction();
-
-            T visitIntroduction();
-
-            T visitInformation();
-
-            T visitConclusion();
-
-            T visitUnknown(String unknownType);
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

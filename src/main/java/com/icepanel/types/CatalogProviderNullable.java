@@ -12,11 +12,11 @@ public final class CatalogProviderNullable {
     public static final CatalogProviderNullable SALESFORCE =
             new CatalogProviderNullable(Value.SALESFORCE, "salesforce");
 
-    public static final CatalogProviderNullable APACHE = new CatalogProviderNullable(Value.APACHE, "apache");
-
     public static final CatalogProviderNullable AWS = new CatalogProviderNullable(Value.AWS, "aws");
 
     public static final CatalogProviderNullable AZURE = new CatalogProviderNullable(Value.AZURE, "azure");
+
+    public static final CatalogProviderNullable APACHE = new CatalogProviderNullable(Value.APACHE, "apache");
 
     public static final CatalogProviderNullable MICROSOFT = new CatalogProviderNullable(Value.MICROSOFT, "microsoft");
 
@@ -61,12 +61,12 @@ public final class CatalogProviderNullable {
                 return visitor.visitGcp();
             case SALESFORCE:
                 return visitor.visitSalesforce();
-            case APACHE:
-                return visitor.visitApache();
             case AWS:
                 return visitor.visitAws();
             case AZURE:
                 return visitor.visitAzure();
+            case APACHE:
+                return visitor.visitApache();
             case MICROSOFT:
                 return visitor.visitMicrosoft();
             case ATLASSIAN:
@@ -86,12 +86,12 @@ public final class CatalogProviderNullable {
                 return GCP;
             case "salesforce":
                 return SALESFORCE;
-            case "apache":
-                return APACHE;
             case "aws":
                 return AWS;
             case "azure":
                 return AZURE;
+            case "apache":
+                return APACHE;
             case "microsoft":
                 return MICROSOFT;
             case "atlassian":

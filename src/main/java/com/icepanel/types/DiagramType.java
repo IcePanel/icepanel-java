@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class DiagramType {
-    public static final DiagramType COMPONENT_DIAGRAM = new DiagramType(Value.COMPONENT_DIAGRAM, "component-diagram");
-
     public static final DiagramType CONTEXT_DIAGRAM = new DiagramType(Value.CONTEXT_DIAGRAM, "context-diagram");
+
+    public static final DiagramType COMPONENT_DIAGRAM = new DiagramType(Value.COMPONENT_DIAGRAM, "component-diagram");
 
     public static final DiagramType APP_DIAGRAM = new DiagramType(Value.APP_DIAGRAM, "app-diagram");
 
@@ -44,10 +44,10 @@ public final class DiagramType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case COMPONENT_DIAGRAM:
-                return visitor.visitComponentDiagram();
             case CONTEXT_DIAGRAM:
                 return visitor.visitContextDiagram();
+            case COMPONENT_DIAGRAM:
+                return visitor.visitComponentDiagram();
             case APP_DIAGRAM:
                 return visitor.visitAppDiagram();
             case UNKNOWN:
@@ -59,10 +59,10 @@ public final class DiagramType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DiagramType valueOf(String value) {
         switch (value) {
-            case "component-diagram":
-                return COMPONENT_DIAGRAM;
             case "context-diagram":
                 return CONTEXT_DIAGRAM;
+            case "component-diagram":
+                return COMPONENT_DIAGRAM;
             case "app-diagram":
                 return APP_DIAGRAM;
             default:

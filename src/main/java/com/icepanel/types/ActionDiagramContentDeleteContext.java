@@ -120,6 +120,10 @@ public final class ActionDiagramContentDeleteContext {
     public interface _FinalStage {
         ActionDiagramContentDeleteContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage domainHandleId(Optional<String> domainHandleId);
 
         _FinalStage domainHandleId(String domainHandleId);
@@ -217,6 +221,18 @@ public final class ActionDiagramContentDeleteContext {
         public ActionDiagramContentDeleteContext build() {
             return new ActionDiagramContentDeleteContext(
                     domainHandleId, domainName, modelFamily, name, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

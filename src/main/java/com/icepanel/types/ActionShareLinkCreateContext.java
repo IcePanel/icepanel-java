@@ -128,6 +128,10 @@ public final class ActionShareLinkCreateContext {
     public interface _FinalStage {
         ActionShareLinkCreateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage draftHandleId(OptionalNullable<String> draftHandleId);
 
         _FinalStage draftHandleId(String draftHandleId);
@@ -267,6 +271,18 @@ public final class ActionShareLinkCreateContext {
         public ActionShareLinkCreateContext build() {
             return new ActionShareLinkCreateContext(
                     draftHandleId, draftName, versionModelHandleId, versionName, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

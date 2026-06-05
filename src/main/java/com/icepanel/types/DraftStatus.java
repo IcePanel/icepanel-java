@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class DraftStatus {
     public static final DraftStatus IN_PROGRESS = new DraftStatus(Value.IN_PROGRESS, "in-progress");
 
-    public static final DraftStatus ARCHIVED = new DraftStatus(Value.ARCHIVED, "archived");
-
     public static final DraftStatus MERGED = new DraftStatus(Value.MERGED, "merged");
+
+    public static final DraftStatus ARCHIVED = new DraftStatus(Value.ARCHIVED, "archived");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class DraftStatus {
         switch (value) {
             case IN_PROGRESS:
                 return visitor.visitInProgress();
-            case ARCHIVED:
-                return visitor.visitArchived();
             case MERGED:
                 return visitor.visitMerged();
+            case ARCHIVED:
+                return visitor.visitArchived();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -61,10 +61,10 @@ public final class DraftStatus {
         switch (value) {
             case "in-progress":
                 return IN_PROGRESS;
-            case "archived":
-                return ARCHIVED;
             case "merged":
                 return MERGED;
+            case "archived":
+                return ARCHIVED;
             default:
                 return new DraftStatus(Value.UNKNOWN, value);
         }

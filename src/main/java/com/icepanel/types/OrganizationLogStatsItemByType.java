@@ -103,6 +103,10 @@ public final class OrganizationLogStatsItemByType {
     public interface _FinalStage {
         OrganizationLogStatsItemByType build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage contributors(Map<String, ActionLogStatsContributor> contributors);
 
         _FinalStage putAllContributors(Map<String, ActionLogStatsContributor> contributors);
@@ -177,6 +181,18 @@ public final class OrganizationLogStatsItemByType {
         @java.lang.Override
         public OrganizationLogStatsItemByType build() {
             return new OrganizationLogStatsItemByType(contributors, count, type, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

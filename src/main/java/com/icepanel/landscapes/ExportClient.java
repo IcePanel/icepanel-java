@@ -27,18 +27,30 @@ public class ExportClient {
         return this.rawClient;
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public ExportCreateResponse create(LandscapeExportRequest request) {
         return this.rawClient.create(request).body();
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public ExportCreateResponse create(LandscapeExportRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public ExportGetResponse get(LandscapeExportFindRequest request) {
         return this.rawClient.get(request).body();
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public ExportGetResponse get(LandscapeExportFindRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).body();
     }

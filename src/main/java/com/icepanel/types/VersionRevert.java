@@ -9,13 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.icepanel.core.ObjectMappers;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -32,8 +29,6 @@ public final class VersionRevert {
     private final AuthType createdBy;
 
     private final String createdById;
-
-    private final List<String> diagramHandleIds;
 
     private final String id;
 
@@ -53,7 +48,6 @@ public final class VersionRevert {
             OffsetDateTime createdAt,
             AuthType createdBy,
             String createdById,
-            List<String> diagramHandleIds,
             String id,
             String landscapeId,
             OffsetDateTime updatedAt,
@@ -65,7 +59,6 @@ public final class VersionRevert {
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.createdById = createdById;
-        this.diagramHandleIds = diagramHandleIds;
         this.id = id;
         this.landscapeId = landscapeId;
         this.updatedAt = updatedAt;
@@ -97,11 +90,6 @@ public final class VersionRevert {
     @JsonProperty("createdById")
     public String getCreatedById() {
         return createdById;
-    }
-
-    @JsonProperty("diagramHandleIds")
-    public List<String> getDiagramHandleIds() {
-        return diagramHandleIds;
     }
 
     @JsonProperty("id")
@@ -146,7 +134,6 @@ public final class VersionRevert {
                 && createdAt.equals(other.createdAt)
                 && createdBy.equals(other.createdBy)
                 && createdById.equals(other.createdById)
-                && diagramHandleIds.equals(other.diagramHandleIds)
                 && id.equals(other.id)
                 && landscapeId.equals(other.landscapeId)
                 && updatedAt.equals(other.updatedAt)
@@ -162,7 +149,6 @@ public final class VersionRevert {
                 this.createdAt,
                 this.createdBy,
                 this.createdById,
-                this.diagramHandleIds,
                 this.id,
                 this.landscapeId,
                 this.updatedAt,
@@ -224,11 +210,9 @@ public final class VersionRevert {
     public interface _FinalStage {
         VersionRevert build();
 
-        _FinalStage diagramHandleIds(List<String> diagramHandleIds);
+        _FinalStage additionalProperty(String key, Object value);
 
-        _FinalStage addDiagramHandleIds(String diagramHandleIds);
-
-        _FinalStage addAllDiagramHandleIds(List<String> diagramHandleIds);
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -264,8 +248,6 @@ public final class VersionRevert {
 
         private String updatedById;
 
-        private List<String> diagramHandleIds = new ArrayList<>();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -278,7 +260,6 @@ public final class VersionRevert {
             createdAt(other.getCreatedAt());
             createdBy(other.getCreatedBy());
             createdById(other.getCreatedById());
-            diagramHandleIds(other.getDiagramHandleIds());
             id(other.getId());
             landscapeId(other.getLandscapeId());
             updatedAt(other.getUpdatedAt());
@@ -358,30 +339,6 @@ public final class VersionRevert {
         }
 
         @java.lang.Override
-        public _FinalStage addAllDiagramHandleIds(List<String> diagramHandleIds) {
-            if (diagramHandleIds != null) {
-                this.diagramHandleIds.addAll(diagramHandleIds);
-            }
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage addDiagramHandleIds(String diagramHandleIds) {
-            this.diagramHandleIds.add(diagramHandleIds);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "diagramHandleIds", nulls = Nulls.SKIP)
-        public _FinalStage diagramHandleIds(List<String> diagramHandleIds) {
-            this.diagramHandleIds.clear();
-            if (diagramHandleIds != null) {
-                this.diagramHandleIds.addAll(diagramHandleIds);
-            }
-            return this;
-        }
-
-        @java.lang.Override
         public VersionRevert build() {
             return new VersionRevert(
                     notes,
@@ -389,13 +346,24 @@ public final class VersionRevert {
                     createdAt,
                     createdBy,
                     createdById,
-                    diagramHandleIds,
                     id,
                     landscapeId,
                     updatedAt,
                     updatedBy,
                     updatedById,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

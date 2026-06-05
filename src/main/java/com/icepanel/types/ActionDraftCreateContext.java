@@ -82,6 +82,10 @@ public final class ActionDraftCreateContext {
     public interface _FinalStage {
         ActionDraftCreateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage versionName(Optional<String> versionName);
 
         _FinalStage versionName(String versionName);
@@ -128,6 +132,18 @@ public final class ActionDraftCreateContext {
         @java.lang.Override
         public ActionDraftCreateContext build() {
             return new ActionDraftCreateContext(name, versionName, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

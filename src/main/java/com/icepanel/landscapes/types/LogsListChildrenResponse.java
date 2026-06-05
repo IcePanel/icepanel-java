@@ -18,22 +18,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LogsListChildrenResponse.Builder.class)
 public final class LogsListChildrenResponse {
     private final List<ActionLog> actionLogs;
 
+    private final Optional<String> nextCursor;
+
     private final Map<String, Object> additionalProperties;
 
-    private LogsListChildrenResponse(List<ActionLog> actionLogs, Map<String, Object> additionalProperties) {
+    private LogsListChildrenResponse(
+            List<ActionLog> actionLogs, Optional<String> nextCursor, Map<String, Object> additionalProperties) {
         this.actionLogs = actionLogs;
+        this.nextCursor = nextCursor;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("actionLogs")
     public List<ActionLog> getActionLogs() {
         return actionLogs;
+    }
+
+    @JsonProperty("nextCursor")
+    public Optional<String> getNextCursor() {
+        return nextCursor;
     }
 
     @java.lang.Override
@@ -48,12 +58,12 @@ public final class LogsListChildrenResponse {
     }
 
     private boolean equalTo(LogsListChildrenResponse other) {
-        return actionLogs.equals(other.actionLogs);
+        return actionLogs.equals(other.actionLogs) && nextCursor.equals(other.nextCursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.actionLogs);
+        return Objects.hash(this.actionLogs, this.nextCursor);
     }
 
     @java.lang.Override
@@ -69,6 +79,8 @@ public final class LogsListChildrenResponse {
     public static final class Builder {
         private List<ActionLog> actionLogs = new ArrayList<>();
 
+        private Optional<String> nextCursor = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -76,6 +88,7 @@ public final class LogsListChildrenResponse {
 
         public Builder from(LogsListChildrenResponse other) {
             actionLogs(other.getActionLogs());
+            nextCursor(other.getNextCursor());
             return this;
         }
 
@@ -100,8 +113,29 @@ public final class LogsListChildrenResponse {
             return this;
         }
 
+        @JsonSetter(value = "nextCursor", nulls = Nulls.SKIP)
+        public Builder nextCursor(Optional<String> nextCursor) {
+            this.nextCursor = nextCursor;
+            return this;
+        }
+
+        public Builder nextCursor(String nextCursor) {
+            this.nextCursor = Optional.ofNullable(nextCursor);
+            return this;
+        }
+
         public LogsListChildrenResponse build() {
-            return new LogsListChildrenResponse(actionLogs, additionalProperties);
+            return new LogsListChildrenResponse(actionLogs, nextCursor, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

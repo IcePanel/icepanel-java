@@ -26,12 +26,18 @@ public final class ActionLogsListRequest {
 
     private final Optional<ActionLogFilter> filter;
 
+    private final Optional<String> cursor;
+
     private final Map<String, Object> additionalProperties;
 
     private ActionLogsListRequest(
-            String landscapeId, Optional<ActionLogFilter> filter, Map<String, Object> additionalProperties) {
+            String landscapeId,
+            Optional<ActionLogFilter> filter,
+            Optional<String> cursor,
+            Map<String, Object> additionalProperties) {
         this.landscapeId = landscapeId;
         this.filter = filter;
+        this.cursor = cursor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -43,6 +49,11 @@ public final class ActionLogsListRequest {
     @JsonProperty("filter")
     public Optional<ActionLogFilter> getFilter() {
         return filter;
+    }
+
+    @JsonProperty("cursor")
+    public Optional<String> getCursor() {
+        return cursor;
     }
 
     @java.lang.Override
@@ -57,12 +68,12 @@ public final class ActionLogsListRequest {
     }
 
     private boolean equalTo(ActionLogsListRequest other) {
-        return landscapeId.equals(other.landscapeId) && filter.equals(other.filter);
+        return landscapeId.equals(other.landscapeId) && filter.equals(other.filter) && cursor.equals(other.cursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.landscapeId, this.filter);
+        return Objects.hash(this.landscapeId, this.filter, this.cursor);
     }
 
     @java.lang.Override
@@ -83,14 +94,24 @@ public final class ActionLogsListRequest {
     public interface _FinalStage {
         ActionLogsListRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage filter(Optional<ActionLogFilter> filter);
 
         _FinalStage filter(ActionLogFilter filter);
+
+        _FinalStage cursor(Optional<String> cursor);
+
+        _FinalStage cursor(String cursor);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements LandscapeIdStage, _FinalStage {
         private String landscapeId;
+
+        private Optional<String> cursor = Optional.empty();
 
         private Optional<ActionLogFilter> filter = Optional.empty();
 
@@ -103,6 +124,7 @@ public final class ActionLogsListRequest {
         public Builder from(ActionLogsListRequest other) {
             landscapeId(other.getLandscapeId());
             filter(other.getFilter());
+            cursor(other.getCursor());
             return this;
         }
 
@@ -110,6 +132,19 @@ public final class ActionLogsListRequest {
         @JsonSetter("landscapeId")
         public _FinalStage landscapeId(@NotNull String landscapeId) {
             this.landscapeId = Objects.requireNonNull(landscapeId, "landscapeId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage cursor(String cursor) {
+            this.cursor = Optional.ofNullable(cursor);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
+        public _FinalStage cursor(Optional<String> cursor) {
+            this.cursor = cursor;
             return this;
         }
 
@@ -128,7 +163,19 @@ public final class ActionLogsListRequest {
 
         @java.lang.Override
         public ActionLogsListRequest build() {
-            return new ActionLogsListRequest(landscapeId, filter, additionalProperties);
+            return new ActionLogsListRequest(landscapeId, filter, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

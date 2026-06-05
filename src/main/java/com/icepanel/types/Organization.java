@@ -32,6 +32,8 @@ public final class Organization {
 
     private final Optional<Boolean> aiFeaturesEnabled;
 
+    private final Optional<OrganizationAiModel> aiModel;
+
     private final Optional<OrganizationBillingCurrency> billingCurrency;
 
     private final Optional<OrganizationBillingCycle> billingCycle;
@@ -46,6 +48,8 @@ public final class Organization {
 
     private final String name;
 
+    private final boolean oauthLandscapeWriteEnabled;
+
     private final OptionalNullable<List<String>> shareLinkAuthDomains;
 
     private final boolean shareLinksEnabled;
@@ -53,6 +57,8 @@ public final class Organization {
     private final List<String> autoInviteDomains;
 
     private final Optional<OrganizationCollectionMethod> billingCollectionMethod;
+
+    private final Optional<Double> billingMonthlyCost;
 
     private final boolean billingPaymentMethod;
 
@@ -93,6 +99,7 @@ public final class Organization {
     private Organization(
             Optional<OrganizationAiFeatures> aiFeatures,
             Optional<Boolean> aiFeaturesEnabled,
+            Optional<OrganizationAiModel> aiModel,
             Optional<OrganizationBillingCurrency> billingCurrency,
             Optional<OrganizationBillingCycle> billingCycle,
             Optional<String> billingEmail,
@@ -100,10 +107,12 @@ public final class Organization {
             Optional<OrganizationLanguage> language,
             LineShape lineShapeDefault,
             String name,
+            boolean oauthLandscapeWriteEnabled,
             OptionalNullable<List<String>> shareLinkAuthDomains,
             boolean shareLinksEnabled,
             List<String> autoInviteDomains,
             Optional<OrganizationCollectionMethod> billingCollectionMethod,
+            Optional<Double> billingMonthlyCost,
             boolean billingPaymentMethod,
             Optional<OffsetDateTime> cancelAt,
             Optional<OffsetDateTime> canceledAt,
@@ -124,6 +133,7 @@ public final class Organization {
             Map<String, Object> additionalProperties) {
         this.aiFeatures = aiFeatures;
         this.aiFeaturesEnabled = aiFeaturesEnabled;
+        this.aiModel = aiModel;
         this.billingCurrency = billingCurrency;
         this.billingCycle = billingCycle;
         this.billingEmail = billingEmail;
@@ -131,10 +141,12 @@ public final class Organization {
         this.language = language;
         this.lineShapeDefault = lineShapeDefault;
         this.name = name;
+        this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
         this.shareLinkAuthDomains = shareLinkAuthDomains;
         this.shareLinksEnabled = shareLinksEnabled;
         this.autoInviteDomains = autoInviteDomains;
         this.billingCollectionMethod = billingCollectionMethod;
+        this.billingMonthlyCost = billingMonthlyCost;
         this.billingPaymentMethod = billingPaymentMethod;
         this.cancelAt = cancelAt;
         this.canceledAt = canceledAt;
@@ -166,6 +178,11 @@ public final class Organization {
     @JsonProperty("aiFeaturesEnabled")
     public Optional<Boolean> getAiFeaturesEnabled() {
         return aiFeaturesEnabled;
+    }
+
+    @JsonProperty("aiModel")
+    public Optional<OrganizationAiModel> getAiModel() {
+        return aiModel;
     }
 
     @JsonProperty("billingCurrency")
@@ -203,6 +220,14 @@ public final class Organization {
         return name;
     }
 
+    /**
+     * @return Whether OAuth connections can make changes to landscape data
+     */
+    @JsonProperty("oauthLandscapeWriteEnabled")
+    public boolean getOauthLandscapeWriteEnabled() {
+        return oauthLandscapeWriteEnabled;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("shareLinkAuthDomains")
     public OptionalNullable<List<String>> getShareLinkAuthDomains() {
@@ -225,6 +250,11 @@ public final class Organization {
     @JsonProperty("billingCollectionMethod")
     public Optional<OrganizationCollectionMethod> getBillingCollectionMethod() {
         return billingCollectionMethod;
+    }
+
+    @JsonProperty("billingMonthlyCost")
+    public Optional<Double> getBillingMonthlyCost() {
+        return billingMonthlyCost;
     }
 
     @JsonProperty("billingPaymentMethod")
@@ -332,6 +362,7 @@ public final class Organization {
     private boolean equalTo(Organization other) {
         return aiFeatures.equals(other.aiFeatures)
                 && aiFeaturesEnabled.equals(other.aiFeaturesEnabled)
+                && aiModel.equals(other.aiModel)
                 && billingCurrency.equals(other.billingCurrency)
                 && billingCycle.equals(other.billingCycle)
                 && billingEmail.equals(other.billingEmail)
@@ -339,10 +370,12 @@ public final class Organization {
                 && language.equals(other.language)
                 && lineShapeDefault.equals(other.lineShapeDefault)
                 && name.equals(other.name)
+                && oauthLandscapeWriteEnabled == other.oauthLandscapeWriteEnabled
                 && shareLinkAuthDomains.equals(other.shareLinkAuthDomains)
                 && shareLinksEnabled == other.shareLinksEnabled
                 && autoInviteDomains.equals(other.autoInviteDomains)
                 && billingCollectionMethod.equals(other.billingCollectionMethod)
+                && billingMonthlyCost.equals(other.billingMonthlyCost)
                 && billingPaymentMethod == other.billingPaymentMethod
                 && cancelAt.equals(other.cancelAt)
                 && canceledAt.equals(other.canceledAt)
@@ -367,6 +400,7 @@ public final class Organization {
         return Objects.hash(
                 this.aiFeatures,
                 this.aiFeaturesEnabled,
+                this.aiModel,
                 this.billingCurrency,
                 this.billingCycle,
                 this.billingEmail,
@@ -374,10 +408,12 @@ public final class Organization {
                 this.language,
                 this.lineShapeDefault,
                 this.name,
+                this.oauthLandscapeWriteEnabled,
                 this.shareLinkAuthDomains,
                 this.shareLinksEnabled,
                 this.autoInviteDomains,
                 this.billingCollectionMethod,
+                this.billingMonthlyCost,
                 this.billingPaymentMethod,
                 this.cancelAt,
                 this.canceledAt,
@@ -413,7 +449,14 @@ public final class Organization {
     }
 
     public interface NameStage {
-        ShareLinksEnabledStage name(@NotNull String name);
+        OauthLandscapeWriteEnabledStage name(@NotNull String name);
+    }
+
+    public interface OauthLandscapeWriteEnabledStage {
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         */
+        ShareLinksEnabledStage oauthLandscapeWriteEnabled(boolean oauthLandscapeWriteEnabled);
     }
 
     public interface ShareLinksEnabledStage {
@@ -467,6 +510,10 @@ public final class Organization {
     public interface _FinalStage {
         Organization build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage aiFeatures(Optional<OrganizationAiFeatures> aiFeatures);
 
         _FinalStage aiFeatures(OrganizationAiFeatures aiFeatures);
@@ -477,6 +524,10 @@ public final class Organization {
         _FinalStage aiFeaturesEnabled(Optional<Boolean> aiFeaturesEnabled);
 
         _FinalStage aiFeaturesEnabled(Boolean aiFeaturesEnabled);
+
+        _FinalStage aiModel(Optional<OrganizationAiModel> aiModel);
+
+        _FinalStage aiModel(OrganizationAiModel aiModel);
 
         _FinalStage billingCurrency(Optional<OrganizationBillingCurrency> billingCurrency);
 
@@ -516,6 +567,10 @@ public final class Organization {
 
         _FinalStage billingCollectionMethod(OrganizationCollectionMethod billingCollectionMethod);
 
+        _FinalStage billingMonthlyCost(Optional<Double> billingMonthlyCost);
+
+        _FinalStage billingMonthlyCost(Double billingMonthlyCost);
+
         _FinalStage cancelAt(Optional<OffsetDateTime> cancelAt);
 
         _FinalStage cancelAt(OffsetDateTime cancelAt);
@@ -549,6 +604,7 @@ public final class Organization {
     public static final class Builder
             implements LineShapeDefaultStage,
                     NameStage,
+                    OauthLandscapeWriteEnabledStage,
                     ShareLinksEnabledStage,
                     BillingPaymentMethodStage,
                     CreatedAtStage,
@@ -565,6 +621,8 @@ public final class Organization {
         private LineShape lineShapeDefault;
 
         private String name;
+
+        private boolean oauthLandscapeWriteEnabled;
 
         private boolean shareLinksEnabled;
 
@@ -602,6 +660,8 @@ public final class Organization {
 
         private Optional<OffsetDateTime> cancelAt = Optional.empty();
 
+        private Optional<Double> billingMonthlyCost = Optional.empty();
+
         private Optional<OrganizationCollectionMethod> billingCollectionMethod = Optional.empty();
 
         private List<String> autoInviteDomains = new ArrayList<>();
@@ -618,6 +678,8 @@ public final class Organization {
 
         private Optional<OrganizationBillingCurrency> billingCurrency = Optional.empty();
 
+        private Optional<OrganizationAiModel> aiModel = Optional.empty();
+
         private Optional<Boolean> aiFeaturesEnabled = Optional.empty();
 
         private Optional<OrganizationAiFeatures> aiFeatures = Optional.empty();
@@ -631,6 +693,7 @@ public final class Organization {
         public Builder from(Organization other) {
             aiFeatures(other.getAiFeatures());
             aiFeaturesEnabled(other.getAiFeaturesEnabled());
+            aiModel(other.getAiModel());
             billingCurrency(other.getBillingCurrency());
             billingCycle(other.getBillingCycle());
             billingEmail(other.getBillingEmail());
@@ -638,10 +701,12 @@ public final class Organization {
             language(other.getLanguage());
             lineShapeDefault(other.getLineShapeDefault());
             name(other.getName());
+            oauthLandscapeWriteEnabled(other.getOauthLandscapeWriteEnabled());
             shareLinkAuthDomains(other.getShareLinkAuthDomains());
             shareLinksEnabled(other.getShareLinksEnabled());
             autoInviteDomains(other.getAutoInviteDomains());
             billingCollectionMethod(other.getBillingCollectionMethod());
+            billingMonthlyCost(other.getBillingMonthlyCost());
             billingPaymentMethod(other.getBillingPaymentMethod());
             cancelAt(other.getCancelAt());
             canceledAt(other.getCanceledAt());
@@ -671,8 +736,20 @@ public final class Organization {
 
         @java.lang.Override
         @JsonSetter("name")
-        public ShareLinksEnabledStage name(@NotNull String name) {
+        public OauthLandscapeWriteEnabledStage name(@NotNull String name) {
             this.name = Objects.requireNonNull(name, "name must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         * <p>Whether OAuth connections can make changes to landscape data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("oauthLandscapeWriteEnabled")
+        public ShareLinksEnabledStage oauthLandscapeWriteEnabled(boolean oauthLandscapeWriteEnabled) {
+            this.oauthLandscapeWriteEnabled = oauthLandscapeWriteEnabled;
             return this;
         }
 
@@ -861,6 +938,19 @@ public final class Organization {
         }
 
         @java.lang.Override
+        public _FinalStage billingMonthlyCost(Double billingMonthlyCost) {
+            this.billingMonthlyCost = Optional.ofNullable(billingMonthlyCost);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "billingMonthlyCost", nulls = Nulls.SKIP)
+        public _FinalStage billingMonthlyCost(Optional<Double> billingMonthlyCost) {
+            this.billingMonthlyCost = billingMonthlyCost;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage billingCollectionMethod(OrganizationCollectionMethod billingCollectionMethod) {
             this.billingCollectionMethod = Optional.ofNullable(billingCollectionMethod);
             return this;
@@ -997,6 +1087,19 @@ public final class Organization {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage aiModel(OrganizationAiModel aiModel) {
+            this.aiModel = Optional.ofNullable(aiModel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "aiModel", nulls = Nulls.SKIP)
+        public _FinalStage aiModel(Optional<OrganizationAiModel> aiModel) {
+            this.aiModel = aiModel;
+            return this;
+        }
+
         /**
          * <p>Whether to enable all AI features for the organization</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -1035,6 +1138,7 @@ public final class Organization {
             return new Organization(
                     aiFeatures,
                     aiFeaturesEnabled,
+                    aiModel,
                     billingCurrency,
                     billingCycle,
                     billingEmail,
@@ -1042,10 +1146,12 @@ public final class Organization {
                     language,
                     lineShapeDefault,
                     name,
+                    oauthLandscapeWriteEnabled,
                     shareLinkAuthDomains,
                     shareLinksEnabled,
                     autoInviteDomains,
                     billingCollectionMethod,
+                    billingMonthlyCost,
                     billingPaymentMethod,
                     cancelAt,
                     canceledAt,
@@ -1064,6 +1170,18 @@ public final class Organization {
                     userIds,
                     users,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

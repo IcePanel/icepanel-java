@@ -170,6 +170,10 @@ public final class DiagramObjectCount {
 
     public interface _FinalStage {
         DiagramObjectCount build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -276,6 +280,18 @@ public final class DiagramObjectCount {
         @java.lang.Override
         public DiagramObjectCount build() {
             return new DiagramObjectCount(actor, app, group, component, store, system, area, box, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

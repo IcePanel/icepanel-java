@@ -12,6 +12,7 @@ import com.icepanel.core.MediaTypes;
 import com.icepanel.core.ObjectMappers;
 import com.icepanel.core.QueryStringMapper;
 import com.icepanel.core.RequestOptions;
+import com.icepanel.errors.BadRequestError;
 import com.icepanel.errors.ForbiddenError;
 import com.icepanel.errors.InternalServerError;
 import com.icepanel.errors.NotFoundError;
@@ -38,10 +39,16 @@ public class RawExportClient {
         this.clientOptions = clientOptions;
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public IcePanelClientHttpResponse<ExportCreateResponse> create(LandscapeExportRequest request) {
         return create(request, null);
     }
 
+    /**
+     * Create a background job that exports a landscape in the specified format.
+     */
     public IcePanelClientHttpResponse<ExportCreateResponse> create(
             LandscapeExportRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -88,6 +95,9 @@ public class RawExportClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -115,10 +125,16 @@ public class RawExportClient {
         }
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public IcePanelClientHttpResponse<ExportGetResponse> get(LandscapeExportFindRequest request) {
         return get(request, null);
     }
 
+    /**
+     * Get the status of a landscape export job.
+     */
     public IcePanelClientHttpResponse<ExportGetResponse> get(
             LandscapeExportFindRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -153,9 +169,15 @@ public class RawExportClient {
             }
             try {
                 switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 401:
                         throw new UnauthorizedError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 403:
+                        throw new ForbiddenError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Error.class), response);
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

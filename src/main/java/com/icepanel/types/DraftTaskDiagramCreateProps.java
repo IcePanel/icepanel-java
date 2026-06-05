@@ -315,6 +315,10 @@ public final class DraftTaskDiagramCreateProps {
     public interface _FinalStage {
         DraftTaskDiagramCreateProps build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage commit(Optional<Double> commit);
 
         _FinalStage commit(Double commit);
@@ -753,6 +757,18 @@ public final class DraftTaskDiagramCreateProps {
                     connections,
                     objects,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

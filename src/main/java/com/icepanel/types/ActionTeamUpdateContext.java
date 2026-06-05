@@ -82,6 +82,10 @@ public final class ActionTeamUpdateContext {
     public interface _FinalStage {
         ActionTeamUpdateContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage userNames(Optional<Map<String, String>> userNames);
 
         _FinalStage userNames(Map<String, String> userNames);
@@ -128,6 +132,18 @@ public final class ActionTeamUpdateContext {
         @java.lang.Override
         public ActionTeamUpdateContext build() {
             return new ActionTeamUpdateContext(name, userNames, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

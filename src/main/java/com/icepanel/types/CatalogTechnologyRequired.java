@@ -52,7 +52,7 @@ public final class CatalogTechnologyRequired {
 
     private final OptionalNullable<List<CatalogRestriction>> restrictions;
 
-    private final Optional<CatalogTechnologyStatus> status;
+    private final OptionalNullable<CatalogTechnologyStatusNullable> status;
 
     private final OptionalNullable<CatalogTechnologyTypeNullable> type;
 
@@ -76,7 +76,7 @@ public final class CatalogTechnologyRequired {
             Optional<String> rejectionMessage,
             Optional<CatalogTechnologyReviewRejectionReason> rejectionReason,
             OptionalNullable<List<CatalogRestriction>> restrictions,
-            Optional<CatalogTechnologyStatus> status,
+            OptionalNullable<CatalogTechnologyStatusNullable> status,
             OptionalNullable<CatalogTechnologyTypeNullable> type,
             Optional<String> updatesUrl,
             Optional<String> websiteUrl,
@@ -216,10 +216,14 @@ public final class CatalogTechnologyRequired {
     }
 
     /**
-     * @return Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.
+     * @return Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.
      */
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("status")
-    public Optional<CatalogTechnologyStatus> getStatus() {
+    public OptionalNullable<CatalogTechnologyStatusNullable> getStatus() {
+        if (status == null) {
+            return OptionalNullable.absent();
+        }
         return status;
     }
 
@@ -273,6 +277,12 @@ public final class CatalogTechnologyRequired {
     @JsonProperty("restrictions")
     private OptionalNullable<List<CatalogRestriction>> _getRestrictions() {
         return restrictions;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private OptionalNullable<CatalogTechnologyStatusNullable> _getStatus() {
+        return status;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -362,6 +372,10 @@ public final class CatalogTechnologyRequired {
     public interface _FinalStage {
         CatalogTechnologyRequired build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage category(Optional<String> category);
 
         _FinalStage category(String category);
@@ -450,11 +464,15 @@ public final class CatalogTechnologyRequired {
         _FinalStage restrictions(Nullable<List<CatalogRestriction>> restrictions);
 
         /**
-         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.</p>
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
          */
-        _FinalStage status(Optional<CatalogTechnologyStatus> status);
+        _FinalStage status(OptionalNullable<CatalogTechnologyStatusNullable> status);
 
-        _FinalStage status(CatalogTechnologyStatus status);
+        _FinalStage status(CatalogTechnologyStatusNullable status);
+
+        _FinalStage status(Optional<CatalogTechnologyStatusNullable> status);
+
+        _FinalStage status(Nullable<CatalogTechnologyStatusNullable> status);
 
         /**
          * <p>Type or category of technology</p>
@@ -494,7 +512,7 @@ public final class CatalogTechnologyRequired {
 
         private OptionalNullable<CatalogTechnologyTypeNullable> type = OptionalNullable.absent();
 
-        private Optional<CatalogTechnologyStatus> status = Optional.empty();
+        private OptionalNullable<CatalogTechnologyStatusNullable> status = OptionalNullable.absent();
 
         private OptionalNullable<List<CatalogRestriction>> restrictions = OptionalNullable.absent();
 
@@ -660,21 +678,51 @@ public final class CatalogTechnologyRequired {
         }
 
         /**
-         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.</p>
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage status(CatalogTechnologyStatus status) {
-            this.status = Optional.ofNullable(status);
+        public _FinalStage status(Nullable<CatalogTechnologyStatusNullable> status) {
+            if (status.isNull()) {
+                this.status = OptionalNullable.ofNull();
+            } else if (status.isEmpty()) {
+                this.status = OptionalNullable.absent();
+            } else {
+                this.status = OptionalNullable.of(status.get());
+            }
             return this;
         }
 
         /**
-         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users.</p>
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage status(Optional<CatalogTechnologyStatusNullable> status) {
+            if (status.isPresent()) {
+                this.status = OptionalNullable.of(status.get());
+            } else {
+                this.status = OptionalNullable.absent();
+            }
+            return this;
+        }
+
+        /**
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage status(CatalogTechnologyStatusNullable status) {
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * <p>Current status of the technology, including pending review, approved, and rejected. Approved technologies are visible to all users. Set to null to make the technology private.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
-        public _FinalStage status(Optional<CatalogTechnologyStatus> status) {
+        public _FinalStage status(OptionalNullable<CatalogTechnologyStatusNullable> status) {
             this.status = status;
             return this;
         }
@@ -1026,6 +1074,18 @@ public final class CatalogTechnologyRequired {
                     updatesUrl,
                     websiteUrl,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

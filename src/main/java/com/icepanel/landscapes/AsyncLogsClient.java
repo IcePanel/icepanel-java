@@ -6,13 +6,13 @@ package com.icepanel.landscapes;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.landscapes.logs.AsyncStatsClient;
 import com.icepanel.landscapes.types.ActionLogChildrenListRequest;
 import com.icepanel.landscapes.types.ActionLogFindRequest;
 import com.icepanel.landscapes.types.ActionLogsListRequest;
 import com.icepanel.landscapes.types.LogsGetResponse;
-import com.icepanel.landscapes.types.LogsListChildrenResponse;
-import com.icepanel.landscapes.types.LogsListResponse;
+import com.icepanel.types.ActionLog;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -39,14 +39,15 @@ public class AsyncLogsClient {
     /**
      * List action logs
      */
-    public CompletableFuture<LogsListResponse> list(ActionLogsListRequest request) {
+    public CompletableFuture<SyncPagingIterable<ActionLog>> list(ActionLogsListRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
      * List action logs
      */
-    public CompletableFuture<LogsListResponse> list(ActionLogsListRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<SyncPagingIterable<ActionLog>> list(
+            ActionLogsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
@@ -67,14 +68,14 @@ public class AsyncLogsClient {
     /**
      * List actions that happened as a result of a different action
      */
-    public CompletableFuture<LogsListChildrenResponse> listChildren(ActionLogChildrenListRequest request) {
+    public CompletableFuture<SyncPagingIterable<ActionLog>> listChildren(ActionLogChildrenListRequest request) {
         return this.rawClient.listChildren(request).thenApply(response -> response.body());
     }
 
     /**
      * List actions that happened as a result of a different action
      */
-    public CompletableFuture<LogsListChildrenResponse> listChildren(
+    public CompletableFuture<SyncPagingIterable<ActionLog>> listChildren(
             ActionLogChildrenListRequest request, RequestOptions requestOptions) {
         return this.rawClient.listChildren(request, requestOptions).thenApply(response -> response.body());
     }

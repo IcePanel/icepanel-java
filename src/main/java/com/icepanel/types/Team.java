@@ -235,6 +235,10 @@ public final class Team {
     public interface _FinalStage {
         Team build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage userIds(List<String> userIds);
 
         _FinalStage addUserIds(String userIds);
@@ -441,6 +445,18 @@ public final class Team {
                     updatedBy,
                     updatedById,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

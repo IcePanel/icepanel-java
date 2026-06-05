@@ -113,6 +113,10 @@ public final class ShareLinkUpdateRequest {
     public interface _FinalStage {
         ShareLinkUpdateRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage resetShortId(Optional<Boolean> resetShortId);
 
         _FinalStage resetShortId(Boolean resetShortId);
@@ -179,6 +183,18 @@ public final class ShareLinkUpdateRequest {
         @java.lang.Override
         public ShareLinkUpdateRequest build() {
             return new ShareLinkUpdateRequest(landscapeId, versionId, resetShortId, body, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

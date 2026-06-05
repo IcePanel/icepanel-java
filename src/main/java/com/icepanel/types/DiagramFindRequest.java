@@ -113,6 +113,10 @@ public final class DiagramFindRequest {
     public interface _FinalStage {
         DiagramFindRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage updateViewedAt(Optional<Boolean> updateViewedAt);
 
         _FinalStage updateViewedAt(Boolean updateViewedAt);
@@ -179,6 +183,18 @@ public final class DiagramFindRequest {
         @java.lang.Override
         public DiagramFindRequest build() {
             return new DiagramFindRequest(landscapeId, versionId, diagramId, updateViewedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

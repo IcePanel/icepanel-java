@@ -115,6 +115,10 @@ public final class DomainUpsert {
     public interface _FinalStage {
         DomainUpsert build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage commit(Optional<Double> commit);
 
         _FinalStage commit(Double commit);
@@ -221,6 +225,18 @@ public final class DomainUpsert {
         @java.lang.Override
         public DomainUpsert build() {
             return new DomainUpsert(commit, index, labels, name, handleId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

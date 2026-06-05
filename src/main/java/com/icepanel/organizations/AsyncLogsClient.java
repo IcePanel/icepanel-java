@@ -6,11 +6,12 @@ package com.icepanel.organizations;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.organizations.logs.AsyncStatsClient;
 import com.icepanel.organizations.types.LogsGetResponse;
-import com.icepanel.organizations.types.LogsListResponse;
 import com.icepanel.organizations.types.OrganizationLogFindRequest;
 import com.icepanel.organizations.types.OrganizationLogsListRequest;
+import com.icepanel.types.OrganizationLog;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -37,14 +38,14 @@ public class AsyncLogsClient {
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public CompletableFuture<LogsListResponse> list(OrganizationLogsListRequest request) {
+    public CompletableFuture<SyncPagingIterable<OrganizationLog>> list(OrganizationLogsListRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
      * List organization logs (only available on the scale plan and above)
      */
-    public CompletableFuture<LogsListResponse> list(
+    public CompletableFuture<SyncPagingIterable<OrganizationLog>> list(
             OrganizationLogsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }

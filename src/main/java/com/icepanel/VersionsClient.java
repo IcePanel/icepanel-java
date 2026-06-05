@@ -6,6 +6,8 @@ package com.icepanel;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
+import com.icepanel.types.Version;
 import com.icepanel.types.VersionCreateRequest;
 import com.icepanel.types.VersionDeleteRequest;
 import com.icepanel.types.VersionFindRequest;
@@ -13,7 +15,6 @@ import com.icepanel.types.VersionUpdateRequest;
 import com.icepanel.types.VersionsCreateResponse;
 import com.icepanel.types.VersionsGetResponse;
 import com.icepanel.types.VersionsListRequest;
-import com.icepanel.types.VersionsListResponse;
 import com.icepanel.types.VersionsUpdateResponse;
 import com.icepanel.versions.RevertsClient;
 import java.util.function.Supplier;
@@ -38,11 +39,11 @@ public class VersionsClient {
         return this.rawClient;
     }
 
-    public VersionsListResponse list(VersionsListRequest request) {
+    public SyncPagingIterable<Version> list(VersionsListRequest request) {
         return this.rawClient.list(request).body();
     }
 
-    public VersionsListResponse list(VersionsListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<Version> list(VersionsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 

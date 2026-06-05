@@ -113,6 +113,10 @@ public final class DiagramExistsRequest {
     public interface _FinalStage {
         DiagramExistsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage updateViewedAt(Optional<Boolean> updateViewedAt);
 
         _FinalStage updateViewedAt(Boolean updateViewedAt);
@@ -179,6 +183,18 @@ public final class DiagramExistsRequest {
         @java.lang.Override
         public DiagramExistsRequest build() {
             return new DiagramExistsRequest(landscapeId, versionId, diagramId, updateViewedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -143,6 +143,10 @@ public final class ActionFlowDeleteContext {
     public interface _FinalStage {
         ActionFlowDeleteContext build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage diagramHandleId(Optional<String> diagramHandleId);
 
         _FinalStage diagramHandleId(String diagramHandleId);
@@ -297,6 +301,18 @@ public final class ActionFlowDeleteContext {
                     modelFamily,
                     name,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -471,6 +471,16 @@ public final class ModelConnectionPartial {
                     viaId,
                     additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 
     @JsonDeserialize(using = TagIds.Deserializer.class)
@@ -663,6 +673,16 @@ public final class ModelConnectionPartial {
 
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
+                }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
                 }
             }
         }
@@ -859,6 +879,16 @@ public final class ModelConnectionPartial {
                 public Add build() {
                     return new Add(add, remove, additionalProperties);
                 }
+
+                public Builder additionalProperty(String key, Object value) {
+                    this.additionalProperties.put(key, value);
+                    return this;
+                }
+
+                public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                    this.additionalProperties.putAll(additionalProperties);
+                    return this;
+                }
             }
         }
     }
@@ -1010,6 +1040,16 @@ public final class ModelConnectionPartial {
 
             public Links build() {
                 return new Links(add, remove, replace, update, additionalProperties);
+            }
+
+            public Builder additionalProperty(String key, Object value) {
+                this.additionalProperties.put(key, value);
+                return this;
+            }
+
+            public Builder additionalProperties(Map<String, Object> additionalProperties) {
+                this.additionalProperties.putAll(additionalProperties);
+                return this;
             }
         }
     }

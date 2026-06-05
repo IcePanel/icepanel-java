@@ -6,13 +6,13 @@ package com.icepanel.landscapes;
 import com.icepanel.core.ClientOptions;
 import com.icepanel.core.RequestOptions;
 import com.icepanel.core.Suppliers;
+import com.icepanel.core.SyncPagingIterable;
 import com.icepanel.landscapes.logs.StatsClient;
 import com.icepanel.landscapes.types.ActionLogChildrenListRequest;
 import com.icepanel.landscapes.types.ActionLogFindRequest;
 import com.icepanel.landscapes.types.ActionLogsListRequest;
 import com.icepanel.landscapes.types.LogsGetResponse;
-import com.icepanel.landscapes.types.LogsListChildrenResponse;
-import com.icepanel.landscapes.types.LogsListResponse;
+import com.icepanel.types.ActionLog;
 import java.util.function.Supplier;
 
 public class LogsClient {
@@ -38,14 +38,14 @@ public class LogsClient {
     /**
      * List action logs
      */
-    public LogsListResponse list(ActionLogsListRequest request) {
+    public SyncPagingIterable<ActionLog> list(ActionLogsListRequest request) {
         return this.rawClient.list(request).body();
     }
 
     /**
      * List action logs
      */
-    public LogsListResponse list(ActionLogsListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<ActionLog> list(ActionLogsListRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 
@@ -66,14 +66,15 @@ public class LogsClient {
     /**
      * List actions that happened as a result of a different action
      */
-    public LogsListChildrenResponse listChildren(ActionLogChildrenListRequest request) {
+    public SyncPagingIterable<ActionLog> listChildren(ActionLogChildrenListRequest request) {
         return this.rawClient.listChildren(request).body();
     }
 
     /**
      * List actions that happened as a result of a different action
      */
-    public LogsListChildrenResponse listChildren(ActionLogChildrenListRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<ActionLog> listChildren(
+            ActionLogChildrenListRequest request, RequestOptions requestOptions) {
         return this.rawClient.listChildren(request, requestOptions).body();
     }
 

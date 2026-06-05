@@ -7,15 +7,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class LandscapeExportType {
-    public static final LandscapeExportType HTML = new LandscapeExportType(Value.HTML, "html");
-
     public static final LandscapeExportType MARKDOWN = new LandscapeExportType(Value.MARKDOWN, "markdown");
+
+    public static final LandscapeExportType HTML = new LandscapeExportType(Value.HTML, "html");
 
     public static final LandscapeExportType PDF = new LandscapeExportType(Value.PDF, "pdf");
 
     public static final LandscapeExportType LLMS = new LandscapeExportType(Value.LLMS, "llms");
 
     public static final LandscapeExportType JSON = new LandscapeExportType(Value.JSON, "json");
+
+    public static final LandscapeExportType CONNECTION_CSV =
+            new LandscapeExportType(Value.CONNECTION_CSV, "connection-csv");
+
+    public static final LandscapeExportType OBJECT_CSV = new LandscapeExportType(Value.OBJECT_CSV, "object-csv");
 
     private final Value value;
 
@@ -49,16 +54,20 @@ public final class LandscapeExportType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case HTML:
-                return visitor.visitHtml();
             case MARKDOWN:
                 return visitor.visitMarkdown();
+            case HTML:
+                return visitor.visitHtml();
             case PDF:
                 return visitor.visitPdf();
             case LLMS:
                 return visitor.visitLlms();
             case JSON:
                 return visitor.visitJson();
+            case CONNECTION_CSV:
+                return visitor.visitConnectionCsv();
+            case OBJECT_CSV:
+                return visitor.visitObjectCsv();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -68,16 +77,20 @@ public final class LandscapeExportType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static LandscapeExportType valueOf(String value) {
         switch (value) {
-            case "html":
-                return HTML;
             case "markdown":
                 return MARKDOWN;
+            case "html":
+                return HTML;
             case "pdf":
                 return PDF;
             case "llms":
                 return LLMS;
             case "json":
                 return JSON;
+            case "connection-csv":
+                return CONNECTION_CSV;
+            case "object-csv":
+                return OBJECT_CSV;
             default:
                 return new LandscapeExportType(Value.UNKNOWN, value);
         }
@@ -94,6 +107,10 @@ public final class LandscapeExportType {
 
         JSON,
 
+        OBJECT_CSV,
+
+        CONNECTION_CSV,
+
         UNKNOWN
     }
 
@@ -107,6 +124,10 @@ public final class LandscapeExportType {
         T visitLlms();
 
         T visitJson();
+
+        T visitObjectCsv();
+
+        T visitConnectionCsv();
 
         T visitUnknown(String unknownType);
     }

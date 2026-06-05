@@ -18,17 +18,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LogsListResponse.Builder.class)
 public final class LogsListResponse {
+    private final Optional<String> nextCursor;
+
     private final List<OrganizationLog> organizationLogs;
 
     private final Map<String, Object> additionalProperties;
 
-    private LogsListResponse(List<OrganizationLog> organizationLogs, Map<String, Object> additionalProperties) {
+    private LogsListResponse(
+            Optional<String> nextCursor,
+            List<OrganizationLog> organizationLogs,
+            Map<String, Object> additionalProperties) {
+        this.nextCursor = nextCursor;
         this.organizationLogs = organizationLogs;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("nextCursor")
+    public Optional<String> getNextCursor() {
+        return nextCursor;
     }
 
     @JsonProperty("organizationLogs")
@@ -48,12 +60,12 @@ public final class LogsListResponse {
     }
 
     private boolean equalTo(LogsListResponse other) {
-        return organizationLogs.equals(other.organizationLogs);
+        return nextCursor.equals(other.nextCursor) && organizationLogs.equals(other.organizationLogs);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.organizationLogs);
+        return Objects.hash(this.nextCursor, this.organizationLogs);
     }
 
     @java.lang.Override
@@ -67,6 +79,8 @@ public final class LogsListResponse {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<String> nextCursor = Optional.empty();
+
         private List<OrganizationLog> organizationLogs = new ArrayList<>();
 
         @JsonAnySetter
@@ -75,7 +89,19 @@ public final class LogsListResponse {
         private Builder() {}
 
         public Builder from(LogsListResponse other) {
+            nextCursor(other.getNextCursor());
             organizationLogs(other.getOrganizationLogs());
+            return this;
+        }
+
+        @JsonSetter(value = "nextCursor", nulls = Nulls.SKIP)
+        public Builder nextCursor(Optional<String> nextCursor) {
+            this.nextCursor = nextCursor;
+            return this;
+        }
+
+        public Builder nextCursor(String nextCursor) {
+            this.nextCursor = Optional.ofNullable(nextCursor);
             return this;
         }
 
@@ -101,7 +127,17 @@ public final class LogsListResponse {
         }
 
         public LogsListResponse build() {
-            return new LogsListResponse(organizationLogs, additionalProperties);
+            return new LogsListResponse(nextCursor, organizationLogs, additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }
