@@ -12,8 +12,8 @@
     "package-layout": "flat",
     "use-local-date-for-dates": true
   },
-  "originGitCommit": "9f29099c1e75f465353107fd18a048873a6f3f81",
-  "originGitCommitIsDirty": true,
+  "originGitCommit": "d8e4d8d4fcd255a3d1f4d5eb9576541c52344397",
+  "originGitCommitIsDirty": false,
   "invokedBy": "manual",
-  "sdkVersion": "0.1.5"
+  "sdkVersion": "0.1.6"
 }

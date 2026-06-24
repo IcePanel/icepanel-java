@@ -1,4 +1,365 @@
 # Reference
+## Adrs
+<details><summary><code>client.adrs.list(landscapeId, versionId) -> SyncPagingIterable&amp;lt;Adr&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.adrs().list(
+    AdrsListRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId(
+            VersionIdPathParam.of("latest")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `VersionIdPathParam` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter:** `Optional<AdrFilter>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Double>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.adrs.create(landscapeId, versionId, request) -> AdrsCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.adrs().create(
+    AdrCreateRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId(
+            VersionIdPathParam.of("latest")
+        )
+        .body(
+            AdrRequired
+                .builder()
+                .name("name")
+                .status(AdrStatus.ACCEPTED)
+                .handleId("handleId")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `VersionIdPathParam` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `AdrRequired` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.adrs.get(landscapeId, versionId, adrId) -> AdrsGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.adrs().get(
+    AdrFindRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId(
+            VersionIdPathParam.of("latest")
+        )
+        .adrId("adrId")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `VersionIdPathParam` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adrId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.adrs.delete(landscapeId, versionId, adrId) -> Map&amp;lt;String, Object&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.adrs().delete(
+    AdrDeleteRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId(
+            VersionIdPathParam.of("latest")
+        )
+        .adrId("adrId")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `VersionIdPathParam` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adrId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.adrs.update(landscapeId, versionId, adrId, request) -> AdrsUpdateResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.adrs().update(
+    AdrUpdateRequest
+        .builder()
+        .landscapeId("landscapeId")
+        .versionId(
+            VersionIdPathParam.of("latest")
+        )
+        .adrId("adrId")
+        .body(
+            AdrPartial
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**landscapeId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**versionId:** `VersionIdPathParam` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adrId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `AdrPartial` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Comments
 <details><summary><code>client.comments.list(landscapeId, versionId) -> CommentsListResponse</code></summary>
 <dl>

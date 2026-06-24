@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 public class AsyncIcePanelClient {
     protected final ClientOptions clientOptions;
 
+    protected final Supplier<AsyncAdrsClient> adrsClient;
+
     protected final Supplier<AsyncCommentsClient> commentsClient;
 
     protected final Supplier<AsyncDiagramsClient> diagramsClient;
@@ -40,6 +42,7 @@ public class AsyncIcePanelClient {
 
     public AsyncIcePanelClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.adrsClient = Suppliers.memoize(() -> new AsyncAdrsClient(clientOptions));
         this.commentsClient = Suppliers.memoize(() -> new AsyncCommentsClient(clientOptions));
         this.diagramsClient = Suppliers.memoize(() -> new AsyncDiagramsClient(clientOptions));
         this.domainsClient = Suppliers.memoize(() -> new AsyncDomainsClient(clientOptions));
@@ -53,6 +56,10 @@ public class AsyncIcePanelClient {
         this.versionsClient = Suppliers.memoize(() -> new AsyncVersionsClient(clientOptions));
         this.catalogClient = Suppliers.memoize(() -> new AsyncCatalogClient(clientOptions));
         this.modelClient = Suppliers.memoize(() -> new AsyncModelClient(clientOptions));
+    }
+
+    public AsyncAdrsClient adrs() {
+        return this.adrsClient.get();
     }
 
     public AsyncCommentsClient comments() {
