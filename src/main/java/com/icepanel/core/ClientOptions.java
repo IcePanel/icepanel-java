@@ -38,10 +38,10 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.icepanel:sdk/0.1.6");
+                put("User-Agent", "com.icepanel:sdk/0.1.7");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.icepanel.fern:api-sdk");
-                put("X-Fern-SDK-Version", "0.1.6");
+                put("X-Fern-SDK-Version", "0.1.7");
             }
         });
         this.headerSuppliers = headerSuppliers;
